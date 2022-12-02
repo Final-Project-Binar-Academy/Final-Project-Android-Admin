@@ -7,10 +7,14 @@ import com.example.final_project_android_admin.ui.response.BaseResponse
 import com.example.final_project_android_admin.ui.response.AuthResponse
 import com.example.final_project_android_admin.ui.repository.UserRepository
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class LoginViewModel(application: Application) : AndroidViewModel(application) {
+class LoginViewModel @Inject constructor(
+    application: Application,
+    private val userRepo: UserRepository
+) : AndroidViewModel(application) {
 
-    val userRepo = UserRepository()
+//    val userRepo = UserRepository()
     val loginResult: MutableLiveData<BaseResponse<AuthResponse>> = MutableLiveData()
 
     fun loginUser(email: String, pwd: String) {

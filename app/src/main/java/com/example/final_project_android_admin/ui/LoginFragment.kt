@@ -14,8 +14,9 @@ import com.example.final_project_android_admin.ui.utils.SessionManager
 import com.example.final_project_android_admin.ui.viewmodel.LoginViewModel
 import com.example.final_project_android_admin.R
 import com.example.final_project_android_admin.databinding.FragmentLoginBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class LoginFragment : Fragment() {
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
