@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    tools:context=".ui.HomeFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="25dp"
+        android:orientation="vertical">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="25dp"
+            app:cardCornerRadius="200dp">
+
+            <ImageView
+                android:id="@+id/profile_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:src="@tools:sample/avatars" />
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/txt_hi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            style="@style/TextAppearance.MyApp.TextHome"
+            android:textSize="24sp"
+            android:text="@string/hi" />
+
+        <TextView
+            android:id="@+id/txt_where"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="25dp"
+            style="@style/TextAppearance.MyApp.TextHome"
+            android:textSize="24sp"
+            android:text="@string/where" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/ll_one_round"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/card_top"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/txt_oneway"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginStart="80dp"
+                    android:fontFamily="@font/rubik_medium"
+                    android:text="@string/oneway"
+                    android:textAppearance="@style/TextAppearance.MyApp.TextHome" />
+
+                <TextView
+                    android:id="@+id/txt_round_trip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="70dp"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/roundTrip"
+                    android:fontFamily="@font/rubik_medium"
+                    android:textAppearance="@style/TextAppearance.MyApp.TextHome" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_card"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ll_one_round"
+                android:layout_marginTop="-10dp"
+                android:background="@drawable/card_home"
+                android:orientation="horizontal">
+
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="20dp">
+
+                    <TableRow>
+                        <TextView
+                            android:id="@+id/txt_from"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="0dp"
+                            android:fontFamily="@font/rubik_medium"
+                            android:text="@string/from"
+                            android:textColor="#4DFFFFFF"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/txt_to"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="220dp"
+                            android:layout_marginTop="0dp"
+                            android:fontFamily="@font/rubik_medium"
+                            android:text="@string/to"
+                            android:textColor="#4DFFFFFF"
+                            android:textSize="12sp" />
+
+                    </TableRow>
+
+                    <TableRow>
+                        <TextView
+                            android:id="@+id/txt_del"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:fontFamily="@font/rubik_medium"
+                            android:text="@string/del"
+                            android:textColor="#FFFFFF"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/txt_jfk"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="210dp"
+                            android:layout_marginTop="10dp"
+                            android:fontFamily="@font/rubik_medium"
+                            android:text="@string/jfk"
+                            android:textAlignment="textEnd"
+                            android:textColor="#FFFFFF"
+                            android:textSize="12sp" />
+                    </TableRow>
+
+                    <TableRow>
+                        <TextView
+                            android:id="@+id/txt_delhi"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="0dp"
+                            android:fontFamily="@font/rubik"
+                            android:text="@string/new_delhi"
+                            android:textColor="#99FFFFFF"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/txt_newyork"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="160dp"
+                            android:layout_marginTop="0dp"
+                            android:fontFamily="@font/rubik"
+                            android:text="@string/new_york"
+                            android:textAlignment="textEnd"
+                            android:textColor="#99FFFFFF"
+                            android:textSize="12sp" />
+                    </TableRow>
+
+                    <TableRow>
+                        <TextView
+                            android:id="@+id/txt_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="35dp"
+                            android:fontFamily="@font/rubik_medium"
+                            android:text="@string/travel_date"
+                            android:textColor="#4DFFFFFF"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/txt_return"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="190dp"
+                            android:layout_marginTop="35dp"
+                            android:fontFamily="@font/rubik_medium"
+                            android:text="@string/returnn"
+                            android:textColor="#4DFFFFFF"
+                            android:textSize="12sp" />
+
+                    </TableRow>
+
+                    <TableRow>
+                        <TextView
+                            android:id="@+id/date1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:fontFamily="@font/rubik_medium"
+                            android:text="@string/date"
+                            android:textColor="#FFFFFF"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/date2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="175dp"
+                            android:layout_marginTop="10dp"
+                            android:fontFamily="@font/rubik_medium"
+                            android:text="@string/date"
+                            android:textAlignment="textEnd"
+                            android:textColor="#FFFFFF"
+                            android:textSize="12sp" />
+                    </TableRow>
+
+                    <TableRow>
+                        <TextView
+                            android:id="@+id/traveller"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="35dp"
+                            android:fontFamily="@font/rubik_medium"
+                            android:text="@string/traveller"
+                            android:textColor="#4DFFFFFF"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/CLASS"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="200dp"
+                            android:layout_marginTop="35dp"
+                            android:fontFamily="@font/rubik_medium"
+                            android:text="@string/str_class"
+                            android:textColor="#4DFFFFFF"
+                            android:textSize="12sp" />
+
+                    </TableRow>
+
+                    <TableRow>
+                        <TextView
+                            android:id="@+id/txt_traveller"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:fontFamily="@font/rubik_medium"
+                            android:text="@string/txt_traveller"
+                            android:textColor="#FFFFFF"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/economy"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="182dp"
+                            android:layout_marginTop="10dp"
+                            android:fontFamily="@font/rubik_medium"
+                            android:text="@string/economy"
+                            android:textAlignment="textEnd"
+                            android:textColor="#FFFFFF"
+                            android:textSize="12sp" />
+                    </TableRow>
+
+                </TableLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="305dp"
+                android:layout_marginStart="25dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/img_btn"
+                    android:layout_alignParentTop="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/img_btn" />
+
+                <TextView
+                    android:id="@+id/txt_show"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="10dp"
+                    android:fontFamily="@font/rubik"
+                    android:text="@string/show"
+                    android:textAlignment="textEnd"
+                    android:textColor="#FFFFFF"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:orientation="horizontal">
+            <ImageButton
+                android:id="@+id/btnRegister"
+                style="@style/Widget.MyApp.Button"
+                android:src="@drawable/btn_search"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/register"
+                android:layout_marginTop="15dp"
+                app:cornerRadius="18dp" />
+
+            <TextView
+                android:id="@+id/txt_search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="10dp"
+                android:fontFamily="@font/rubik"
+                android:text="@string/show"
+                android:textAlignment="textEnd"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp" />
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+</ScrollView>

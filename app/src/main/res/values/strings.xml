@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">Final-Project-Android-Admin</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="login">LOGIN</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="forgetPassword">Forget Password?</string>
+    <string name="belumPunyaAkun">Don\'t have an account?</string>
+    <string name="register">Register</string>
+    <string name="terms">By creating account means you are agree into our <font color="#2555B7">Terms and Conditions</font></string>
+    <string name="findYourFlight">FIND YOUR FLIGHT</string>
+    <string name="Comfiest">Comfiest flight with the Cheapst Price</string>
+    <string name="hi">Hi User,</string>
+    <string name="where">Where are you flying to?</string>
+    <string name="oneway">Oneway</string>
+    <string name="roundTrip">Round Trip</string>
+    <string name="from">FROM</string>
+    <string name="to">TO</string>
+    <string name="del">DEL</string>
+    <string name="jfk">JFK</string>
+    <string name="new_delhi">New Delhi</string>
+    <string name="new_york">New York City</string>
+    <string name="date">Thu, 15 Oct</string>
+    <string name="returnn">RETURN</string>
+    <string name="travel_date">TRAVEL DATE</string>
+    <string name="traveller">TRAVELLER</string>
+    <string name="str_class">CLASS</string>
+    <string name="txt_traveller">1 Adult</string>
+    <string name="economy">Economy</string>
+    <string name="show">Show direct flights only</string>
+</resources>
