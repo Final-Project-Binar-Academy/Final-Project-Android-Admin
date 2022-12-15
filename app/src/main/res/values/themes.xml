@@ -109,4 +109,60 @@
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">20sp</item>
     </style>
+
+    <style name="TextAppearance.MyApp.classSeat.Second" parent="TextAppearance.MaterialComponents.Headline4">
+        <item name="textAllCaps">false</item>
+        <item name="fontFamily">@font/poppins_semibold</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+
+    <style name="TextAppearance.MyApp.timeArrDep" parent="TextAppearance.MaterialComponents.Headline4">
+        <item name="textAllCaps">false</item>
+        <item name="fontFamily">@font/poppins_semibold</item>
+        <item name="android:textColor">#0E0E0E</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+    <style name="TextAppearance.MyApp.dateArrDep" parent="TextAppearance.MaterialComponents.Headline4">
+        <item name="textAllCaps">false</item>
+        <item name="fontFamily">@font/rubik_medium</item>
+        <item name="android:textColor">#0E0E0E</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+    <style name="TextAppearance.MyApp.textDestintionFrom" parent="TextAppearance.MaterialComponents.Headline4">
+        <item name="textAllCaps">false</item>
+        <item name="fontFamily">@font/rubik</item>
+        <item name="android:textColor">#2A5DC4</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+    <style name="TextAppearance.MyApp.textAirportFrom" parent="TextAppearance.MaterialComponents.Headline4">
+        <item name="textAllCaps">false</item>
+        <item name="fontFamily">@font/poppins_semibold</item>
+        <item name="android:textColor">#0E0E0E</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+    <style name="TextAppearance.MyApp.timeEst" parent="TextAppearance.MaterialComponents.Headline4">
+        <item name="textAllCaps">false</item>
+        <item name="fontFamily">@font/poppins</item>
+        <item name="android:textColor">#0E0E0E</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+    <style name="TextAppearance.MyApp.classSeat" parent="TextAppearance.MaterialComponents.Headline4">
+        <item name="textAllCaps">false</item>
+        <item name="fontFamily">@font/poppins_medium</item>
+        <item name="android:textColor">#2A5DC4</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+    <style name="TextAppearance.MyApp.planeJenis" parent="TextAppearance.MaterialComponents.Headline4">
+        <item name="textAllCaps">false</item>
+        <item name="fontFamily">@font/poppins_medium</item>
+        <item name="android:textColor">#000000</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+    <style name="TextAppearance.MyApp.cost" parent="TextAppearance.MaterialComponents.Headline4">
+        <item name="textAllCaps">false</item>
+        <item name="fontFamily">@font/poppins_semibold</item>
+        <item name="android:textColor">#2A5DC4</item>
+        <item name="android:textSize">14sp</item>
+    </style>
 </resources>

@@ -1,14 +1,324 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.flight.EditFlightFragment">
+    tools:context=".ui.flight.EditFlightFragment"
+    android:background="@drawable/bg_light"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawerLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        tools:openDrawer="start">
 
-</FrameLayout>
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true">
+
+            <com.google.android.material.appbar.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.AppBarLayout.PrimarySurface"
+                android:fitsSystemWindows="true">
+
+                <com.google.android.material.appbar.MaterialToolbar
+                    android:id="@+id/topAppBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:title="@string/flight"
+                    app:navigationIcon="@drawable/ic_baseline_menu_24"
+                    style="@style/Widget.MaterialComponents.Toolbar.PrimarySurface"
+                    android:background="@android:color/transparent"
+                    android:elevation="0dp" />
+
+            </com.google.android.material.appbar.AppBarLayout>
+
+            <!-- Screen content -->
+            <!-- Use app:layout_behavior="@string/appbar_scrolling_view_behavior" to fit below top app bar -->
+
+            <ScrollView
+                android:layout_marginBottom="50dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_marginTop="50dp"
+                    android:padding="20dp"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/departure_date"
+                            android:layout_width="210dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:hint="@string/departure_date"
+                            android:textColorHint="@color/black"
+                            style="@style/Widget.MyApp.TextInputLayout2">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:layout_gravity="center"
+                                android:drawableStart="@drawable/ic_schedule"
+                                android:drawablePadding="8dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:maxLines="1"
+                                android:textColor="#F6F4F4"
+                                android:textColorHint="#FFFFFF"
+                                />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/departure_hour"
+                            android:layout_marginStart="15dp"
+                            android:layout_width="150dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:hint="@string/departure_hour"
+                            android:textColorHint="@color/black"
+                            style="@style/Widget.MyApp.TextInputLayout2">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:layout_gravity="center"
+                                android:drawableStart="@drawable/ic_baseline_schedule_24"
+                                android:drawablePadding="8dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:maxLines="1"
+                                android:textColor="#F6F4F4"
+                                android:textColorHint="#FFFFFF"
+                                />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/destination_date"
+                            android:layout_width="210dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:hint="@string/destination_date"
+                            android:textColorHint="@color/black"
+                            style="@style/Widget.MyApp.TextInputLayout2">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:layout_gravity="center"
+                                android:drawableStart="@drawable/ic_schedule"
+                                android:drawablePadding="8dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:maxLines="1"
+                                android:textColor="#F6F4F4"
+                                android:textColorHint="#FFFFFF"
+                                />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/destination_hour"
+                            android:layout_marginStart="15dp"
+                            android:layout_width="150dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:hint="@string/destination_hour"
+                            android:textColorHint="@color/black"
+                            style="@style/Widget.MyApp.TextInputLayout2">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:layout_gravity="center"
+                                android:drawableStart="@drawable/ic_baseline_schedule_24"
+                                android:drawablePadding="8dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:maxLines="1"
+                                android:textColor="#F6F4F4"
+                                android:textColorHint="#FFFFFF"
+                                />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        app:boxBackgroundColor="@color/white"
+                        app:boxStrokeColor="@color/basic"
+                        app:boxStrokeWidth="0dp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/autoCompleteTextView1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:inputType="none"
+                            android:text="@string/city"
+                            />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        app:boxBackgroundColor="@color/white"
+                        app:boxStrokeColor="@color/basic"
+                        app:boxStrokeWidth="0dp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/autoCompleteTextView"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:inputType="none"
+                            android:text="@string/airport_name"
+                            />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        app:boxBackgroundColor="@color/white"
+                        app:boxStrokeColor="@color/basic"
+                        app:boxStrokeWidth="0dp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/autoCompleteTextView3"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:inputType="none"
+                            android:text="@string/maskapai"
+                            />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        app:boxBackgroundColor="@color/white"
+                        app:boxStrokeColor="@color/basic"
+                        app:boxStrokeWidth="0dp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/autoCompleteTextView2"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:inputType="none"
+                            android:text="@string/kelas"
+                            />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        app:boxBackgroundColor="@color/white"
+                        app:boxStrokeColor="@color/basic"
+                        app:boxStrokeWidth="0dp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/autoCompleteTextView4"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:inputType="none"
+                            android:text="@string/airplane_name"
+                            />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/txt_airplane_code"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:hint="@string/txt_airplane_code"
+                        android:textColorHint="@color/black"
+                        style="@style/Widget.MyApp.TextInputLayout2">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_gravity="center"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:textColor="#F6F4F4"
+                            android:textColorHint="#FFFFFF"
+                            />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:text="@string/edit"
+                        android:textSize="20sp"
+                        android:textColor="@color/white"
+                        app:cornerRadius="15dp"
+                        android:fontFamily="@font/khula_bold"
+                        android:backgroundTint="@color/basic"
+                        android:id="@+id/btnEdit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="50dp" />
+
+                </LinearLayout>
+
+            </ScrollView>
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+        <!--        <com.google.android.material.navigation.NavigationView-->
+        <!--            android:id="@+id/navigationView"-->
+        <!--            app:menu="@menu/menu_main"-->
+        <!--            app:headerLayout="@layout/header_navigation"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="match_parent"-->
+        <!--            android:layout_gravity="start" />-->
+
+    </androidx.drawerlayout.widget.DrawerLayout>
+
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

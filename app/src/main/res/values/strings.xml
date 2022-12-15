@@ -67,5 +67,12 @@
     <string name="txt_airport_name">Airport Name</string>
     <string name="txt_city">City</string>
     <string name="txt_city_code">City code</string>
+    <string name="bisnis">Bisnis</string>
+    <string name="departure_date">Departure Date</string>
+    <string name="departure_hour">Hour</string>
+    <string name="destination_date">Destination Date</string>
+    <string name="destination_hour">Hour</string>
+    <string name="kelas">Class</string>
+    <string name="maskapai">Maskapai</string>
 
 </resources>

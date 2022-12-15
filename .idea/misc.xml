@@ -4,16 +4,19 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Binar/Final-Project-Android-Admin/app/src/main/res/drawable/ic_baseline_menu_24.xml" value="0.2235" />
+        <entry key="..\:/Binar/Final-Project-Android-Admin/app/src/main/res/drawable/person.xml" value="0.178" />
+        <entry key="..\:/Binar/Final-Project-Android-Admin/app/src/main/res/drawable/plane_black.xml" value="0.178" />
         <entry key="..\:/Binar/Final-Project-Android-Admin/app/src/main/res/layout/fragment_add_airplane.xml" value="0.176" />
         <entry key="..\:/Binar/Final-Project-Android-Admin/app/src/main/res/layout/fragment_add_airport.xml" value="0.2" />
         <entry key="..\:/Binar/Final-Project-Android-Admin/app/src/main/res/layout/fragment_add_company.xml" value="0.264" />
+        <entry key="..\:/Binar/Final-Project-Android-Admin/app/src/main/res/layout/fragment_add_flight.xml" value="0.264" />
         <entry key="..\:/Binar/Final-Project-Android-Admin/app/src/main/res/layout/fragment_airplane.xml" value="0.16927083333333334" />
         <entry key="..\:/Binar/Final-Project-Android-Admin/app/src/main/res/layout/fragment_airport.xml" value="0.16927083333333334" />
         <entry key="..\:/Binar/Final-Project-Android-Admin/app/src/main/res/layout/fragment_company.xml" value="0.176" />
         <entry key="..\:/Binar/Final-Project-Android-Admin/app/src/main/res/layout/fragment_edit_airplane.xml" value="0.13802083333333334" />
         <entry key="..\:/Binar/Final-Project-Android-Admin/app/src/main/res/layout/fragment_edit_airport.xml" value="0.16927083333333334" />
         <entry key="..\:/Binar/Final-Project-Android-Admin/app/src/main/res/layout/fragment_edit_company.xml" value="0.264" />
-        <entry key="..\:/Binar/Final-Project-Android-Admin/app/src/main/res/layout/fragment_flight.xml" value="0.2" />
+        <entry key="..\:/Binar/Final-Project-Android-Admin/app/src/main/res/layout/fragment_flight.xml" value="0.176" />
         <entry key="..\:/Binar/Final-Project-Android-Admin/app/src/main/res/layout/fragment_home.xml" value="0.264" />
         <entry key="..\:/Binar/Final-Project-Android-Admin/app/src/main/res/layout/fragment_login.xml" value="0.1816123188405797" />
         <entry key="..\:/Binar/Final-Project-Android-Admin/app/src/main/res/layout/fragment_splash_screen.xml" value="0.16927083333333334" />
@@ -21,7 +24,7 @@
         <entry key="..\:/Binar/Final-Project-Android-Admin/app/src/main/res/layout/list_airplane.xml" value="0.4" />
         <entry key="..\:/Binar/Final-Project-Android-Admin/app/src/main/res/layout/list_airport.xml" value="0.4" />
         <entry key="..\:/Binar/Final-Project-Android-Admin/app/src/main/res/layout/list_company.xml" value="0.2" />
-        <entry key="..\:/Binar/Final-Project-Android-Admin/app/src/main/res/layout/list_flight.xml" value="0.16927083333333334" />
+        <entry key="..\:/Binar/Final-Project-Android-Admin/app/src/main/res/layout/list_flight.xml" value="0.264" />
         <entry key="..\:/Binar/Final-Project-Android-Admin/app/src/main/res/layout/list_popular.xml" value="0.2" />
         <entry key="..\:/Binar/Final-Project-Android-Admin/app/src/main/res/menu/menu_main.xml" value="0.21927083333333333" />
         <entry key="..\:/Binar/FinalProjectAndroidAdmin/app/src/main/res/font/rubik.xml" value="0.2109375" />
