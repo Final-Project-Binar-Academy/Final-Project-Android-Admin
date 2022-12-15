@@ -8,12 +8,12 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.example.final_project_android_admin.ui.response.AuthResponse
-import com.example.final_project_android_admin.ui.response.BaseResponse
-import com.example.final_project_android_admin.ui.utils.SessionManager
-import com.example.final_project_android_admin.ui.viewmodel.LoginViewModel
+import com.example.final_project_android_admin.response.BaseResponse
+import com.example.final_project_android_admin.utils.SessionManager
+import com.example.final_project_android_admin.viewmodel.LoginViewModel
 import com.example.final_project_android_admin.R
 import com.example.final_project_android_admin.databinding.FragmentLoginBinding
+import com.example.final_project_android_admin.response.AuthResponse
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -55,10 +55,6 @@ class LoginFragment : Fragment() {
             val mail = binding.email.text.toString()
             val pwd = binding.password.text.toString()
             viewModel.loginUser(email = mail, pwd = pwd)
-        }
-
-        binding.signUp.setOnClickListener{
-            findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
         }
 
     }

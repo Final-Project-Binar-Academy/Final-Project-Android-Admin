@@ -1,14 +1,18 @@
-package com.example.final_project_android_admin.ui.viewmodel
+package com.example.final_project_android_admin.viewmodel
 
 import android.app.Application
-import androidx.lifecycle.*
-import com.example.final_project_android_admin.ui.request.LoginRequest
-import com.example.final_project_android_admin.ui.response.BaseResponse
-import com.example.final_project_android_admin.ui.response.AuthResponse
-import com.example.final_project_android_admin.ui.repository.UserRepository
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import com.example.final_project_android_admin.repository.UserRepository
+import com.example.final_project_android_admin.request.LoginRequest
+import com.example.final_project_android_admin.response.AuthResponse
+import com.example.final_project_android_admin.response.BaseResponse
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class LoginViewModel @Inject constructor(
     application: Application,
     private val userRepo: UserRepository

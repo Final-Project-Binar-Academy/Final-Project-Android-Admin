@@ -8,7 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
-import com.example.final_project_android_admin.ui.utils.SessionManager
+import com.example.final_project_android_admin.utils.SessionManager
 import com.example.final_project_android_admin.R
 import com.example.final_project_android_admin.databinding.FragmentSplashScreenBinding
 

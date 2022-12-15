@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Final-Project-Android-Admin</string>
+    <string name="app_name">LEF.ID</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="login">LOGIN</string>
@@ -29,4 +29,9 @@
     <string name="txt_traveller">1 Adult</string>
     <string name="economy">Economy</string>
     <string name="show">Show direct flights only</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="header">LEF.ID</string>
+    <string name="flight">Flight</string>
+    <string name="airport">Airport</string>
+    <string name="transaction">Transaction</string>
 </resources>

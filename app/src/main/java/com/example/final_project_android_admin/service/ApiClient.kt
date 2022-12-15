@@ -1,4 +1,4 @@
-package com.example.final_project_android_admin.ui.service
+package com.example.final_project_android_admin.service
 
 import dagger.Module
 import dagger.Provides

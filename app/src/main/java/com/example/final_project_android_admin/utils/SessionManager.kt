@@ -1,4 +1,4 @@
-package com.example.final_project_android_admin.ui.utils
+package com.example.final_project_android_admin.utils
 
 import android.content.Context
 import android.content.SharedPreferences

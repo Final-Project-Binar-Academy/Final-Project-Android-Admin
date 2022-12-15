@@ -1,4 +1,4 @@
-package com.example.final_project_android_admin.ui.response
+package com.example.final_project_android_admin.response
 
 sealed class BaseResponse<out T> {
     data class Success<out T>(val data: T? = null) : BaseResponse<T>()

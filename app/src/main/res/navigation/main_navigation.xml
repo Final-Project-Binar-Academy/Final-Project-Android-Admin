@@ -19,24 +19,27 @@
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
-            android:id="@+id/action_loginFragment_to_registerFragment"
-            app:destination="@id/registerFragment" />
-        <action
             android:id="@+id/action_loginFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/registerFragment"
-        android:name="com.example.final_project_android_admin.ui.RegisterFragment"
-        android:label="fragment_register"
-        tools:layout="@layout/fragment_register" >
-        <action
-            android:id="@+id/action_registerFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.final_project_android_admin.ui.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/airportFragment"
+        android:name="com.example.final_project_android_admin.ui.AirportFragment"
+        android:label="fragment_airport"
+        tools:layout="@layout/fragment_airport" />
+    <fragment
+        android:id="@+id/transactionFragment"
+        android:name="com.example.final_project_android_admin.ui.TransactionFragment"
+        android:label="fragment_transaction"
+        tools:layout="@layout/fragment_transaction" />
+    <fragment
+        android:id="@+id/flightFragment"
+        android:name="com.example.final_project_android_admin.ui.flight.FlightFragment"
+        android:label="fragment_flight"
+        tools:layout="@layout/fragment_flight" />
 </navigation>

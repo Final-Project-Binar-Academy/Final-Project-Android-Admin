@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/dashboard"
+        android:icon="@drawable/ic_baseline_home_24"
+        android:title="@string/dashboard"
+        android:checked="true" />
+    <item
+        android:id="@+id/flight"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_airplane_ticket_24"
+        android:title="@string/flight"
+        android:visible="true"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/airport"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_connecting_airports_24"
+        android:title="@string/airport"
+        android:visible="true"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/transaction"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_attach_money_24"
+        android:title="@string/transaction"
+        android:visible="true"
+        app:showAsAction="never"/>
+
+</menu>

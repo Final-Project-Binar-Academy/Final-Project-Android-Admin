@@ -1,4 +1,4 @@
-package com.example.final_project_android_admin.ui.request
+package com.example.final_project_android_admin.request
 
 
 import com.google.gson.annotations.SerializedName
