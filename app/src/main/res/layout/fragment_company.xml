@@ -29,7 +29,7 @@
                     android:id="@+id/topAppBar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
-                    app:title="@string/app_name"
+                    app:title="@string/company"
                     app:navigationIcon="@drawable/ic_baseline_menu_24"
                     style="@style/Widget.MaterialComponents.Toolbar.PrimarySurface"
                     android:background="@android:color/transparent"
@@ -41,7 +41,7 @@
             <!-- Use app:layout_behavior="@string/appbar_scrolling_view_behavior" to fit below top app bar -->
 
             <ScrollView
-                android:layout_marginTop="80dp"
+                android:layout_marginTop="50dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 

@@ -54,4 +54,12 @@
     <string name="upload">Upload Image</string>
     <string name="company_name">Company Name</string>
     <string name="edit_image">Edit Image</string>
+    <string name="airplane_name">Boeing 737-800</string>
+    <string name="airplane_code">1212</string>
+    <string name="txt_company_name">Lion Air</string>
+    <string name="txt_airplane_name">Airplane Name</string>
+    <string name="save">save</string>
+    <string name="txt_airplane_code">Airplane Code</string>
+    <string name="edit">Edit</string>
+
 </resources>
