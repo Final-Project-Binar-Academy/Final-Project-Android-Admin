@@ -31,6 +31,12 @@ class HomeFragment : Fragment() {
             binding.drawerLayout.open()
         }
 
+        sideBar()
+
+        super.onViewCreated(view, savedInstanceState)
+    }
+
+    fun sideBar(){
         binding.navigationView.setNavigationItemSelectedListener { menuItem ->
             // Handle menu item selected
             menuItem.isChecked = true
@@ -44,8 +50,16 @@ class HomeFragment : Fragment() {
                     findNavController().navigate(R.id.flightFragment)
                     true
                 }
+                R.id.airplane -> {
+                    findNavController().navigate(R.id.airplaneFragment)
+                    true
+                }
                 R.id.airport -> {
                     findNavController().navigate(R.id.airportFragment)
+                    true
+                }
+                R.id.company -> {
+                    findNavController().navigate(R.id.companyFragment)
                     true
                 }
                 R.id.transaction -> {
@@ -58,7 +72,6 @@ class HomeFragment : Fragment() {
             binding.drawerLayout.close()
             true
         }
-
-        super.onViewCreated(view, savedInstanceState)
     }
+
 }

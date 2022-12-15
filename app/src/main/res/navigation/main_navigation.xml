@@ -38,22 +38,22 @@
         android:label="fragment_flight"
         tools:layout="@layout/fragment_flight" >
         <action
-            android:id="@+id/action_flightFragment_to_addFlightFragment2"
-            app:destination="@id/addFlightFragment2" />
+            android:id="@+id/action_flightFragment_to_addFlightFragment"
+            app:destination="@id/addFlightFragment" />
         <action
             android:id="@+id/action_flightFragment_to_editFlightFragment"
             app:destination="@id/editFlightFragment" />
     </fragment>
     <fragment
-        android:id="@+id/airplaneFragment2"
+        android:id="@+id/airplaneFragment"
         android:name="com.example.final_project_android_admin.ui.airplane.AirplaneFragment"
         android:label="fragment_airplane"
         tools:layout="@layout/fragment_airplane" >
         <action
-            android:id="@+id/action_airplaneFragment2_to_addAirplaneFragment"
+            android:id="@+id/action_airplaneFragment_to_addAirplaneFragment"
             app:destination="@id/addAirplaneFragment" />
         <action
-            android:id="@+id/action_airplaneFragment2_to_editAirplaneFragment"
+            android:id="@+id/action_airplaneFragment_to_editAirplaneFragment"
             app:destination="@id/editAirplaneFragment" />
     </fragment>
     <fragment
@@ -81,43 +81,75 @@
             app:destination="@id/editCompanyFragment" />
     </fragment>
     <fragment
-        android:id="@+id/addFlightFragment2"
+        android:id="@+id/addFlightFragment"
         android:name="com.example.final_project_android_admin.ui.flight.AddFlightFragment"
         android:label="fragment_add_flight"
-        tools:layout="@layout/fragment_add_flight" />
+        tools:layout="@layout/fragment_add_flight" >
+        <action
+            android:id="@+id/action_addFlightFragment_to_flightFragment"
+            app:destination="@id/flightFragment" />
+    </fragment>
     <fragment
         android:id="@+id/editFlightFragment"
         android:name="com.example.final_project_android_admin.ui.flight.EditFlightFragment"
         android:label="fragment_edit_flight"
-        tools:layout="@layout/fragment_edit_flight" />
+        tools:layout="@layout/fragment_edit_flight" >
+        <action
+            android:id="@+id/action_editFlightFragment_to_flightFragment"
+            app:destination="@id/flightFragment" />
+    </fragment>
     <fragment
         android:id="@+id/addAirplaneFragment"
         android:name="com.example.final_project_android_admin.ui.airplane.AddAirplaneFragment"
         android:label="fragment_add_airplane"
-        tools:layout="@layout/fragment_add_airplane" />
+        tools:layout="@layout/fragment_add_airplane" >
+        <action
+            android:id="@+id/action_addAirplaneFragment_to_airplaneFragment"
+            app:destination="@id/airplaneFragment" />
+    </fragment>
     <fragment
         android:id="@+id/editAirplaneFragment"
         android:name="com.example.final_project_android_admin.ui.airplane.EditAirplaneFragment"
         android:label="fragment_edit_airplane"
-        tools:layout="@layout/fragment_edit_airplane" />
+        tools:layout="@layout/fragment_edit_airplane" >
+        <action
+            android:id="@+id/action_editAirplaneFragment_to_airplaneFragment"
+            app:destination="@id/airplaneFragment" />
+    </fragment>
     <fragment
         android:id="@+id/addAirportFragment"
         android:name="com.example.final_project_android_admin.ui.airport.AddAirportFragment"
         android:label="fragment_add_airport"
-        tools:layout="@layout/fragment_add_airport" />
+        tools:layout="@layout/fragment_add_airport" >
+        <action
+            android:id="@+id/action_addAirportFragment_to_airportFragment"
+            app:destination="@id/airportFragment" />
+    </fragment>
     <fragment
         android:id="@+id/editAirportFragment"
         android:name="com.example.final_project_android_admin.ui.airport.EditAirportFragment"
         android:label="fragment_edit_airport"
-        tools:layout="@layout/fragment_edit_airport" />
+        tools:layout="@layout/fragment_edit_airport" >
+        <action
+            android:id="@+id/action_editAirportFragment_to_airportFragment"
+            app:destination="@id/airportFragment" />
+    </fragment>
     <fragment
         android:id="@+id/addCompanyFragment"
         android:name="com.example.final_project_android_admin.ui.company.AddCompanyFragment"
         android:label="fragment_add_company"
-        tools:layout="@layout/fragment_add_company" />
+        tools:layout="@layout/fragment_add_company" >
+        <action
+            android:id="@+id/action_addCompanyFragment_to_companyFragment"
+            app:destination="@id/companyFragment" />
+    </fragment>
     <fragment
         android:id="@+id/editCompanyFragment"
         android:name="com.example.final_project_android_admin.ui.company.EditCompanyFragment"
         android:label="fragment_edit_company"
-        tools:layout="@layout/fragment_edit_company" />
+        tools:layout="@layout/fragment_edit_company" >
+        <action
+            android:id="@+id/action_editCompanyFragment_to_companyFragment"
+            app:destination="@id/companyFragment" />
+    </fragment>
 </navigation>
