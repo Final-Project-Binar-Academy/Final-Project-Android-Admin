@@ -28,11 +28,6 @@
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
     <fragment
-        android:id="@+id/airportFragment"
-        android:name="com.example.final_project_android_admin.ui.AirportFragment"
-        android:label="fragment_airport"
-        tools:layout="@layout/fragment_airport" />
-    <fragment
         android:id="@+id/transactionFragment"
         android:name="com.example.final_project_android_admin.ui.TransactionFragment"
         android:label="fragment_transaction"
@@ -41,5 +36,88 @@
         android:id="@+id/flightFragment"
         android:name="com.example.final_project_android_admin.ui.flight.FlightFragment"
         android:label="fragment_flight"
-        tools:layout="@layout/fragment_flight" />
+        tools:layout="@layout/fragment_flight" >
+        <action
+            android:id="@+id/action_flightFragment_to_addFlightFragment2"
+            app:destination="@id/addFlightFragment2" />
+        <action
+            android:id="@+id/action_flightFragment_to_editFlightFragment"
+            app:destination="@id/editFlightFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/airplaneFragment2"
+        android:name="com.example.final_project_android_admin.ui.airplane.AirplaneFragment"
+        android:label="fragment_airplane"
+        tools:layout="@layout/fragment_airplane" >
+        <action
+            android:id="@+id/action_airplaneFragment2_to_addAirplaneFragment"
+            app:destination="@id/addAirplaneFragment" />
+        <action
+            android:id="@+id/action_airplaneFragment2_to_editAirplaneFragment"
+            app:destination="@id/editAirplaneFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/airportFragment"
+        android:name="com.example.final_project_android_admin.ui.airport.AirportFragment"
+        android:label="fragment_airport"
+        tools:layout="@layout/fragment_airport" >
+        <action
+            android:id="@+id/action_airportFragment_to_addAirportFragment"
+            app:destination="@id/addAirportFragment" />
+        <action
+            android:id="@+id/action_airportFragment_to_editAirportFragment"
+            app:destination="@id/editAirportFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/companyFragment"
+        android:name="com.example.final_project_android_admin.ui.company.CompanyFragment"
+        android:label="fragment_company"
+        tools:layout="@layout/fragment_company" >
+        <action
+            android:id="@+id/action_companyFragment_to_addCompanyFragment"
+            app:destination="@id/addCompanyFragment" />
+        <action
+            android:id="@+id/action_companyFragment_to_editCompanyFragment"
+            app:destination="@id/editCompanyFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addFlightFragment2"
+        android:name="com.example.final_project_android_admin.ui.flight.AddFlightFragment"
+        android:label="fragment_add_flight"
+        tools:layout="@layout/fragment_add_flight" />
+    <fragment
+        android:id="@+id/editFlightFragment"
+        android:name="com.example.final_project_android_admin.ui.flight.EditFlightFragment"
+        android:label="fragment_edit_flight"
+        tools:layout="@layout/fragment_edit_flight" />
+    <fragment
+        android:id="@+id/addAirplaneFragment"
+        android:name="com.example.final_project_android_admin.ui.airplane.AddAirplaneFragment"
+        android:label="fragment_add_airplane"
+        tools:layout="@layout/fragment_add_airplane" />
+    <fragment
+        android:id="@+id/editAirplaneFragment"
+        android:name="com.example.final_project_android_admin.ui.airplane.EditAirplaneFragment"
+        android:label="fragment_edit_airplane"
+        tools:layout="@layout/fragment_edit_airplane" />
+    <fragment
+        android:id="@+id/addAirportFragment"
+        android:name="com.example.final_project_android_admin.ui.airport.AddAirportFragment"
+        android:label="fragment_add_airport"
+        tools:layout="@layout/fragment_add_airport" />
+    <fragment
+        android:id="@+id/editAirportFragment"
+        android:name="com.example.final_project_android_admin.ui.airport.EditAirportFragment"
+        android:label="fragment_edit_airport"
+        tools:layout="@layout/fragment_edit_airport" />
+    <fragment
+        android:id="@+id/addCompanyFragment"
+        android:name="com.example.final_project_android_admin.ui.company.AddCompanyFragment"
+        android:label="fragment_add_company"
+        tools:layout="@layout/fragment_add_company" />
+    <fragment
+        android:id="@+id/editCompanyFragment"
+        android:name="com.example.final_project_android_admin.ui.company.EditCompanyFragment"
+        android:label="fragment_edit_company"
+        tools:layout="@layout/fragment_edit_company" />
 </navigation>
