@@ -61,5 +61,11 @@
     <string name="save">save</string>
     <string name="txt_airplane_code">Airplane Code</string>
     <string name="edit">Edit</string>
+    <string name="airport_name">Bandara Soekarno Hatta</string>
+    <string name="city">Jakarta</string>
+    <string name="city_code">41333</string>
+    <string name="txt_airport_name">Airport Name</string>
+    <string name="txt_city">City</string>
+    <string name="txt_city_code">City code</string>
 
 </resources>
