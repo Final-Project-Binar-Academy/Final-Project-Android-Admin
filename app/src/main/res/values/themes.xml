@@ -89,6 +89,14 @@
     <style name="TextAppearance.MyApp.titleCard" parent="TextAppearance.MaterialComponents.Body1">
         <item name="textAllCaps">true</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:textSize">20sp</item>
         <item name="android:textColor">@color/button</item>
+    </style>
+
+    <style name="TextAppearance.MyApp.Text" parent="TextAppearance.MaterialComponents.Headline4">
+        <item name="textAllCaps">false</item>
+        <item name="fontFamily">@font/poppins_medium</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">20sp</item>
     </style>
 </resources>

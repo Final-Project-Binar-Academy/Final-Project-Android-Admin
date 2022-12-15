@@ -34,4 +34,19 @@
     <string name="flight">Flight</string>
     <string name="airport">Airport</string>
     <string name="transaction">Transaction</string>
+    <string name="total_user">Total User</string>
+    <string name="user">10</string>
+    <string name="total_order">Total Order</string>
+    <string name="order">15</string>
+    <string name="new_user">New User</string>
+    <string name="new_order">New Order</string>
+    <string name="new_income">New Income</string>
+    <string name="income">IDR 8.500.000</string>
+    <string name="total_income">IDR 27.540.000</string>
+    <string name="txt_total_income">Total Income</string>
+    <string name="see_details">see details ...</string>
+    <string name="popular_flight">Popular Flight</string>
+    <string name="jakarta">Jakarta</string>
+    <string name="jkt">(JKT)</string>
+    <string name="termscondition"><![CDATA[*Terms & Condition]]></string>
 </resources>
