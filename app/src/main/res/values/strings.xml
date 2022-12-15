@@ -49,4 +49,9 @@
     <string name="jakarta">Jakarta</string>
     <string name="jkt">(JKT)</string>
     <string name="termscondition"><![CDATA[*Terms & Condition]]></string>
+    <string name="company">Company</string>
+    <string name="airplane">Airplane</string>
+    <string name="upload">Upload Image</string>
+    <string name="company_name">Company Name</string>
+    <string name="edit_image">Edit Image</string>
 </resources>

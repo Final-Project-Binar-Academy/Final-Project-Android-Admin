@@ -15,10 +15,26 @@
         app:showAsAction="never"/>
 
     <item
+        android:id="@+id/airplane"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_connecting_airports_24"
+        android:title="@string/airplane"
+        android:visible="true"
+        app:showAsAction="never"/>
+
+    <item
         android:id="@+id/airport"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_connecting_airports_24"
         android:title="@string/airport"
+        android:visible="true"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/company"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_connecting_airports_24"
+        android:title="@string/company"
         android:visible="true"
         app:showAsAction="never"/>
 
