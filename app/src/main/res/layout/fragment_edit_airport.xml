@@ -29,8 +29,7 @@
                     android:id="@+id/topAppBar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
-                    app:title="@string/app_name"
-                    app:navigationIcon="@drawable/ic_baseline_menu_24"
+                    app:title="@string/edit_airport"
                     style="@style/Widget.MaterialComponents.Toolbar.PrimarySurface"
                     android:background="@android:color/transparent"
                     android:elevation="0dp" />
@@ -124,16 +123,7 @@
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-        <!--        <com.google.android.material.navigation.NavigationView-->
-        <!--            android:id="@+id/navigationView"-->
-        <!--            app:menu="@menu/menu_main"-->
-        <!--            app:headerLayout="@layout/header_navigation"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="match_parent"-->
-        <!--            android:layout_gravity="start" />-->
-
     </androidx.drawerlayout.widget.DrawerLayout>
-
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

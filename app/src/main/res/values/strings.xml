@@ -74,5 +74,13 @@
     <string name="destination_hour">Hour</string>
     <string name="kelas">Class</string>
     <string name="maskapai">Maskapai</string>
+    <string name="add_airplane">New Airplane</string>
+    <string name="add_airport">New Airport</string>
+    <string name="add_company">New Company</string>
+    <string name="add_flight">New Flight</string>
+    <string name="edit_airplane">Edit Airplane</string>
+    <string name="edit_airport">Edit Airport</string>
+    <string name="edit_company">Edit Company</string>
+    <string name="edit_flight">Edit Flight</string>
 
 </resources>

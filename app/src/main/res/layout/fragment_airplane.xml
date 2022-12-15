@@ -48,7 +48,6 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="25dp"
                     android:orientation="vertical"
                     tools:layout_editor_absoluteY="0dp">
 
@@ -66,13 +65,13 @@
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-        <!--        <com.google.android.material.navigation.NavigationView-->
-        <!--            android:id="@+id/navigationView"-->
-        <!--            app:menu="@menu/menu_main"-->
-        <!--            app:headerLayout="@layout/header_navigation"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="match_parent"-->
-        <!--            android:layout_gravity="start" />-->
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/navigationView"
+            app:menu="@menu/menu_main"
+            app:headerLayout="@layout/header_navigation"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start" />
 
     </androidx.drawerlayout.widget.DrawerLayout>
 
