@@ -1,5 +1,8 @@
-package com.example.final_project_android_admin.service
+package com.example.final_project_android_admin.data.api.di
 
+import com.example.final_project_android_admin.data.api.service.ApiHelper
+import com.example.final_project_android_admin.data.api.service.ApiHelperImpl
+import com.example.final_project_android_admin.data.api.service.ApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -50,7 +53,7 @@ object ApiClient {
 
     @Singleton
     @Provides
-    fun provideApiService(retrofit: Retrofit): UserApi {
+    fun provideApiService(retrofit: Retrofit): ApiService {
         return retrofit.create()
     }
 

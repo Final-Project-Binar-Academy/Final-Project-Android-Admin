@@ -8,12 +8,12 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.example.final_project_android_admin.response.BaseResponse
+import com.example.final_project_android_admin.data.api.response.BaseResponse
 import com.example.final_project_android_admin.utils.SessionManager
 import com.example.final_project_android_admin.viewmodel.LoginViewModel
 import com.example.final_project_android_admin.R
 import com.example.final_project_android_admin.databinding.FragmentLoginBinding
-import com.example.final_project_android_admin.response.AuthResponse
+import com.example.final_project_android_admin.data.api.response.AuthResponse
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

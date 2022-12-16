@@ -1,4 +1,4 @@
-package com.example.final_project_android_admin.response
+package com.example.final_project_android_admin.data.api.response
 
 
 import androidx.annotation.Keep
