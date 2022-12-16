@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.final_project_android_admin.data.api.response.BaseResponse
 import com.example.final_project_android_admin.utils.SessionManager
@@ -20,13 +21,15 @@ import dagger.hilt.android.AndroidEntryPoint
 class LoginFragment : Fragment() {
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
-    private val viewModel by viewModels<LoginViewModel>()
+    private lateinit var viewModel: LoginViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
+
+        viewModel = ViewModelProvider(this)[LoginViewModel::class.java]
 
         _binding = FragmentLoginBinding.inflate(inflater,container,false)
         return binding.root

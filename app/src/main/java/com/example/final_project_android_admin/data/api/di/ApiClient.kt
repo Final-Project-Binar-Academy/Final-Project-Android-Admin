@@ -39,6 +39,16 @@ object ApiClient {
             .build()
     }
 
+    val instance: ApiService by lazy {
+        val retrofit = Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(provideOkHttp(provideLoggingInterceptor()))
+            .build()
+
+        retrofit.create(ApiService::class.java)
+    }
+
     @Singleton
     @Provides
     fun provideRetrofit(

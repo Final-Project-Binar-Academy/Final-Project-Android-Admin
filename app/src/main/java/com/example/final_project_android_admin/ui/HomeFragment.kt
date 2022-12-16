@@ -30,13 +30,6 @@ class HomeFragment : Fragment() {
         binding.topAppBar.setNavigationOnClickListener {
             binding.drawerLayout.open()
         }
-
-        sideBar()
-
-        super.onViewCreated(view, savedInstanceState)
-    }
-
-    fun sideBar(){
         binding.navigationView.setNavigationItemSelectedListener { menuItem ->
             // Handle menu item selected
             menuItem.isChecked = true
@@ -72,6 +65,14 @@ class HomeFragment : Fragment() {
             binding.drawerLayout.close()
             true
         }
+
+        sideBar()
+
+        super.onViewCreated(view, savedInstanceState)
+    }
+
+    fun sideBar(){
+
     }
 
 }
