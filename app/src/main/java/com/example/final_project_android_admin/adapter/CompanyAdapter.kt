@@ -64,8 +64,8 @@ class CompanyAdapter (private val itemClick: (DataCompany) -> Unit) : RecyclerVi
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val film = differ.currentList[position]
-        holder.bind(film)
+        val company = differ.currentList[position]
+        holder.bind(company)
     }
 
     override fun getItemCount(): Int {

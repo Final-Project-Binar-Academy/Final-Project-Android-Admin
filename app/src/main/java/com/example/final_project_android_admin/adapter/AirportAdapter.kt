@@ -59,8 +59,8 @@ class AirportAdapter (private val itemClick: (DataAirport) -> Unit) : RecyclerVi
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val film = differ.currentList[position]
-        holder.bind(film)
+        val airport = differ.currentList[position]
+        holder.bind(airport)
     }
 
     override fun getItemCount(): Int {
