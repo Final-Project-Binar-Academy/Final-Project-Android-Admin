@@ -14,4 +14,6 @@ class ApiHelper(private val apiService: ApiService) {
     fun getAllAirport() = apiService.getAirport()
 
     suspend fun createAirport(airportRequest: AirportRequest): Response<AirportResponse>? = apiService.createAirport(airportRequest = airportRequest)
+
+    fun getAllCompany() = apiService.getCompany()
 }

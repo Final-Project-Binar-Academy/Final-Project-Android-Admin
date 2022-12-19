@@ -16,7 +16,7 @@ import com.example.final_project_android_admin.data.api.service.ApiClient
 import com.example.final_project_android_admin.data.api.service.ApiHelper
 import com.example.final_project_android_admin.databinding.FragmentAddAirportBinding
 import com.example.final_project_android_admin.viewmodel.AirportViewModel
-import com.example.final_project_android_admin.viewmodel.AirportViewModelFactory
+import com.example.final_project_android_admin.viewmodel.factory.AirportViewModelFactory
 import com.google.android.material.snackbar.Snackbar
 
 class AddAirportFragment : Fragment() {
