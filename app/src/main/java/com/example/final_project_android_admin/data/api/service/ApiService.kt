@@ -3,6 +3,7 @@ package com.example.final_project_android_admin.data.api.service
 import com.example.final_project_android_admin.data.api.request.AirportRequest
 import com.example.final_project_android_admin.data.api.request.LoginRequest
 import com.example.final_project_android_admin.data.api.response.AuthResponse
+import com.example.final_project_android_admin.data.api.response.airplane.AirplaneResponse
 import com.example.final_project_android_admin.data.api.response.airport.AirportResponse
 import com.example.final_project_android_admin.data.api.response.airport.DataAirport
 import com.example.final_project_android_admin.data.api.response.company.CompanyResponse
@@ -25,4 +26,7 @@ interface ApiService {
 
     @GET("/api/company")
     fun getCompany() : Call<CompanyResponse>
+
+    @GET("/api/airplane")
+    fun getAirplane() : Call<AirplaneResponse>
 }
