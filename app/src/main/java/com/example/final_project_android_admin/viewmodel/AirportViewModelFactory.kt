@@ -1,12 +1,11 @@
-package com.example.final_project_android_admin.viewmodel.factory
+package com.example.final_project_android_admin.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.final_project_android_admin.data.api.service.ApiHelperImpl
+import com.example.final_project_android_admin.data.api.service.ApiHelper
 import com.example.final_project_android_admin.repository.AirportRepository
-import com.example.final_project_android_admin.viewmodel.AirportViewModel
 
-class AirportViewModelFactory(private val apiHelper: ApiHelperImpl) :
+class AirportViewModelFactory(private val apiHelper: ApiHelper) :
     ViewModelProvider.NewInstanceFactory() {
 
     @Suppress("UNCHECKED_CAST")

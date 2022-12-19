@@ -9,17 +9,17 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.binar.finalproject14.adapter.AirportAdapter
 import com.example.final_project_android_admin.R
-import com.example.final_project_android_admin.data.api.di.ApiClient
-import com.example.final_project_android_admin.data.api.response.airport.DataAirport
-import com.example.final_project_android_admin.data.api.service.ApiHelperImpl
+import com.example.final_project_android_admin.adapter.AirportAdapter
+import com.example.final_project_android_admin.data.api.response.airport.Data
+import com.example.final_project_android_admin.data.api.service.ApiClient
+import com.example.final_project_android_admin.data.api.service.ApiHelper
 import com.example.final_project_android_admin.databinding.FragmentAirportBinding
 import com.example.final_project_android_admin.viewmodel.AirportViewModel
-import com.example.final_project_android_admin.viewmodel.factory.AirportViewModelFactory
+import com.example.final_project_android_admin.viewmodel.AirportViewModelFactory
 import com.google.android.material.snackbar.Snackbar
 
-class AirportFragment : Fragment() {
+class AirportFragment : Fragment(), AirportAdapter.ListAirportInterface {
     private var _binding: FragmentAirportBinding? = null
     private val binding get() = _binding!!
 
@@ -31,7 +31,7 @@ class AirportFragment : Fragment() {
     ): View? {
 
         airportViewModel = ViewModelProvider(
-            this, AirportViewModelFactory(ApiHelperImpl(ApiClient.instance))
+            this, AirportViewModelFactory(ApiHelper(ApiClient.instance))
         )[AirportViewModel::class.java]
 
         _binding = FragmentAirportBinding.inflate(inflater,container,false)
@@ -39,28 +39,28 @@ class AirportFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        binding.topAppBar.setNavigationOnClickListener {
+            binding.drawerLayout.open()
+        }
+
         val adapter: AirportAdapter by lazy {
             AirportAdapter {
 
             }
         }
 
-        binding.topAppBar.setNavigationOnClickListener {
-            binding.drawerLayout.open()
-        }
-
         binding.apply {
             airportViewModel.getDataAirport()
             airportViewModel.getLiveDataAirport().observe(viewLifecycleOwner){
                 if (it != null){
-                    adapter.setData(it.data as List<DataAirport>)
-                }else {
+                    adapter.setData(it.data as List<Data>)
+                }else{
                     Snackbar.make(binding.root, "Data Gagal Dimuat", Snackbar.LENGTH_SHORT)
                         .setBackgroundTint(
                             ContextCompat.getColor(requireContext(),
-                                R.color.basic
+                                R.color.button
                             ))
-                        .setTextColor(ContextCompat.getColor(requireContext(), R.color.basic))
+                        .setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
                         .show()
                 }
             }
@@ -68,13 +68,16 @@ class AirportFragment : Fragment() {
             rvPost.adapter = adapter
         }
 
-        sideBar()
-        add()
 
         super.onViewCreated(view, savedInstanceState)
     }
 
-    fun sideBar(){
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
+
+    private fun sideBar(){
         binding.navigationView.setNavigationItemSelectedListener { menuItem ->
             // Handle menu item selected
             menuItem.isChecked = true
@@ -112,9 +115,7 @@ class AirportFragment : Fragment() {
         }
     }
 
-    fun add(){
-        binding.btnAdd.setOnClickListener{
-            findNavController().navigate(R.id.action_airplaneFragment_to_addAirplaneFragment)
-        }
+    override fun onItemClick(AirportDetail: Data) {
+        TODO("Not yet implemented")
     }
 }

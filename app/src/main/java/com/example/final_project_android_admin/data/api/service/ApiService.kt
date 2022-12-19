@@ -1,6 +1,5 @@
 package com.example.final_project_android_admin.data.api.service
 
-import com.example.final_project_android_admin.data.api.request.AirportRequest
 import com.example.final_project_android_admin.data.api.request.LoginRequest
 import com.example.final_project_android_admin.data.api.response.AuthResponse
 import com.example.final_project_android_admin.data.api.response.airport.AirportResponse
@@ -15,11 +14,7 @@ interface ApiService {
     @POST("/api/auth/login")
     suspend fun loginUser(@Body loginRequest: LoginRequest): Response<AuthResponse>
 
-    @GET("/api/airport")
+    @GET("/api/airport/")
     fun getAirport() : Call<AirportResponse>
-
-    @POST("/api/airport/create")
-    fun createAirport(@Body airportRequest: AirportRequest): Response<AirportResponse>
-
 
 }

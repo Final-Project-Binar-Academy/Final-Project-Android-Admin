@@ -1,4 +1,4 @@
-package com.binar.finalproject14.adapter
+package com.example.final_project_android_admin.adapter
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,23 +6,22 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.final_project_android_admin.data.api.response.airport.DataAirport
+import com.example.final_project_android_admin.data.api.response.airport.Data
 import com.example.final_project_android_admin.databinding.ListAirportBinding
 
+class AirportAdapter (private val itemClick: (Data) -> Unit) : RecyclerView.Adapter<AirportAdapter.ViewHolder>(){
 
-class AirportAdapter (private val itemClick: (DataAirport) -> Unit) : RecyclerView.Adapter<AirportAdapter.ViewHolder>(){
-
-    private val differCallback = object : DiffUtil.ItemCallback<DataAirport>(){
+    private val differCallback = object : DiffUtil.ItemCallback<Data>(){
         override fun areItemsTheSame(
-            oldItem: DataAirport,
-            newItem: DataAirport
+            oldItem: Data,
+            newItem: Data
         ): Boolean {
             return oldItem.id == oldItem.id
         }
 
         override fun areContentsTheSame(
-            oldItem: DataAirport,
-            newItem: DataAirport
+            oldItem: Data,
+            newItem: Data
         ): Boolean {
             return oldItem == newItem
         }
@@ -30,10 +29,10 @@ class AirportAdapter (private val itemClick: (DataAirport) -> Unit) : RecyclerVi
     }
     private val differ = AsyncListDiffer(this, differCallback)
 
-    class ViewHolder(private val binding: ListAirportBinding, val itemClick: (DataAirport) -> Unit) :
+    class ViewHolder(private val binding: ListAirportBinding, val itemClick: (Data) -> Unit) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: DataAirport) {
+        fun bind(item: Data) {
             with(item) {
                 itemView.setOnClickListener { itemClick(this) }
                 binding.dataBinding = item
@@ -43,7 +42,7 @@ class AirportAdapter (private val itemClick: (DataAirport) -> Unit) : RecyclerVi
                     item.id?.let { it1 -> bund.putInt("id", it1) }
                     item.airportName?.let { it1 -> bund.putString("airportName", it1) }
                     item.city?.let { it1 -> bund.putString("city", it1) }
-                    item.cityCode?.let { it1 -> bund.putString("city_code", it1) }
+                    item.cityCode?.let { it1 -> bund.putString("citycode", it1) }
                 }
             }
 
@@ -64,11 +63,11 @@ class AirportAdapter (private val itemClick: (DataAirport) -> Unit) : RecyclerVi
         return differ.currentList.size
     }
 
-    fun setData(data : List<DataAirport>){
+    fun setData(data : List<Data>){
         differ.submitList(data)
     }
 
     interface ListAirportInterface {
-        fun onItemClick(_airport: DataAirport)
+        fun onItemClick(AirportDetail: Data)
     }
 }
