@@ -6,7 +6,7 @@
     <data>
         <variable
             name="dataBinding"
-            type="com.example.final_project_android_admin.data.api.response.airport.Data" />
+            type="com.example.final_project_android_admin.data.api.response.airport.DataAirport" />
     </data>
 
     <FrameLayout

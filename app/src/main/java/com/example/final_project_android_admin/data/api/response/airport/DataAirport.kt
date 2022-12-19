@@ -5,7 +5,7 @@ import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
 
 @Keep
-data class Data(
+data class DataAirport(
     @SerializedName("airportName")
     var airportName: String?,
     @SerializedName("city")

@@ -3,9 +3,14 @@ package com.example.final_project_android_admin.viewmodel
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.final_project_android_admin.data.api.request.AirportRequest
+import com.example.final_project_android_admin.data.api.response.BaseResponse
 import com.example.final_project_android_admin.data.api.response.airport.AirportResponse
+import com.example.final_project_android_admin.data.api.response.airport.DataAirport
 import com.example.final_project_android_admin.data.api.service.ApiClient
 import com.example.final_project_android_admin.repository.AirportRepository
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -37,6 +42,30 @@ class AirportViewModel(private val airportRepository: AirportRepository) : ViewM
                 }
 
             })
+    }
+
+    val airportResult: MutableLiveData<BaseResponse<AirportResponse>> = MutableLiveData()
+
+    fun createAirport(airport_name: String, _city: String, _cityCode: String) {
+        airportResult.value = BaseResponse.Loading()
+        viewModelScope.launch {
+            try {
+                val airportRequest = AirportRequest(
+                    airportName = airport_name,
+                    city = _city,
+                    cityCode = _cityCode
+                )
+                val response = airportRepository.createAirport(airportRequest = airportRequest)
+                if (response?.code() == 201) {
+                    airportResult.value = BaseResponse.Success(response.body())
+                } else {
+                    airportResult.value = BaseResponse.Error(response?.message())
+                }
+
+            } catch (ex: Exception) {
+                airportResult.value = BaseResponse.Error(ex.message)
+            }
+        }
     }
 }
 

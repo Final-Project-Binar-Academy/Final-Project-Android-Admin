@@ -11,7 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.final_project_android_admin.R
 import com.example.final_project_android_admin.adapter.AirportAdapter
-import com.example.final_project_android_admin.data.api.response.airport.Data
+import com.example.final_project_android_admin.data.api.response.airport.DataAirport
 import com.example.final_project_android_admin.data.api.service.ApiClient
 import com.example.final_project_android_admin.data.api.service.ApiHelper
 import com.example.final_project_android_admin.databinding.FragmentAirportBinding
@@ -53,7 +53,7 @@ class AirportFragment : Fragment(), AirportAdapter.ListAirportInterface {
             airportViewModel.getDataAirport()
             airportViewModel.getLiveDataAirport().observe(viewLifecycleOwner){
                 if (it != null){
-                    adapter.setData(it.data as List<Data>)
+                    adapter.setData(it.data as List<DataAirport>)
                 }else{
                     Snackbar.make(binding.root, "Data Gagal Dimuat", Snackbar.LENGTH_SHORT)
                         .setBackgroundTint(
@@ -68,6 +68,9 @@ class AirportFragment : Fragment(), AirportAdapter.ListAirportInterface {
             rvPost.adapter = adapter
         }
 
+        binding.btnAdd.setOnClickListener{
+            findNavController().navigate(R.id.action_airportFragment_to_addAirportFragment)
+        }
 
         super.onViewCreated(view, savedInstanceState)
     }
@@ -115,7 +118,7 @@ class AirportFragment : Fragment(), AirportAdapter.ListAirportInterface {
         }
     }
 
-    override fun onItemClick(AirportDetail: Data) {
+    override fun onItemClick(AirportDetail: DataAirport) {
         TODO("Not yet implemented")
     }
 }

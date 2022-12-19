@@ -1,9 +1,11 @@
 package com.example.final_project_android_admin.viewmodel
 
+import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.final_project_android_admin.data.api.service.ApiHelper
 import com.example.final_project_android_admin.repository.AirportRepository
+import com.example.final_project_android_admin.repository.UserRepository
 
 class AirportViewModelFactory(private val apiHelper: ApiHelper) :
     ViewModelProvider.NewInstanceFactory() {
