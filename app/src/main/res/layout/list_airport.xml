@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="dataBinding"
+            type="com.example.final_project_android_admin.data.api.response.airport.DataAirport" />
+    </data>
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -39,7 +43,7 @@
                             android:layout_marginStart="20dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/airport_name"
+                            android:text="@{dataBinding.airportName}"
                             android:textSize="15sp"
                             android:textAppearance="@style/TextAppearance.MyApp.Text" />
 
@@ -48,7 +52,7 @@
                             android:layout_marginStart="20dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/city"
+                            android:text="@{dataBinding.city}"
                             android:textSize="15sp"
                             android:textAppearance="@style/TextAppearance.MyApp.Text" />
 
@@ -57,7 +61,7 @@
                             android:layout_marginStart="20dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/city_code"
+                            android:text="@{dataBinding.cityCode}"
                             android:textSize="15sp"
                             android:textAppearance="@style/TextAppearance.MyApp.Text" />
 
@@ -88,7 +92,7 @@
                             android:id="@+id/btnEdit"
                             android:layout_width="70dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="200dp"
+                            android:layout_marginStart="180dp"
                             android:backgroundTint="@color/edit"
                             android:src="@drawable/ic_baseline_edit_24" />
 

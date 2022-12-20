@@ -1,12 +1,10 @@
 package com.example.final_project_android_admin.ui
 
-import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.Navigation
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.final_project_android_admin.R
 import com.example.final_project_android_admin.databinding.FragmentHomeBinding
@@ -30,13 +28,6 @@ class HomeFragment : Fragment() {
         binding.topAppBar.setNavigationOnClickListener {
             binding.drawerLayout.open()
         }
-
-        sideBar()
-
-        super.onViewCreated(view, savedInstanceState)
-    }
-
-    fun sideBar(){
         binding.navigationView.setNavigationItemSelectedListener { menuItem ->
             // Handle menu item selected
             menuItem.isChecked = true
@@ -72,6 +63,14 @@ class HomeFragment : Fragment() {
             binding.drawerLayout.close()
             true
         }
+
+        sideBar()
+
+        super.onViewCreated(view, savedInstanceState)
+    }
+
+    private fun sideBar(){
+
     }
 
 }

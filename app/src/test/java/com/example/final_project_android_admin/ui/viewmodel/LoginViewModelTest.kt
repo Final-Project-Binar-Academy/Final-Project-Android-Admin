@@ -1,7 +1,7 @@
 package com.example.final_project_android_admin.ui.viewmodel
 
-import com.example.final_project_android_admin.request.LoginRequest
-import com.example.final_project_android_admin.service.UserApi
+import com.example.final_project_android_admin.data.api.request.LoginRequest
+import com.example.final_project_android_admin.data.api.service.ApiService
 import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.runBlocking
@@ -11,7 +11,7 @@ import org.junit.Test
 import retrofit2.Response
 
 class LoginViewModelTest {
-    private lateinit var service: UserApi
+    private lateinit var service: ApiService
 
     @Before
     fun setUp() {

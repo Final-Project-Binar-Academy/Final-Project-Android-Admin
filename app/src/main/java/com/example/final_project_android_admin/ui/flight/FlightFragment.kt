@@ -1,24 +1,40 @@
 package com.example.final_project_android_admin.ui.flight
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.final_project_android_admin.R
-import com.example.final_project_android_admin.databinding.FragmentAirplaneBinding
+import com.example.final_project_android_admin.adapter.FlightAdapter
+import com.example.final_project_android_admin.data.api.response.flight.DataFlight
+import com.example.final_project_android_admin.data.api.service.ApiClient
+import com.example.final_project_android_admin.data.api.service.ApiHelper
 import com.example.final_project_android_admin.databinding.FragmentFlightBinding
+import com.example.final_project_android_admin.viewmodel.FlightViewModel
+import com.example.final_project_android_admin.viewmodel.factory.FlightViewModelFactory
+import com.google.android.material.snackbar.Snackbar
 
-class FlightFragment : Fragment() {
+class FlightFragment : Fragment(), FlightAdapter.ListFlightInterface {
     private var _binding: FragmentFlightBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var flightViewModel: FlightViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
+
+        flightViewModel = ViewModelProvider(
+            this, FlightViewModelFactory(ApiHelper(ApiClient.instance))
+        )[FlightViewModel::class.java]
+
         _binding = FragmentFlightBinding.inflate(inflater,container,false)
         return binding.root
     }
@@ -32,10 +48,35 @@ class FlightFragment : Fragment() {
         sideBar()
         add()
 
+        val adapter: FlightAdapter by lazy {
+            FlightAdapter {
+
+            }
+        }
+        binding.apply {
+            flightViewModel.getDataFlight()
+            flightViewModel.getLiveDataFlight().observe(viewLifecycleOwner){
+                if (it != null){
+                    adapter.setData(it.data as List<DataFlight>)
+                }else{
+                    Snackbar.make(binding.root, "Data Gagal Dimuat", Snackbar.LENGTH_SHORT)
+                        .setBackgroundTint(
+                            ContextCompat.getColor(requireContext(),
+                                R.color.button
+                            ))
+                        .setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+                        .show()
+                }
+            }
+            rvPost.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            rvPost.adapter = adapter
+        }
+
+
         super.onViewCreated(view, savedInstanceState)
     }
 
-    fun sideBar(){
+    private fun sideBar(){
         binding.navigationView.setNavigationItemSelectedListener { menuItem ->
             // Handle menu item selected
             menuItem.isChecked = true
@@ -73,9 +114,13 @@ class FlightFragment : Fragment() {
         }
     }
 
-    fun add(){
+    private fun add(){
         binding.btnAdd.setOnClickListener{
             findNavController().navigate(R.id.action_airplaneFragment_to_addAirplaneFragment)
         }
+    }
+
+    override fun onItemClick(FlightDetail: DataFlight) {
+        TODO("Not yet implemented")
     }
 }

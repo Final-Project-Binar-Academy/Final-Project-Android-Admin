@@ -1,32 +1,38 @@
 package com.example.final_project_android_admin.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.example.final_project_android_admin.response.BaseResponse
+import com.example.final_project_android_admin.R
+import com.example.final_project_android_admin.data.api.response.AuthResponse
+import com.example.final_project_android_admin.data.api.response.BaseResponse
+import com.example.final_project_android_admin.data.api.service.ApiClient
+import com.example.final_project_android_admin.data.api.service.ApiHelper
+import com.example.final_project_android_admin.databinding.FragmentLoginBinding
 import com.example.final_project_android_admin.utils.SessionManager
 import com.example.final_project_android_admin.viewmodel.LoginViewModel
-import com.example.final_project_android_admin.R
-import com.example.final_project_android_admin.databinding.FragmentLoginBinding
-import com.example.final_project_android_admin.response.AuthResponse
-import dagger.hilt.android.AndroidEntryPoint
+import com.example.final_project_android_admin.viewmodel.factory.UserViewModelFactory
 
-@AndroidEntryPoint
+
 class LoginFragment : Fragment() {
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
-    private val viewModel by viewModels<LoginViewModel>()
+    private lateinit var viewModel: LoginViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
+
+        viewModel = ViewModelProvider(
+            this, UserViewModelFactory(ApiHelper(ApiClient.instance))
+        )[LoginViewModel::class.java]
 
         _binding = FragmentLoginBinding.inflate(inflater,container,false)
         return binding.root
@@ -59,18 +65,18 @@ class LoginFragment : Fragment() {
 
     }
 
-    fun processLogin(data: AuthResponse?) {
+    private fun processLogin(data: AuthResponse?) {
         showToast("Success:" + data?.message)
         findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
         data?.data?.token?.let { SessionManager.saveAuthToken(requireContext(), it) }
 
     }
 
-    fun processError(msg: String?) {
-        showToast("Error:" + msg)
+    private fun processError(msg: String?) {
+        showToast("Error:$msg")
     }
 
-    fun showToast(msg: String) {
+    private fun showToast(msg: String) {
         Toast.makeText(
             requireContext(),
             msg,

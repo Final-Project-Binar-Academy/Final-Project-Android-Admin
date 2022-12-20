@@ -85,4 +85,6 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
 //    implementation 'com.github.AnthonyFermin:DropDownView:1.0.1'
+
+    implementation 'io.coil-kt:coil:2.2.1'
 }
