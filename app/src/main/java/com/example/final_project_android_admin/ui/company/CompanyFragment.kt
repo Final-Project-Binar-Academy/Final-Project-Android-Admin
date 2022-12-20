@@ -1,23 +1,20 @@
 package com.example.final_project_android_admin.ui.company
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.final_project_android_admin.R
-import com.example.final_project_android_admin.adapter.AirportAdapter
 import com.example.final_project_android_admin.adapter.CompanyAdapter
-import com.example.final_project_android_admin.data.api.response.airport.DataAirport
 import com.example.final_project_android_admin.data.api.response.company.DataCompany
 import com.example.final_project_android_admin.data.api.service.ApiClient
 import com.example.final_project_android_admin.data.api.service.ApiHelper
 import com.example.final_project_android_admin.databinding.FragmentCompanyBinding
-import com.example.final_project_android_admin.viewmodel.AirportViewModel
 import com.example.final_project_android_admin.viewmodel.CompanyViewModel
 import com.example.final_project_android_admin.viewmodel.factory.CompanyViewModelFactory
 import com.google.android.material.snackbar.Snackbar
@@ -31,7 +28,7 @@ class CompanyFragment : Fragment(), CompanyAdapter.ListCompanyInterface {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
 
         companyViewModel = ViewModelProvider(
@@ -116,7 +113,7 @@ class CompanyFragment : Fragment(), CompanyAdapter.ListCompanyInterface {
         }
     }
 
-    fun add(){
+    private fun add(){
         binding.btnAdd.setOnClickListener{
             findNavController().navigate(R.id.action_airplaneFragment_to_addAirplaneFragment)
         }

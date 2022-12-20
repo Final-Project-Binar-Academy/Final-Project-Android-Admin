@@ -82,5 +82,8 @@
     <string name="edit_airport">Edit Airport</string>
     <string name="edit_company">Edit Company</string>
     <string name="edit_flight">Edit Flight</string>
+    <string name="price">Price</string>
+    <string name="seat">Seat Number</string>
+    <string name="capacity">Capacity</string>
 
 </resources>

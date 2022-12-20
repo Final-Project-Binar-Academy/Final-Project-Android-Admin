@@ -28,7 +28,7 @@ class AirportFragment : Fragment(), AirportAdapter.ListAirportInterface {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         airportViewModel = ViewModelProvider(
             this, AirportViewModelFactory(ApiHelper(ApiClient.instance))

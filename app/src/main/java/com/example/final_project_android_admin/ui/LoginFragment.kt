@@ -73,7 +73,7 @@ class LoginFragment : Fragment() {
     }
 
     private fun processError(msg: String?) {
-        showToast("Error:" + msg)
+        showToast("Error:$msg")
     }
 
     private fun showToast(msg: String) {

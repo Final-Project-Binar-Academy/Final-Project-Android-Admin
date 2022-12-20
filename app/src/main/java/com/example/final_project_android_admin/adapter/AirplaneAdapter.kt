@@ -9,11 +9,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.final_project_android_admin.R
-import com.example.final_project_android_admin.data.api.response.airplane.Company
 import com.example.final_project_android_admin.data.api.response.airplane.DataAirplane
-import com.example.final_project_android_admin.data.api.response.company.DataCompany
 import com.example.final_project_android_admin.databinding.ListAirplaneBinding
-import com.example.final_project_android_admin.databinding.ListCompanyBinding
 
 class AirplaneAdapter (private val itemClick: (DataAirplane) -> Unit) : RecyclerView.Adapter<AirplaneAdapter.ViewHolder>(){
 
@@ -49,7 +46,7 @@ class AirplaneAdapter (private val itemClick: (DataAirplane) -> Unit) : Recycler
                 }
 
                 binding.btnEdit.setOnClickListener{
-                    var bund = Bundle()
+                    val bund = Bundle()
                     item.id?.let { it1 -> bund.putInt("id", it1) }
                     item.airplaneName?.let { it1 -> bund.putString("airplaneName", it1) }
                     item.airplaneCode?.let { it1 -> bund.putString("airplaneCode", it1) }

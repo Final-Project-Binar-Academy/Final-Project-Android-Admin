@@ -289,6 +289,66 @@
 
                     </com.google.android.material.textfield.TextInputLayout>
 
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/capacity"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:hint="@string/capacity"
+                        android:textColorHint="@color/black"
+                        style="@style/Widget.MyApp.TextInputLayout2">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_gravity="center"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:textColor="#F6F4F4"
+                            android:textColorHint="#FFFFFF"
+                            />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/price"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:hint="@string/price"
+                        android:textColorHint="@color/black"
+                        style="@style/Widget.MyApp.TextInputLayout2">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_gravity="center"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:textColor="#F6F4F4"
+                            android:textColorHint="#FFFFFF"
+                            />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/seat"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:hint="@string/seat"
+                        android:textColorHint="@color/black"
+                        style="@style/Widget.MyApp.TextInputLayout2">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_gravity="center"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:textColor="#F6F4F4"
+                            android:textColorHint="#FFFFFF"
+                            />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
                     <com.google.android.material.button.MaterialButton
                         android:text="@string/edit"
                         android:textSize="20sp"

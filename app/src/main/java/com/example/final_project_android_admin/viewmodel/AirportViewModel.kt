@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import com.example.final_project_android_admin.data.api.request.AirportRequest
 import com.example.final_project_android_admin.data.api.response.BaseResponse
 import com.example.final_project_android_admin.data.api.response.airport.AirportResponse
-import com.example.final_project_android_admin.data.api.response.airport.DataAirport
 import com.example.final_project_android_admin.data.api.service.ApiClient
 import com.example.final_project_android_admin.repository.AirportRepository
 import kotlinx.coroutines.launch

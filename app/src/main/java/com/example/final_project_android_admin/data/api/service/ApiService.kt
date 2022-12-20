@@ -5,8 +5,8 @@ import com.example.final_project_android_admin.data.api.request.LoginRequest
 import com.example.final_project_android_admin.data.api.response.AuthResponse
 import com.example.final_project_android_admin.data.api.response.airplane.AirplaneResponse
 import com.example.final_project_android_admin.data.api.response.airport.AirportResponse
-import com.example.final_project_android_admin.data.api.response.airport.DataAirport
 import com.example.final_project_android_admin.data.api.response.company.CompanyResponse
+import com.example.final_project_android_admin.data.api.response.flight.FlightResponse
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.Body
@@ -29,4 +29,7 @@ interface ApiService {
 
     @GET("/api/airplane")
     fun getAirplane() : Call<AirplaneResponse>
+
+    @GET("/api/ticket")
+    fun getFlight() : Call<FlightResponse>
 }

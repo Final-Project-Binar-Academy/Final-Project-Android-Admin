@@ -46,7 +46,7 @@ class CompanyAdapter (private val itemClick: (DataCompany) -> Unit) : RecyclerVi
                 }
 
                 binding.btnEdit.setOnClickListener{
-                    var bund = Bundle()
+                    val bund = Bundle()
                     item.id?.let { it1 -> bund.putInt("id", it1) }
                     item.companyName?.let { it1 -> bund.putString("companyName", it1) }
                     Navigation.findNavController(it)

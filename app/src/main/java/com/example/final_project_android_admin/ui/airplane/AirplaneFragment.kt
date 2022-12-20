@@ -1,28 +1,22 @@
 package com.example.final_project_android_admin.ui.airplane
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.final_project_android_admin.R
 import com.example.final_project_android_admin.adapter.AirplaneAdapter
-import com.example.final_project_android_admin.adapter.CompanyAdapter
 import com.example.final_project_android_admin.data.api.response.airplane.DataAirplane
-import com.example.final_project_android_admin.data.api.response.company.DataCompany
 import com.example.final_project_android_admin.data.api.service.ApiClient
 import com.example.final_project_android_admin.data.api.service.ApiHelper
 import com.example.final_project_android_admin.databinding.FragmentAirplaneBinding
-import com.example.final_project_android_admin.databinding.FragmentHomeBinding
 import com.example.final_project_android_admin.viewmodel.AirplaneViewModel
-import com.example.final_project_android_admin.viewmodel.CompanyViewModel
 import com.example.final_project_android_admin.viewmodel.factory.AirplaneViewModelFactory
-import com.example.final_project_android_admin.viewmodel.factory.AirportViewModelFactory
-import com.example.final_project_android_admin.viewmodel.factory.CompanyViewModelFactory
 import com.google.android.material.snackbar.Snackbar
 
 class AirplaneFragment : Fragment(), AirplaneAdapter.ListAirplaneInterface {
@@ -34,7 +28,7 @@ class AirplaneFragment : Fragment(), AirplaneAdapter.ListAirplaneInterface {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
 
         airplaneViewModel = ViewModelProvider(
@@ -83,7 +77,7 @@ class AirplaneFragment : Fragment(), AirplaneAdapter.ListAirplaneInterface {
         super.onViewCreated(view, savedInstanceState)
     }
 
-    fun sideBar(){
+    private fun sideBar(){
         binding.navigationView.setNavigationItemSelectedListener { menuItem ->
             // Handle menu item selected
             menuItem.isChecked = true
@@ -121,7 +115,7 @@ class AirplaneFragment : Fragment(), AirplaneAdapter.ListAirplaneInterface {
         }
     }
 
-    fun add(){
+    private fun add(){
         binding.btnAdd.setOnClickListener{
             findNavController().navigate(R.id.action_airplaneFragment_to_addAirplaneFragment)
         }

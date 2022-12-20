@@ -3,7 +3,6 @@ package com.example.final_project_android_admin.viewmodel
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.final_project_android_admin.data.api.response.airport.AirportResponse
 import com.example.final_project_android_admin.data.api.response.company.CompanyResponse
 import com.example.final_project_android_admin.data.api.service.ApiClient
 import com.example.final_project_android_admin.repository.CompanyRepository

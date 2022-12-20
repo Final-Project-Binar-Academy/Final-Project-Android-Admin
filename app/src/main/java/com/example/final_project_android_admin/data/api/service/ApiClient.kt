@@ -8,9 +8,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 interface ApiClient {
 
     companion object {
-        const val BASE_URL = "https://lef-id.up.railway.app"
+        private const val BASE_URL = "https://lef-id.up.railway.app"
 
-        val logging: HttpLoggingInterceptor
+        private val logging: HttpLoggingInterceptor
             get() {
                 val httpLoggingInterceptor = HttpLoggingInterceptor()
                 return httpLoggingInterceptor.apply {
