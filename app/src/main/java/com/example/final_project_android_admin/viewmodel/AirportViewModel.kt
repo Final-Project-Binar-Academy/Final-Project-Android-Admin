@@ -45,7 +45,7 @@ class AirportViewModel(private val airportRepository: AirportRepository) : ViewM
 
     val airportResult: MutableLiveData<BaseResponse<AirportResponse>> = MutableLiveData()
 
-    fun createAirport(airport_name: String, _city: String, _cityCode: String) {
+    fun createAirport(airport_name: String, _city: String, _cityCode: String, token: String) {
         airportResult.value = BaseResponse.Loading()
         viewModelScope.launch {
             try {
@@ -54,7 +54,7 @@ class AirportViewModel(private val airportRepository: AirportRepository) : ViewM
                     city = _city,
                     cityCode = _cityCode
                 )
-                val response = airportRepository.createAirport(airportRequest = airportRequest)
+                val response = airportRepository.createAirport(airportRequest = airportRequest, token)
                 if (response?.code() == 201) {
                     airportResult.value = BaseResponse.Success(response.body())
                 } else {
@@ -66,9 +66,10 @@ class AirportViewModel(private val airportRepository: AirportRepository) : ViewM
             }
         }
     }
+
 }
 
-    // create
+// create
 //    val airportResult: MutableLiveData<BaseResponse<AirportResponse>> = MutableLiveData()
 
 //    fun createAirport(_airportName: Editable?, _city: Editable?, _cityCode: Editable?) {
