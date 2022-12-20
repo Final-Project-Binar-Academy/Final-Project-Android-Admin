@@ -48,13 +48,6 @@ class FlightAdapter (private val itemClick: (DataFlight) -> Unit) : RecyclerView
                 binding.destinationHour.text = item.arrivalTime.toString()
                 binding.kelas2.text = item.classX.toString()
 
-                binding.btnEdit.setOnClickListener{
-                    val bund = Bundle()
-                    item.id?.let { it1 -> bund.putInt("id", it1) }
-                    item.departureDate?.let { it1 -> bund.putString("departure_date", it1)}
-                    item.departureTime?.let { it1 -> bund.putString("departure_time", it1)}
-                }
-
             }
 
         }

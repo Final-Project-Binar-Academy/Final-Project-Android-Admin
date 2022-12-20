@@ -38,16 +38,6 @@ class AirportAdapter (private val itemClick: (DataAirport) -> Unit) : RecyclerVi
             with(item) {
                 itemView.setOnClickListener { itemClick(this) }
                 binding.dataBinding = item
-
-                binding.btnEdit.setOnClickListener{
-//                    val bund = Bundle()
-//                    item.id?.let { it1 -> bund.putInt("id", it1) }
-//                    item.airportName?.let { it1 -> bund.putString("airportName", it1) }
-//                    item.city?.let { it1 -> bund.putString("city", it1) }
-//                    item.cityCode?.let { it1 -> bund.putString("citycode", it1) }
-//                    findNavController(it).navigate(R.id.action_airportFragment_to_editAirportFragment, bund)
-                }
-
             }
 
         }
