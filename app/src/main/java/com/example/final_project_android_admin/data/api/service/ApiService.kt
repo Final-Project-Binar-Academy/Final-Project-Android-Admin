@@ -3,6 +3,7 @@ package com.example.final_project_android_admin.data.api.service
 import com.example.final_project_android_admin.data.api.request.AirportRequest
 import com.example.final_project_android_admin.data.api.request.LoginRequest
 import com.example.final_project_android_admin.data.api.response.AuthResponse
+import com.example.final_project_android_admin.data.api.response.DeleteResponse
 import com.example.final_project_android_admin.data.api.response.airplane.AirplaneResponse
 import com.example.final_project_android_admin.data.api.response.airport.AirportIdResponse
 import com.example.final_project_android_admin.data.api.response.airport.AirportResponse
@@ -18,6 +19,7 @@ interface ApiService {
     @POST("/api/auth/login")
     suspend fun loginUser(@Body loginRequest: LoginRequest): Response<AuthResponse>
 
+    // airport
     @GET("/api/airport/")
     fun getAirport() : Call<AirportResponse>
 
@@ -30,6 +32,11 @@ interface ApiService {
     @PUT("/api/airport/update/{id}")
     fun updateAirport(@Body airportRequest: AirportRequest, @Header("Authorization")token: String, @Path("id") id: Int): Call<AirportIdResponse>
 
+    @DELETE("/api/airport/delete/{id}")
+    fun deleteAirport(@Header("Authorization")token: String, @Path("id") id: Int): Call<DeleteResponse>
+
+
+    // company
     @GET("/api/company")
     fun getCompany() : Call<CompanyResponse>
 

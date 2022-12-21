@@ -45,6 +45,12 @@ class AirportAdapter (private val itemClick: (DataAirport) -> Unit) : RecyclerVi
                     item.id?.let { it1 -> bund.putInt("id", it1) }
                     findNavController(it).navigate(R.id.action_airportFragment_to_editAirportFragment, bund)
                 }
+
+                binding.btnDelete.setOnClickListener{
+                    var bund = Bundle()
+                    item.id?.let { it1 -> bund.putInt("id_delete", it1) }
+                    findNavController(it).navigate(R.id.airportFragment, bund)
+                }
             }
 
         }

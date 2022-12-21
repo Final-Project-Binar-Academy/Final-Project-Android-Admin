@@ -45,6 +45,20 @@ class AirportFragment : Fragment(), AirportAdapter.ListAirportInterface {
             binding.drawerLayout.open()
         }
 
+        val delete = arguments?.getInt("id_delete")
+
+        if (delete != null){
+            airportViewModel.getDataStoreToken().observe(viewLifecycleOwner){
+                airportViewModel.deleteAirport("Bearer $it", delete)
+                Snackbar.make(binding.root, "Airport Berhasil Dihapus", Snackbar.LENGTH_SHORT)
+                    .setBackgroundTint(ContextCompat.getColor(requireContext(),
+                        R.color.basic
+                    ))
+                    .setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+                    .show()
+            }
+        }
+
         val adapter: AirportAdapter by lazy {
             AirportAdapter {
 

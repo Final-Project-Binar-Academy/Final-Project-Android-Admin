@@ -14,4 +14,7 @@ class AirportRepository (private val apiHelper: ApiHelper) {
     fun updateAirport(airportRequest: AirportRequest, token: String, id: Int) =
         apiHelper.updateAirport(airportRequest = airportRequest, token, id)
 
+    fun deleteAirport(token: String, id: Int) =
+        apiHelper.deleteAirport(token, id)
+
 }

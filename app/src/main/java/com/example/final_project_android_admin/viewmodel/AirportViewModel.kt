@@ -9,6 +9,7 @@ import com.example.final_project_android_admin.R
 import com.example.final_project_android_admin.data.api.request.AirportRequest
 import com.example.final_project_android_admin.data.api.response.BaseResponse
 import com.example.final_project_android_admin.data.api.response.Data
+import com.example.final_project_android_admin.data.api.response.DeleteResponse
 import com.example.final_project_android_admin.data.api.response.airport.AirportIdResponse
 import com.example.final_project_android_admin.data.api.response.airport.AirportResponse
 import com.example.final_project_android_admin.data.api.response.airport.DataAirport
@@ -105,9 +106,6 @@ class AirportViewModel(
             })
     }
 
-
-    private val airportUpdate: MutableLiveData<AirportIdResponse?> = MutableLiveData()
-
     fun updateAirport(airport_name: String, _city: String, _cityCode: String, token: String, id: Int) {
         ApiClient.instance.updateAirport(AirportRequest(airport_name, _city, _cityCode), token, id)
             .enqueue(object : Callback<AirportIdResponse> {
@@ -119,12 +117,31 @@ class AirportViewModel(
                         val responseBody = response.body()
                         if (responseBody != null) {
                             airportRepository.updateAirport(AirportRequest(airport_name, _city, _cityCode), token, id)
-                            airportUpdate.postValue(responseBody)
                         }
                     }
                 }
 
                 override fun onFailure(call: Call<AirportIdResponse>, t: Throwable) {
+                }
+            })
+    }
+
+    fun deleteAirport(token: String, id: Int) {
+        ApiClient.instance.deleteAirport(token, id)
+            .enqueue(object : Callback<DeleteResponse> {
+                override fun onResponse(
+                    call: Call<DeleteResponse>,
+                    response: Response<DeleteResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        val responseBody = response.body()
+                        if (responseBody != null) {
+                            airportRepository.deleteAirport(token, id)
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<DeleteResponse>, t: Throwable) {
                 }
             })
     }

@@ -71,6 +71,12 @@ class AddAirportFragment : Fragment() {
             val cityCode = binding.txtCityCode.text.toString()
             airportViewModel.getDataStoreToken().observe(viewLifecycleOwner) {
                 airportViewModel.createAirport(airportName, city, cityCode, "Bearer $it")
+                Snackbar.make(binding.root, "Airport Berhasil Ditambahkan", Snackbar.LENGTH_SHORT)
+                    .setBackgroundTint(ContextCompat.getColor(requireContext(),
+                        R.color.basic
+                    ))
+                    .setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+                    .show()
                 findNavController().navigate(R.id.action_addAirportFragment_to_airportFragment)
             }
         }

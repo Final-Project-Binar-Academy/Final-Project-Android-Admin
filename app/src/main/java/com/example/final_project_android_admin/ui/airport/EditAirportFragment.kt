@@ -67,6 +67,12 @@ class EditAirportFragment : Fragment() {
             airportViewModel.getDataStoreToken().observe(viewLifecycleOwner) {
                 if (id != null) {
                     airportViewModel.updateAirport(_airport, _city, _cityCode, "Bearer $it", id)
+                    Snackbar.make(binding.root, "Airport Berhasil Diupdate", Snackbar.LENGTH_SHORT)
+                        .setBackgroundTint(ContextCompat.getColor(requireContext(),
+                            R.color.basic
+                        ))
+                        .setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+                        .show()
                 }
             }
             findNavController().navigate(R.id.action_editAirportFragment_to_airportFragment)
