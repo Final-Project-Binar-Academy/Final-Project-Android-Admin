@@ -1,20 +1,22 @@
 package com.example.final_project_android_admin.viewmodel
 
 import android.util.Log
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.final_project_android_admin.data.api.request.AirportRequest
 import com.example.final_project_android_admin.data.api.response.BaseResponse
 import com.example.final_project_android_admin.data.api.response.airport.AirportResponse
 import com.example.final_project_android_admin.data.api.service.ApiClient
 import com.example.final_project_android_admin.repository.AirportRepository
+import com.example.final_project_android_admin.utils.UserDataStoreManager
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class AirportViewModel(private val airportRepository: AirportRepository) : ViewModel() {
+class AirportViewModel(
+    private val airportRepository: AirportRepository,
+    private val pref: UserDataStoreManager
+) : ViewModel() {
 
     private val _airport: MutableLiveData<AirportResponse?> = MutableLiveData()
     fun getLiveDataAirport() : MutableLiveData<AirportResponse?> = _airport
@@ -45,7 +47,7 @@ class AirportViewModel(private val airportRepository: AirportRepository) : ViewM
 
     val airportResult: MutableLiveData<BaseResponse<AirportResponse>> = MutableLiveData()
 
-    fun createAirport(airport_name: String, _city: String, _cityCode: String) {
+    fun createAirport(airport_name: String, _city: String, _cityCode: String, token: String) {
         airportResult.value = BaseResponse.Loading()
         viewModelScope.launch {
             try {
@@ -54,7 +56,7 @@ class AirportViewModel(private val airportRepository: AirportRepository) : ViewM
                     city = _city,
                     cityCode = _cityCode
                 )
-                val response = airportRepository.createAirport(airportRequest = airportRequest)
+                val response = airportRepository.createAirport(airportRequest = airportRequest, token)
                 if (response?.code() == 201) {
                     airportResult.value = BaseResponse.Success(response.body())
                 } else {
@@ -65,6 +67,9 @@ class AirportViewModel(private val airportRepository: AirportRepository) : ViewM
                 airportResult.value = BaseResponse.Error(ex.message)
             }
         }
+    }
+    fun getDataStoreToken(): LiveData<String> {
+        return pref.getToken.asLiveData()
     }
 }
 

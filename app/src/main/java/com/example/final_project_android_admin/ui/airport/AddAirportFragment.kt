@@ -53,10 +53,13 @@ class AddAirportFragment : Fragment() {
         }
 
         binding.btnSave.setOnClickListener{
+
             val airportName = binding.txtAirport.text.toString()
             val city = binding.txtCity.text.toString()
             val cityCode = binding.txtCityCode.text.toString()
-            airportViewModel.createAirport(airportName, city, cityCode)
+            airportViewModel.getDataStoreToken().observe(viewLifecycleOwner){
+                airportViewModel.createAirport(airportName, city, cityCode, "Bearer $it")
+            }
         }
         super.onViewCreated(view, savedInstanceState)
     }

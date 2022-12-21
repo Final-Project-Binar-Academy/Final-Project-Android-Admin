@@ -173,7 +173,7 @@
 
                         <ImageView
                             android:id="@+id/imgFilm"
-                            android:layout_width="40dp"
+                            android:layout_width="45dp"
                             android:layout_height="40dp"
                             android:gravity="center"
                             android:src="@drawable/logo" />

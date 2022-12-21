@@ -39,10 +39,10 @@ class LoginFragment : Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val token = SessionManager.getToken(requireContext())
-        if (!token.isNullOrBlank()) {
-            findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
-        }
+//        val token = SessionManager.getToken(requireContext())
+//        if (!token.isNullOrBlank()) {
+//            findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+//        }
 
         viewModel.loginResult.observe(viewLifecycleOwner) {
             when (it) {
@@ -67,9 +67,19 @@ class LoginFragment : Fragment() {
 
     private fun processLogin(data: AuthResponse?) {
         showToast("Success:" + data?.message)
+        viewModel.saveIsLoginStatus(true)
+        viewModel.saveToken(data?.data?.token.toString())
         findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
-        data?.data?.token?.let { SessionManager.saveAuthToken(requireContext(), it) }
+//        data?.data?.token?.let { SessionManager.saveAuthToken(requireContext(), it) }
 
+    }
+    override fun onStart() {
+        super.onStart()
+        viewModel.getDataStoreIsLogin().observe(viewLifecycleOwner) {
+            if (it == true) {
+                findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+            }
+        }
     }
 
     private fun processError(msg: String?) {

@@ -11,6 +11,7 @@ import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.POST
 
 interface ApiService {
@@ -22,7 +23,7 @@ interface ApiService {
     fun getAirport() : Call<AirportResponse>
 
     @POST("/api/airport/create")
-    fun createAirport(@Body airportRequest: AirportRequest): Response<AirportResponse>
+    fun createAirport(@Body airportRequest: AirportRequest, @Header("Authorization")token: String): Response<AirportResponse>
 
     @GET("/api/company")
     fun getCompany() : Call<CompanyResponse>
