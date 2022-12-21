@@ -65,16 +65,16 @@ class AddAirportFragment : Fragment() {
             }
         }
 
-            binding.btnSave.setOnClickListener {
-                val airportName = binding.txtAirport.text.toString()
-                val city = binding.txtCity.text.toString()
-                val cityCode = binding.txtCityCode.text.toString()
-                airportViewModel.getDataStoreToken().observe(viewLifecycleOwner) {
-                    airportViewModel.createAirport(airportName, city, cityCode, "Bearer $it")
-                    findNavController().navigate(R.id.action_addAirportFragment_to_airportFragment)
-                }
+        binding.btnSave.setOnClickListener {
+            val airportName = binding.txtAirport.text.toString()
+            val city = binding.txtCity.text.toString()
+            val cityCode = binding.txtCityCode.text.toString()
+            airportViewModel.getDataStoreToken().observe(viewLifecycleOwner) {
+                airportViewModel.createAirport(airportName, city, cityCode, "Bearer $it")
+                findNavController().navigate(R.id.action_addAirportFragment_to_airportFragment)
             }
         }
+    }
 
     private fun processCreate(data: AirportResponse?) {
         Toast.makeText(

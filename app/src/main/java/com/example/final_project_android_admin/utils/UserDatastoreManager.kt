@@ -70,6 +70,12 @@ class UserDataStoreManager(@ApplicationContext val context: Context) {
         }
     }
 
+    suspend fun removeToken() {
+        context.dataStore.edit {
+            it.remove(TOKEN_KEY)
+        }
+    }
+
     companion object {
         private const val DATASTORE_NAME = "user_preferences"
         private val USERNAME_KEY = stringPreferencesKey("username_key")

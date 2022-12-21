@@ -114,6 +114,15 @@ class AirportFragment : Fragment(), AirportAdapter.ListAirportInterface {
                     findNavController().navigate(R.id.transactionFragment)
                     true
                 }
+                R.id.logout -> {
+                    airportViewModel.removeIsLoginStatus()
+                    airportViewModel.removeId()
+                    airportViewModel.removeUsername()
+                    airportViewModel.removeToken()
+                    airportViewModel.getDataStoreIsLogin().observe(viewLifecycleOwner) {
+                        findNavController().navigate(R.id.loginFragment)
+                    }
+                }
                 else -> false
             }
 

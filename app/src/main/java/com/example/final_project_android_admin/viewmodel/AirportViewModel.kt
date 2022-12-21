@@ -94,6 +94,7 @@ class AirportViewModel(
                     if (response.isSuccessful) {
                         val responseBody = response.body()
                         if (responseBody != null) {
+                            airportRepository.getDetailAirport(id)
                             getDetailAirport.postValue(responseBody)
                         }
                     }
@@ -104,26 +105,54 @@ class AirportViewModel(
             })
     }
 
+
+    private val airportUpdate: MutableLiveData<AirportIdResponse?> = MutableLiveData()
+
     fun updateAirport(airport_name: String, _city: String, _cityCode: String, token: String, id: Int) {
-        airportResult.value = BaseResponse.Loading()
-        viewModelScope.launch {
-            try {
-                val airportRequest = AirportRequest(
-                    airportName = airport_name,
-                    city = _city,
-                    cityCode = _cityCode
-                )
-                val response = airportRepository.updateAirport(airportRequest = airportRequest, token, id)
-                if (response?.code() == 201) {
-                    airportResult.value = BaseResponse.Success(response.body())
-                } else {
-                    airportResult.value = BaseResponse.Error(response?.message())
+        ApiClient.instance.updateAirport(AirportRequest(airport_name, _city, _cityCode), token, id)
+            .enqueue(object : Callback<AirportIdResponse> {
+                override fun onResponse(
+                    call: Call<AirportIdResponse>,
+                    response: Response<AirportIdResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        val responseBody = response.body()
+                        if (responseBody != null) {
+                            airportRepository.updateAirport(AirportRequest(airport_name, _city, _cityCode), token, id)
+                            airportUpdate.postValue(responseBody)
+                        }
+                    }
                 }
 
-            } catch (ex: Exception) {
-                airportResult.value = BaseResponse.Error(ex.message)
-            }
+                override fun onFailure(call: Call<AirportIdResponse>, t: Throwable) {
+                }
+            })
+    }
+
+    fun removeIsLoginStatus() {
+        viewModelScope.launch {
+            pref.removeIsLoginStatus()
         }
+    }
+    fun removeUsername() {
+        viewModelScope.launch {
+            pref.removeUsername()
+        }
+    }
+    fun removeToken() {
+        viewModelScope.launch {
+            pref.removeToken()
+        }
+    }
+
+    fun removeId() {
+        viewModelScope.launch {
+            pref.removeId()
+        }
+    }
+
+    fun getDataStoreIsLogin(): LiveData<Boolean> {
+        return pref.getIsLogin.asLiveData()
     }
 
 }

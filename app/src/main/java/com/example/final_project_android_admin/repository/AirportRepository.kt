@@ -11,7 +11,7 @@ class AirportRepository (private val apiHelper: ApiHelper) {
     suspend fun createAirport(airportRequest: AirportRequest, token: String) =
         apiHelper.createAirport(airportRequest = airportRequest, token)
 
-    suspend fun updateAirport(airportRequest: AirportRequest, token: String, id: Int) =
+    fun updateAirport(airportRequest: AirportRequest, token: String, id: Int) =
         apiHelper.updateAirport(airportRequest = airportRequest, token, id)
 
 }

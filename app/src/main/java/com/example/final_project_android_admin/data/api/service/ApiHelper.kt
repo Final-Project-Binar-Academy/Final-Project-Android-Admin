@@ -18,7 +18,7 @@ class ApiHelper(private val apiService: ApiService) {
 
     suspend fun createAirport(airportRequest: AirportRequest, token: String): Response<AirportResponse> = apiService.createAirport(airportRequest = airportRequest, token)
 
-    suspend fun updateAirport(airportRequest: AirportRequest, token: String, id: Int): Response<AirportResponse> = apiService.updateAirport(airportRequest = airportRequest, token, id)
+    fun updateAirport(airportRequest: AirportRequest, token: String, id: Int): Call<AirportIdResponse> = apiService.updateAirport(airportRequest = airportRequest, token, id)
 
     fun getAllCompany() = apiService.getCompany()
 

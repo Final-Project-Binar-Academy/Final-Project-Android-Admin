@@ -28,7 +28,7 @@ interface ApiService {
     suspend fun createAirport(@Body airportRequest: AirportRequest, @Header("Authorization")token: String): Response<AirportResponse>
 
     @PUT("/api/airport/update/{id}")
-    fun updateAirport(@Body airportRequest: AirportRequest, @Header("Authorization")token: String, @Path("id") id: Int): Response <AirportResponse>
+    fun updateAirport(@Body airportRequest: AirportRequest, @Header("Authorization")token: String, @Path("id") id: Int): Call<AirportIdResponse>
 
     @GET("/api/company")
     fun getCompany() : Call<CompanyResponse>

@@ -85,5 +85,6 @@
     <string name="price">Price</string>
     <string name="seat">Seat Number</string>
     <string name="capacity">Capacity</string>
+    <string name="logout">Logout</string>
 
 </resources>

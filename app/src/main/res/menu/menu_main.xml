@@ -46,4 +46,12 @@
         android:visible="true"
         app:showAsAction="never"/>
 
+    <item
+        android:id="@+id/logout"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_attach_money_24"
+        android:title="@string/logout"
+        android:visible="true"
+        app:showAsAction="never"/>
+
 </menu>
