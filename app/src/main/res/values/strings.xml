@@ -87,4 +87,9 @@
     <string name="capacity">Capacity</string>
     <string name="logout">Logout</string>
 
+
+    <string-array name="company">
+        <item name="company1">Lion Air</item>
+        <item name="company2">Garuda</item>
+    </string-array>
 </resources>

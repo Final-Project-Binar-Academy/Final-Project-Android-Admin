@@ -47,7 +47,6 @@
                 android:layout_height="match_parent">
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/txt_airplane"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
@@ -56,6 +55,7 @@
                     style="@style/Widget.MyApp.TextInputLayout2">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/txt_airplane"
                         android:layout_gravity="center"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -67,7 +67,6 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/txt_airplane_code"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
@@ -76,6 +75,7 @@
                     style="@style/Widget.MyApp.TextInputLayout2">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/txt_airplane_code"
                         android:layout_gravity="center"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -99,7 +99,7 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <AutoCompleteTextView
-                        android:id="@+id/autoCompleteTextView"
+                        android:id="@+id/actvCompany"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"

@@ -1,9 +1,11 @@
 package com.example.final_project_android_admin.data.api.service
 
+import com.example.final_project_android_admin.data.api.request.AirplaneRequest
 import com.example.final_project_android_admin.data.api.request.AirportRequest
 import com.example.final_project_android_admin.data.api.request.LoginRequest
 import com.example.final_project_android_admin.data.api.response.AuthResponse
 import com.example.final_project_android_admin.data.api.response.DeleteResponse
+import com.example.final_project_android_admin.data.api.response.airplane.AirplaneIdResponse
 import com.example.final_project_android_admin.data.api.response.airplane.AirplaneResponse
 import com.example.final_project_android_admin.data.api.response.airport.AirportIdResponse
 import com.example.final_project_android_admin.data.api.response.airport.AirportResponse
@@ -42,6 +44,15 @@ interface ApiService {
 
     @GET("/api/airplane")
     fun getAirplane() : Call<AirplaneResponse>
+
+    @GET("/api/airplane/{id}")
+    fun getAirplaneDetail(@Path("id") id: Int) : Call<AirplaneIdResponse>
+
+    @PUT("/api/airplane/update/{id}")
+    fun updateAirplane(@Body airplaneRequest: AirplaneRequest, @Header("Authorization")token: String, @Path("id") id: Int): Call<AirplaneIdResponse>
+
+    @DELETE("/api/airplane/delete/{id}")
+    fun deleteAirplane(@Header("Authorization")token: String, @Path("id") id: Int): Call<DeleteResponse>
 
     @GET("/api/ticket")
     fun getFlight() : Call<FlightResponse>

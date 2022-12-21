@@ -115,7 +115,7 @@ class CompanyFragment : Fragment(), CompanyAdapter.ListCompanyInterface {
 
     private fun add(){
         binding.btnAdd.setOnClickListener{
-            findNavController().navigate(R.id.action_airplaneFragment_to_addAirplaneFragment)
+            findNavController().navigate(R.id.action_companyFragment_to_addCompanyFragment)
         }
     }
 
