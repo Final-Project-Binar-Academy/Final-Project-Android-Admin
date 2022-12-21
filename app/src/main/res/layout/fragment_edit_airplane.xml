@@ -60,7 +60,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:maxLines="1"
-                        android:textColor="#F6F4F4"
+                        android:textColor="@color/black"
                         android:textColorHint="#FFFFFF"
                         />
 
@@ -80,7 +80,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:maxLines="1"
-                        android:textColor="#F6F4F4"
+                        android:textColor="@color/black"
                         android:textColorHint="#FFFFFF"
                         />
 

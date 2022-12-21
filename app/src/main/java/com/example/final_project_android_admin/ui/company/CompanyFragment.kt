@@ -15,6 +15,7 @@ import com.example.final_project_android_admin.data.api.response.company.DataCom
 import com.example.final_project_android_admin.data.api.service.ApiClient
 import com.example.final_project_android_admin.data.api.service.ApiHelper
 import com.example.final_project_android_admin.databinding.FragmentCompanyBinding
+import com.example.final_project_android_admin.utils.UserDataStoreManager
 import com.example.final_project_android_admin.viewmodel.CompanyViewModel
 import com.example.final_project_android_admin.viewmodel.factory.CompanyViewModelFactory
 import com.google.android.material.snackbar.Snackbar
@@ -24,15 +25,16 @@ class CompanyFragment : Fragment(), CompanyAdapter.ListCompanyInterface {
     private val binding get() = _binding!!
 
     private lateinit var companyViewModel: CompanyViewModel
+    private lateinit var pref: UserDataStoreManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-
+        pref = UserDataStoreManager(requireContext())
         companyViewModel = ViewModelProvider(
-            this, CompanyViewModelFactory(ApiHelper(ApiClient.instance))
+            this, CompanyViewModelFactory(ApiHelper(ApiClient.instance), pref)
         )[CompanyViewModel::class.java]
 
         _binding = FragmentCompanyBinding.inflate(inflater,container,false)
@@ -42,6 +44,20 @@ class CompanyFragment : Fragment(), CompanyAdapter.ListCompanyInterface {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.topAppBar.setNavigationOnClickListener {
             binding.drawerLayout.open()
+        }
+
+        val delete = arguments?.getInt("id_delete")
+
+        if (delete != null){
+            companyViewModel.getDataStoreToken().observe(viewLifecycleOwner){
+                companyViewModel.deleteCompany("Bearer $it", delete)
+                Snackbar.make(binding.root, "Airport Berhasil Dihapus", Snackbar.LENGTH_SHORT)
+                    .setBackgroundTint(ContextCompat.getColor(requireContext(),
+                        R.color.basic
+                    ))
+                    .setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+                    .show()
+            }
         }
 
         sideBar()

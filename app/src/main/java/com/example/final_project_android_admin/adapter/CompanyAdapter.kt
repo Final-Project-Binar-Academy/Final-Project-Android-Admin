@@ -45,6 +45,19 @@ class CompanyAdapter (private val itemClick: (DataCompany) -> Unit) : RecyclerVi
                     placeholder(R.drawable.img_placeholder)
                 }
 
+                binding.btnEdit.setOnClickListener{
+                    var bund = Bundle()
+                    item.id?.let { it1 -> bund.putInt("id", it1) }
+                    Navigation.findNavController(it)
+                        .navigate(R.id.action_companyFragment_to_editCompanyFragment, bund)
+                }
+
+                binding.btnDelete.setOnClickListener{
+                    var bund = Bundle()
+                    item.id?.let { it1 -> bund.putInt("id_delete", it1) }
+                    Navigation.findNavController(it).navigate(R.id.companyFragment, bund)
+                }
+
             }
 
         }

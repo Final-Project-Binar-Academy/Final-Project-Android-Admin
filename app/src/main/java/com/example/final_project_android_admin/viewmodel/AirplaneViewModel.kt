@@ -116,10 +116,4 @@ class AirplaneViewModel(
                 }
             })
     }
-
-    fun removeIsLoginStatus() {
-        viewModelScope.launch {
-            pref.removeIsLoginStatus()
-        }
-    }
 }

@@ -2,12 +2,15 @@ package com.example.final_project_android_admin.data.api.service
 
 import com.example.final_project_android_admin.data.api.request.AirplaneRequest
 import com.example.final_project_android_admin.data.api.request.AirportRequest
+import com.example.final_project_android_admin.data.api.request.CompanyRequest
 import com.example.final_project_android_admin.data.api.request.LoginRequest
 import com.example.final_project_android_admin.data.api.response.AuthResponse
 import com.example.final_project_android_admin.data.api.response.DeleteResponse
 import com.example.final_project_android_admin.data.api.response.airplane.AirplaneIdResponse
 import com.example.final_project_android_admin.data.api.response.airport.AirportIdResponse
 import com.example.final_project_android_admin.data.api.response.airport.AirportResponse
+import com.example.final_project_android_admin.data.api.response.company.CompanyIdResponse
+import com.example.final_project_android_admin.data.api.response.company.CompanyResponse
 import retrofit2.Call
 import retrofit2.Response
 
@@ -29,7 +32,16 @@ class ApiHelper(private val apiService: ApiService) {
 //    company
     fun getAllCompany() = apiService.getCompany()
 
-//    airplane
+    fun getDetailCompany(id: Int): Call<CompanyIdResponse> = apiService.getCompanyDetail(id)
+
+    suspend fun createCompany(companyRequest: CompanyRequest, token: String): Response<CompanyResponse> = apiService.createCompany(companyRequest = companyRequest, token)
+
+    fun updateCompany(companyRequest: CompanyRequest, token: String, id: Int): Call<CompanyIdResponse> = apiService.updateCompany(companyRequest = companyRequest, token, id)
+
+    fun deleteCompany(token: String, id: Int): Call<DeleteResponse> = apiService.deleteCompany(token, id)
+
+
+    //    airplane
     fun getAllAirplane() = apiService.getAirplane()
 
     fun getDetailAirplane(id: Int): Call<AirplaneIdResponse> = apiService.getAirplaneDetail(id)
