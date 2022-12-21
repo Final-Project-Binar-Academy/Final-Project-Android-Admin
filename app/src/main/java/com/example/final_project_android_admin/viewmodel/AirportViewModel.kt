@@ -146,30 +146,4 @@ class AirportViewModel(
             })
     }
 
-    fun removeIsLoginStatus() {
-        viewModelScope.launch {
-            pref.removeIsLoginStatus()
-        }
-    }
-    fun removeUsername() {
-        viewModelScope.launch {
-            pref.removeUsername()
-        }
-    }
-    fun removeToken() {
-        viewModelScope.launch {
-            pref.removeToken()
-        }
-    }
-
-    fun removeId() {
-        viewModelScope.launch {
-            pref.removeId()
-        }
-    }
-
-    fun getDataStoreIsLogin(): LiveData<Boolean> {
-        return pref.getIsLogin.asLiveData()
-    }
-
 }

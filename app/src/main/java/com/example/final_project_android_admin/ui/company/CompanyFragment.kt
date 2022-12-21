@@ -17,7 +17,9 @@ import com.example.final_project_android_admin.data.api.service.ApiHelper
 import com.example.final_project_android_admin.databinding.FragmentCompanyBinding
 import com.example.final_project_android_admin.utils.UserDataStoreManager
 import com.example.final_project_android_admin.viewmodel.CompanyViewModel
+import com.example.final_project_android_admin.viewmodel.LoginViewModel
 import com.example.final_project_android_admin.viewmodel.factory.CompanyViewModelFactory
+import com.example.final_project_android_admin.viewmodel.factory.UserViewModelFactory
 import com.google.android.material.snackbar.Snackbar
 
 class CompanyFragment : Fragment(), CompanyAdapter.ListCompanyInterface {
@@ -25,6 +27,7 @@ class CompanyFragment : Fragment(), CompanyAdapter.ListCompanyInterface {
     private val binding get() = _binding!!
 
     private lateinit var companyViewModel: CompanyViewModel
+    private lateinit var viewModel: LoginViewModel
     private lateinit var pref: UserDataStoreManager
 
     override fun onCreateView(
@@ -32,7 +35,11 @@ class CompanyFragment : Fragment(), CompanyAdapter.ListCompanyInterface {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
+
         pref = UserDataStoreManager(requireContext())
+        viewModel = ViewModelProvider(
+            this, UserViewModelFactory(ApiHelper(ApiClient.instance), pref)
+        )[LoginViewModel::class.java]
         companyViewModel = ViewModelProvider(
             this, CompanyViewModelFactory(ApiHelper(ApiClient.instance), pref)
         )[CompanyViewModel::class.java]
@@ -120,6 +127,15 @@ class CompanyFragment : Fragment(), CompanyAdapter.ListCompanyInterface {
                 R.id.transaction -> {
                     findNavController().navigate(R.id.transactionFragment)
                     true
+                }
+                R.id.logout -> {
+                    viewModel.removeIsLoginStatus()
+                    viewModel.removeId()
+                    viewModel.removeUsername()
+                    viewModel.removeToken()
+                    viewModel.getDataStoreIsLogin().observe(viewLifecycleOwner) {
+                        findNavController().navigate(R.id.loginFragment)
+                    }
                 }
                 else -> false
             }

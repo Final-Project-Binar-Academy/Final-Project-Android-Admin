@@ -52,4 +52,26 @@ class LoginViewModel(
         }
     }
 
+    fun removeIsLoginStatus() {
+        viewModelScope.launch {
+            pref.removeIsLoginStatus()
+        }
+    }
+    fun removeUsername() {
+        viewModelScope.launch {
+            pref.removeUsername()
+        }
+    }
+    fun removeToken() {
+        viewModelScope.launch {
+            pref.removeToken()
+        }
+    }
+
+    fun removeId() {
+        viewModelScope.launch {
+            pref.removeId()
+        }
+    }
+
 }

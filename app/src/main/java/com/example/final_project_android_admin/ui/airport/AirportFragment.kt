@@ -17,7 +17,9 @@ import com.example.final_project_android_admin.data.api.service.ApiHelper
 import com.example.final_project_android_admin.databinding.FragmentAirportBinding
 import com.example.final_project_android_admin.utils.UserDataStoreManager
 import com.example.final_project_android_admin.viewmodel.AirportViewModel
+import com.example.final_project_android_admin.viewmodel.LoginViewModel
 import com.example.final_project_android_admin.viewmodel.factory.AirportViewModelFactory
+import com.example.final_project_android_admin.viewmodel.factory.UserViewModelFactory
 import com.google.android.material.snackbar.Snackbar
 
 class AirportFragment : Fragment(), AirportAdapter.ListAirportInterface {
@@ -25,13 +27,20 @@ class AirportFragment : Fragment(), AirportAdapter.ListAirportInterface {
     private val binding get() = _binding!!
 
     private lateinit var airportViewModel: AirportViewModel
+    private lateinit var viewModel: LoginViewModel
     private lateinit var pref: UserDataStoreManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        // Inflate the layout for this fragment
+
         pref = UserDataStoreManager(requireContext())
+        viewModel = ViewModelProvider(
+            this, UserViewModelFactory(ApiHelper(ApiClient.instance), pref)
+        )[LoginViewModel::class.java]
+
         airportViewModel = ViewModelProvider(
             this, AirportViewModelFactory(ApiHelper(ApiClient.instance), pref)
         )[AirportViewModel::class.java]
@@ -129,11 +138,11 @@ class AirportFragment : Fragment(), AirportAdapter.ListAirportInterface {
                     true
                 }
                 R.id.logout -> {
-                    airportViewModel.removeIsLoginStatus()
-                    airportViewModel.removeId()
-                    airportViewModel.removeUsername()
-                    airportViewModel.removeToken()
-                    airportViewModel.getDataStoreIsLogin().observe(viewLifecycleOwner) {
+                    viewModel.removeIsLoginStatus()
+                    viewModel.removeId()
+                    viewModel.removeUsername()
+                    viewModel.removeToken()
+                    viewModel.getDataStoreIsLogin().observe(viewLifecycleOwner) {
                         findNavController().navigate(R.id.loginFragment)
                     }
                 }
