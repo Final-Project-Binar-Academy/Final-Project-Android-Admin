@@ -79,14 +79,14 @@ class LoginFragment : Fragment() {
 //        data?.data?.token?.let { SessionManager.saveAuthToken(requireContext(), it) }
 
     }
-//    override fun onStart() {
-//        super.onStart()
-//        viewModel.getDataStoreIsLogin().observe(viewLifecycleOwner) {
-//            if (it == true) {
-//                findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
-//            }
-//        }
-//    }
+    override fun onStart() {
+        super.onStart()
+        viewModel.getDataStoreIsLogin().observe(viewLifecycleOwner) {
+            if (it == true) {
+                findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+            }
+        }
+    }
 
     private fun processError(msg: String?) {
         showToast("Error:$msg")
