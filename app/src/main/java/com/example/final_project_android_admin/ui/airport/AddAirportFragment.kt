@@ -35,8 +35,9 @@ class AddAirportFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
+        pref = UserDataStoreManager(requireContext())
         airportViewModel = ViewModelProvider(
-            this, AirportViewModelFactory(ApiHelper(ApiClient.instance))
+            this, AirportViewModelFactory(ApiHelper(ApiClient.instance), pref)
         )[AirportViewModel::class.java]
 
 
@@ -64,19 +65,16 @@ class AddAirportFragment : Fragment() {
             }
         }
 
-        userViewModel.getToken().observe(viewLifecycleOwner){
-            if (it != null){
-                binding.btnSave.setOnClickListener{
-                    val airportName = binding.txtAirport.text.toString()
-                    val city = binding.txtCity.text.toString()
-                    val cityCode = binding.txtCityCode.text.toString()
-                    airportViewModel.createAirport(airportName, city, cityCode, it.toString())
+            binding.btnSave.setOnClickListener {
+                val airportName = binding.txtAirport.text.toString()
+                val city = binding.txtCity.text.toString()
+                val cityCode = binding.txtCityCode.text.toString()
+                airportViewModel.getDataStoreToken().observe(viewLifecycleOwner) {
+                    airportViewModel.createAirport(airportName, city, cityCode, "Bearer $it")
+                    findNavController().navigate(R.id.action_addAirportFragment_to_airportFragment)
                 }
             }
         }
-
-        super.onViewCreated(view, savedInstanceState)
-    }
 
     private fun processCreate(data: AirportResponse?) {
         Toast.makeText(
@@ -94,9 +92,12 @@ class AddAirportFragment : Fragment() {
 //            Toast.LENGTH_SHORT
 //        ).show()
         Snackbar.make(binding.root, "$msg", Snackbar.LENGTH_SHORT)
-            .setBackgroundTint(ContextCompat.getColor(requireContext(),
-                R.color.white
-            ))
+            .setBackgroundTint(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.white
+                )
+            )
             .setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
             .show()
     }

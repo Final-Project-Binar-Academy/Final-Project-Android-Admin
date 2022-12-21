@@ -52,7 +52,4 @@ class LoginViewModel(
         }
     }
 
-    fun getToken(): LiveData<String> {
-        return pref.getToken.asLiveData()
-    }
 }

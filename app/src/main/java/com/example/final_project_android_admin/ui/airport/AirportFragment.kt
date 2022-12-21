@@ -15,6 +15,7 @@ import com.example.final_project_android_admin.data.api.response.airport.DataAir
 import com.example.final_project_android_admin.data.api.service.ApiClient
 import com.example.final_project_android_admin.data.api.service.ApiHelper
 import com.example.final_project_android_admin.databinding.FragmentAirportBinding
+import com.example.final_project_android_admin.utils.UserDataStoreManager
 import com.example.final_project_android_admin.viewmodel.AirportViewModel
 import com.example.final_project_android_admin.viewmodel.factory.AirportViewModelFactory
 import com.google.android.material.snackbar.Snackbar
@@ -24,14 +25,15 @@ class AirportFragment : Fragment(), AirportAdapter.ListAirportInterface {
     private val binding get() = _binding!!
 
     private lateinit var airportViewModel: AirportViewModel
+    private lateinit var pref: UserDataStoreManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
+        pref = UserDataStoreManager(requireContext())
         airportViewModel = ViewModelProvider(
-            this, AirportViewModelFactory(ApiHelper(ApiClient.instance))
+            this, AirportViewModelFactory(ApiHelper(ApiClient.instance), pref)
         )[AirportViewModel::class.java]
 
         _binding = FragmentAirportBinding.inflate(inflater,container,false)
