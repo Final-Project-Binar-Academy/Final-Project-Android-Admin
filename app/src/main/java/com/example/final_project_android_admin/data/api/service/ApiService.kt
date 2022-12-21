@@ -23,7 +23,7 @@ interface ApiService {
     fun getAirport() : Call<AirportResponse>
 
     @POST("/api/airport/create")
-    fun createAirport(@Body airportRequest: AirportRequest, @Header("Authorization")token: String): Response<AirportResponse>
+    suspend fun createAirport(@Body airportRequest: AirportRequest, @Header("Authorization")token: String): Response<AirportResponse>
 
     @GET("/api/company")
     fun getCompany() : Call<CompanyResponse>

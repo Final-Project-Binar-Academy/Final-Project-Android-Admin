@@ -15,8 +15,11 @@ import com.example.final_project_android_admin.data.api.response.airport.Airport
 import com.example.final_project_android_admin.data.api.service.ApiClient
 import com.example.final_project_android_admin.data.api.service.ApiHelper
 import com.example.final_project_android_admin.databinding.FragmentAddAirportBinding
+import com.example.final_project_android_admin.utils.UserDataStoreManager
 import com.example.final_project_android_admin.viewmodel.AirportViewModel
+import com.example.final_project_android_admin.viewmodel.LoginViewModel
 import com.example.final_project_android_admin.viewmodel.factory.AirportViewModelFactory
+import com.example.final_project_android_admin.viewmodel.factory.UserViewModelFactory
 import com.google.android.material.snackbar.Snackbar
 
 class AddAirportFragment : Fragment() {
@@ -24,6 +27,8 @@ class AddAirportFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var airportViewModel: AirportViewModel
+    private lateinit var userViewModel: LoginViewModel
+    private lateinit var pref: UserDataStoreManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,6 +38,13 @@ class AddAirportFragment : Fragment() {
         airportViewModel = ViewModelProvider(
             this, AirportViewModelFactory(ApiHelper(ApiClient.instance))
         )[AirportViewModel::class.java]
+
+
+        pref = UserDataStoreManager(requireContext())
+        userViewModel = ViewModelProvider(
+            this, UserViewModelFactory(ApiHelper(ApiClient.instance), pref)
+        )[LoginViewModel::class.java]
+
 
         _binding = FragmentAddAirportBinding.inflate(inflater, container, false)
         return binding.root
@@ -52,15 +64,17 @@ class AddAirportFragment : Fragment() {
             }
         }
 
-        binding.btnSave.setOnClickListener{
-
-            val airportName = binding.txtAirport.text.toString()
-            val city = binding.txtCity.text.toString()
-            val cityCode = binding.txtCityCode.text.toString()
-            airportViewModel.getDataStoreToken().observe(viewLifecycleOwner){
-                airportViewModel.createAirport(airportName, city, cityCode, "Bearer $it")
+        userViewModel.getToken().observe(viewLifecycleOwner){
+            if (it != null){
+                binding.btnSave.setOnClickListener{
+                    val airportName = binding.txtAirport.text.toString()
+                    val city = binding.txtCity.text.toString()
+                    val cityCode = binding.txtCityCode.text.toString()
+                    airportViewModel.createAirport(airportName, city, cityCode, it.toString())
+                }
             }
         }
+
         super.onViewCreated(view, savedInstanceState)
     }
 

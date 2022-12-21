@@ -51,4 +51,8 @@ class LoginViewModel(
             pref.saveToken(token)
         }
     }
+
+    fun getToken(): LiveData<String> {
+        return pref.getToken.asLiveData()
+    }
 }

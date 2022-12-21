@@ -1,22 +1,20 @@
 package com.example.final_project_android_admin.viewmodel
 
 import android.util.Log
-import androidx.lifecycle.*
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.final_project_android_admin.data.api.request.AirportRequest
 import com.example.final_project_android_admin.data.api.response.BaseResponse
 import com.example.final_project_android_admin.data.api.response.airport.AirportResponse
 import com.example.final_project_android_admin.data.api.service.ApiClient
 import com.example.final_project_android_admin.repository.AirportRepository
-import com.example.final_project_android_admin.utils.UserDataStoreManager
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class AirportViewModel(
-    private val airportRepository: AirportRepository,
-    private val pref: UserDataStoreManager
-) : ViewModel() {
+class AirportViewModel(private val airportRepository: AirportRepository) : ViewModel() {
 
     private val _airport: MutableLiveData<AirportResponse?> = MutableLiveData()
     fun getLiveDataAirport() : MutableLiveData<AirportResponse?> = _airport
@@ -68,12 +66,10 @@ class AirportViewModel(
             }
         }
     }
-    fun getDataStoreToken(): LiveData<String> {
-        return pref.getToken.asLiveData()
-    }
+
 }
 
-    // create
+// create
 //    val airportResult: MutableLiveData<BaseResponse<AirportResponse>> = MutableLiveData()
 
 //    fun createAirport(_airportName: Editable?, _city: Editable?, _cityCode: Editable?) {

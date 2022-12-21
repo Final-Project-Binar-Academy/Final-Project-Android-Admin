@@ -15,6 +15,7 @@ import com.example.final_project_android_admin.data.api.service.ApiClient
 import com.example.final_project_android_admin.data.api.service.ApiHelper
 import com.example.final_project_android_admin.databinding.FragmentLoginBinding
 import com.example.final_project_android_admin.utils.SessionManager
+import com.example.final_project_android_admin.utils.UserDataStoreManager
 import com.example.final_project_android_admin.viewmodel.LoginViewModel
 import com.example.final_project_android_admin.viewmodel.factory.UserViewModelFactory
 
@@ -23,6 +24,7 @@ class LoginFragment : Fragment() {
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
     private lateinit var viewModel: LoginViewModel
+    private lateinit var pref: UserDataStoreManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,8 +32,9 @@ class LoginFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
 
+        pref = UserDataStoreManager(requireContext())
         viewModel = ViewModelProvider(
-            this, UserViewModelFactory(ApiHelper(ApiClient.instance))
+            this, UserViewModelFactory(ApiHelper(ApiClient.instance), pref)
         )[LoginViewModel::class.java]
 
         _binding = FragmentLoginBinding.inflate(inflater,container,false)
