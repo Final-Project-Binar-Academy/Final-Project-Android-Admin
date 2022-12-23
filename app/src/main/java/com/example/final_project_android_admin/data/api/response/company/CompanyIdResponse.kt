@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName
 @Keep
 data class CompanyIdResponse(
     @SerializedName("data")
-    var `data`: Data?,
+    var `data`: DataCompany?,
     @SerializedName("message")
     var message: String?,
     @SerializedName("status")
