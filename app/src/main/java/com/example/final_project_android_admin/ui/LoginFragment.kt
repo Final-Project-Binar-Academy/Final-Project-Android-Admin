@@ -15,6 +15,7 @@ import com.example.final_project_android_admin.data.api.service.ApiClient
 import com.example.final_project_android_admin.data.api.service.ApiHelper
 import com.example.final_project_android_admin.databinding.FragmentLoginBinding
 import com.example.final_project_android_admin.utils.SessionManager
+import com.example.final_project_android_admin.utils.UserDataStoreManager
 import com.example.final_project_android_admin.viewmodel.LoginViewModel
 import com.example.final_project_android_admin.viewmodel.factory.UserViewModelFactory
 
@@ -23,6 +24,7 @@ class LoginFragment : Fragment() {
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
     private lateinit var viewModel: LoginViewModel
+    private lateinit var pref: UserDataStoreManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,8 +32,9 @@ class LoginFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
 
+        pref = UserDataStoreManager(requireContext())
         viewModel = ViewModelProvider(
-            this, UserViewModelFactory(ApiHelper(ApiClient.instance))
+            this, UserViewModelFactory(ApiHelper(ApiClient.instance), pref)
         )[LoginViewModel::class.java]
 
         _binding = FragmentLoginBinding.inflate(inflater,container,false)
@@ -39,10 +42,10 @@ class LoginFragment : Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val token = SessionManager.getToken(requireContext())
-        if (!token.isNullOrBlank()) {
-            findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
-        }
+//        val token = SessionManager.getToken(requireContext())
+//        if (!token.isNullOrBlank()) {
+//            findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+//        }
 
         viewModel.loginResult.observe(viewLifecycleOwner) {
             when (it) {
@@ -67,9 +70,22 @@ class LoginFragment : Fragment() {
 
     private fun processLogin(data: AuthResponse?) {
         showToast("Success:" + data?.message)
-        findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
-        data?.data?.token?.let { SessionManager.saveAuthToken(requireContext(), it) }
+        if (data?.data?.accessToken != null) {
+            viewModel.saveIsLoginStatus(true)
+            viewModel.saveToken(data?.data?.accessToken.toString())
+            findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+        }
 
+//        data?.data?.token?.let { SessionManager.saveAuthToken(requireContext(), it) }
+
+    }
+    override fun onStart() {
+        super.onStart()
+        viewModel.getDataStoreIsLogin().observe(viewLifecycleOwner) {
+            if (it == true) {
+                findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+            }
+        }
     }
 
     private fun processError(msg: String?) {

@@ -16,6 +16,6 @@ data class Data(
     var role: String?,
     @SerializedName("roleId")
     var roleId: Int?,
-    @SerializedName("token")
-    var token: String?
+    @SerializedName("accessToken")
+    var accessToken: String?
 )

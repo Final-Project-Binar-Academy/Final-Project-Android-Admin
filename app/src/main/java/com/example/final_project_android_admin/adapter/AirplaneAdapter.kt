@@ -45,6 +45,19 @@ class AirplaneAdapter (private val itemClick: (DataAirplane) -> Unit) : Recycler
                     placeholder(R.drawable.img_placeholder)
                 }
 
+                binding.btnEdit.setOnClickListener{
+                    var bund = Bundle()
+                    item.id?.let { it1 -> bund.putInt("id", it1) }
+                    Navigation.findNavController(it)
+                        .navigate(R.id.action_airplaneFragment_to_editAirplaneFragment, bund)
+                }
+
+                binding.btnDelete.setOnClickListener{
+                    var bund = Bundle()
+                    item.id?.let { it1 -> bund.putInt("id_delete", it1) }
+                    Navigation.findNavController(it).navigate(R.id.airplaneFragment, bund)
+                }
+
             }
 
         }

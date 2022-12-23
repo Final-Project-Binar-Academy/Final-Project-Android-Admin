@@ -15,8 +15,11 @@ import com.example.final_project_android_admin.data.api.response.airport.Airport
 import com.example.final_project_android_admin.data.api.service.ApiClient
 import com.example.final_project_android_admin.data.api.service.ApiHelper
 import com.example.final_project_android_admin.databinding.FragmentAddAirportBinding
+import com.example.final_project_android_admin.utils.UserDataStoreManager
 import com.example.final_project_android_admin.viewmodel.AirportViewModel
+import com.example.final_project_android_admin.viewmodel.LoginViewModel
 import com.example.final_project_android_admin.viewmodel.factory.AirportViewModelFactory
+import com.example.final_project_android_admin.viewmodel.factory.UserViewModelFactory
 import com.google.android.material.snackbar.Snackbar
 
 class AddAirportFragment : Fragment() {
@@ -24,15 +27,25 @@ class AddAirportFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var airportViewModel: AirportViewModel
+    private lateinit var userViewModel: LoginViewModel
+    private lateinit var pref: UserDataStoreManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
 
+        pref = UserDataStoreManager(requireContext())
         airportViewModel = ViewModelProvider(
-            this, AirportViewModelFactory(ApiHelper(ApiClient.instance))
+            this, AirportViewModelFactory(ApiHelper(ApiClient.instance), pref)
         )[AirportViewModel::class.java]
+
+
+        pref = UserDataStoreManager(requireContext())
+        userViewModel = ViewModelProvider(
+            this, UserViewModelFactory(ApiHelper(ApiClient.instance), pref)
+        )[LoginViewModel::class.java]
+
 
         _binding = FragmentAddAirportBinding.inflate(inflater, container, false)
         return binding.root
@@ -52,13 +65,21 @@ class AddAirportFragment : Fragment() {
             }
         }
 
-        binding.btnSave.setOnClickListener{
+        binding.btnSave.setOnClickListener {
             val airportName = binding.txtAirport.text.toString()
             val city = binding.txtCity.text.toString()
             val cityCode = binding.txtCityCode.text.toString()
-            airportViewModel.createAirport(airportName, city, cityCode)
+            airportViewModel.getDataStoreToken().observe(viewLifecycleOwner) {
+                airportViewModel.createAirport(airportName, city, cityCode, "Bearer $it")
+                Snackbar.make(binding.root, "Airport Berhasil Ditambahkan", Snackbar.LENGTH_SHORT)
+                    .setBackgroundTint(ContextCompat.getColor(requireContext(),
+                        R.color.basic
+                    ))
+                    .setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+                    .show()
+                findNavController().navigate(R.id.action_addAirportFragment_to_airportFragment)
+            }
         }
-        super.onViewCreated(view, savedInstanceState)
     }
 
     private fun processCreate(data: AirportResponse?) {
@@ -77,9 +98,12 @@ class AddAirportFragment : Fragment() {
 //            Toast.LENGTH_SHORT
 //        ).show()
         Snackbar.make(binding.root, "$msg", Snackbar.LENGTH_SHORT)
-            .setBackgroundTint(ContextCompat.getColor(requireContext(),
-                R.color.white
-            ))
+            .setBackgroundTint(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.white
+                )
+            )
             .setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
             .show()
     }

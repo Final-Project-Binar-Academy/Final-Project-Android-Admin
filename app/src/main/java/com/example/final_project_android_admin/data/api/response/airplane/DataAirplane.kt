@@ -12,8 +12,8 @@ data class DataAirplane(
     var airplaneName: String?,
     @SerializedName("company")
     var company: Company?,
-    @SerializedName("companyId")
-    var companyId: Int?,
+    @SerializedName("companyeName")
+    var companyeName: String?,
     @SerializedName("createdAt")
     var createdAt: String?,
     @SerializedName("id")

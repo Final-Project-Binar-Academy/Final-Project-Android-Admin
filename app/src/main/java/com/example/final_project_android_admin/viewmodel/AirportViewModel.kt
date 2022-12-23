@@ -1,20 +1,32 @@
 package com.example.final_project_android_admin.viewmodel
 
 import android.util.Log
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import android.widget.Toast
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.core.content.ContextCompat
+import androidx.lifecycle.*
+import com.example.final_project_android_admin.R
 import com.example.final_project_android_admin.data.api.request.AirportRequest
 import com.example.final_project_android_admin.data.api.response.BaseResponse
+import com.example.final_project_android_admin.data.api.response.Data
+import com.example.final_project_android_admin.data.api.response.DeleteResponse
+import com.example.final_project_android_admin.data.api.response.airport.AirportIdResponse
 import com.example.final_project_android_admin.data.api.response.airport.AirportResponse
+import com.example.final_project_android_admin.data.api.response.airport.DataAirport
 import com.example.final_project_android_admin.data.api.service.ApiClient
+import com.example.final_project_android_admin.data.api.service.ApiService
 import com.example.final_project_android_admin.repository.AirportRepository
+import com.example.final_project_android_admin.utils.UserDataStoreManager
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class AirportViewModel(private val airportRepository: AirportRepository) : ViewModel() {
+class AirportViewModel(
+    private val airportRepository: AirportRepository,
+    private val pref: UserDataStoreManager
+) : ViewModel() {
 
     private val _airport: MutableLiveData<AirportResponse?> = MutableLiveData()
     fun getLiveDataAirport() : MutableLiveData<AirportResponse?> = _airport
@@ -45,7 +57,7 @@ class AirportViewModel(private val airportRepository: AirportRepository) : ViewM
 
     val airportResult: MutableLiveData<BaseResponse<AirportResponse>> = MutableLiveData()
 
-    fun createAirport(airport_name: String, _city: String, _cityCode: String) {
+    fun createAirport(airport_name: String, _city: String, _cityCode: String, token: String) {
         airportResult.value = BaseResponse.Loading()
         viewModelScope.launch {
             try {
@@ -54,7 +66,7 @@ class AirportViewModel(private val airportRepository: AirportRepository) : ViewM
                     city = _city,
                     cityCode = _cityCode
                 )
-                val response = airportRepository.createAirport(airportRequest = airportRequest)
+                val response = airportRepository.createAirport(airportRequest = airportRequest, token)
                 if (response?.code() == 201) {
                     airportResult.value = BaseResponse.Success(response.body())
                 } else {
@@ -66,29 +78,72 @@ class AirportViewModel(private val airportRepository: AirportRepository) : ViewM
             }
         }
     }
+    fun getDataStoreToken(): LiveData<String> {
+        return pref.getToken.asLiveData()
+    }
+
+    private val getDetailAirport: MutableLiveData<AirportIdResponse?> = MutableLiveData()
+    val airportDetail: LiveData<AirportIdResponse?> get() = getDetailAirport
+
+    fun getAirportDetail(id : Int){
+        ApiClient.instance.getAirportDetail(id)
+            .enqueue(object : Callback <AirportIdResponse> {
+                override fun onResponse(
+                    call: Call<AirportIdResponse>,
+                    response: Response<AirportIdResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        val responseBody = response.body()
+                        if (responseBody != null) {
+                            airportRepository.getDetailAirport(id)
+                            getDetailAirport.postValue(responseBody)
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<AirportIdResponse>, t: Throwable) {
+                }
+            })
+    }
+
+    fun updateAirport(airport_name: String, _city: String, _cityCode: String, token: String, id: Int) {
+        ApiClient.instance.updateAirport(AirportRequest(airport_name, _city, _cityCode), token, id)
+            .enqueue(object : Callback<AirportIdResponse> {
+                override fun onResponse(
+                    call: Call<AirportIdResponse>,
+                    response: Response<AirportIdResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        val responseBody = response.body()
+                        if (responseBody != null) {
+                            airportRepository.updateAirport(AirportRequest(airport_name, _city, _cityCode), token, id)
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<AirportIdResponse>, t: Throwable) {
+                }
+            })
+    }
+
+    fun deleteAirport(token: String, id: Int) {
+        ApiClient.instance.deleteAirport(token, id)
+            .enqueue(object : Callback<DeleteResponse> {
+                override fun onResponse(
+                    call: Call<DeleteResponse>,
+                    response: Response<DeleteResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        val responseBody = response.body()
+                        if (responseBody != null) {
+                            airportRepository.deleteAirport(token, id)
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<DeleteResponse>, t: Throwable) {
+                }
+            })
+    }
+
 }
-
-    // create
-//    val airportResult: MutableLiveData<BaseResponse<AirportResponse>> = MutableLiveData()
-
-//    fun createAirport(_airportName: Editable?, _city: Editable?, _cityCode: Editable?) {
-//        airportResult.value = BaseResponse.Loading()
-//        viewModelScope.launch {
-//            try {
-//                val airportRequest = AirportRequest(
-//                    airportName = _airportName,
-//                    city = _city,
-//                    cityCode = _cityCode
-//                )
-//                val response = repository.createAirport(airportRequest = airportRequest)
-//                if (response.code() == 201) {
-//                    airportResult.value = BaseResponse.Success(response.body())
-//                } else {
-//                    airportResult.value = BaseResponse.Error(response.message())
-//                }
-//
-//            } catch (ex: Exception) {
-//                airportResult.value = BaseResponse.Error(ex.message)
-//            }
-//        }
-//    }

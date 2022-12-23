@@ -15,8 +15,11 @@ import com.example.final_project_android_admin.data.api.response.airplane.DataAi
 import com.example.final_project_android_admin.data.api.service.ApiClient
 import com.example.final_project_android_admin.data.api.service.ApiHelper
 import com.example.final_project_android_admin.databinding.FragmentAirplaneBinding
+import com.example.final_project_android_admin.utils.UserDataStoreManager
 import com.example.final_project_android_admin.viewmodel.AirplaneViewModel
+import com.example.final_project_android_admin.viewmodel.LoginViewModel
 import com.example.final_project_android_admin.viewmodel.factory.AirplaneViewModelFactory
+import com.example.final_project_android_admin.viewmodel.factory.UserViewModelFactory
 import com.google.android.material.snackbar.Snackbar
 
 class AirplaneFragment : Fragment(), AirplaneAdapter.ListAirplaneInterface {
@@ -24,6 +27,8 @@ class AirplaneFragment : Fragment(), AirplaneAdapter.ListAirplaneInterface {
     private val binding get() = _binding!!
 
     private lateinit var airplaneViewModel: AirplaneViewModel
+    private lateinit var viewModel: LoginViewModel
+    private lateinit var pref: UserDataStoreManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,8 +36,12 @@ class AirplaneFragment : Fragment(), AirplaneAdapter.ListAirplaneInterface {
     ): View {
         // Inflate the layout for this fragment
 
+        pref = UserDataStoreManager(requireContext())
+        viewModel = ViewModelProvider(
+            this, UserViewModelFactory(ApiHelper(ApiClient.instance), pref)
+        )[LoginViewModel::class.java]
         airplaneViewModel = ViewModelProvider(
-            this, AirplaneViewModelFactory(ApiHelper(ApiClient.instance))
+            this, AirplaneViewModelFactory(ApiHelper(ApiClient.instance), pref)
         )[AirplaneViewModel::class.java]
 
         _binding = FragmentAirplaneBinding.inflate(inflater,container,false)
@@ -43,6 +52,20 @@ class AirplaneFragment : Fragment(), AirplaneAdapter.ListAirplaneInterface {
 
         binding.topAppBar.setNavigationOnClickListener {
             binding.drawerLayout.open()
+        }
+
+        val delete = arguments?.getInt("id_delete")
+
+        if (delete != null){
+            airplaneViewModel.getDataStoreToken().observe(viewLifecycleOwner){
+                airplaneViewModel.deleteAirplane("Bearer $it", delete)
+                Snackbar.make(binding.root, "Airport Berhasil Dihapus", Snackbar.LENGTH_SHORT)
+                    .setBackgroundTint(ContextCompat.getColor(requireContext(),
+                        R.color.basic
+                    ))
+                    .setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+                    .show()
+            }
         }
 
         sideBar()
@@ -106,6 +129,15 @@ class AirplaneFragment : Fragment(), AirplaneAdapter.ListAirplaneInterface {
                 R.id.transaction -> {
                     findNavController().navigate(R.id.transactionFragment)
                     true
+                }
+                R.id.logout -> {
+                    viewModel.removeIsLoginStatus()
+                    viewModel.removeId()
+                    viewModel.removeUsername()
+                    viewModel.removeToken()
+                    viewModel.getDataStoreIsLogin().observe(viewLifecycleOwner) {
+                        findNavController().navigate(R.id.loginFragment)
+                    }
                 }
                 else -> false
             }

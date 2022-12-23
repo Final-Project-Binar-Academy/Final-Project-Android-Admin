@@ -15,8 +15,11 @@ import com.example.final_project_android_admin.data.api.response.airport.DataAir
 import com.example.final_project_android_admin.data.api.service.ApiClient
 import com.example.final_project_android_admin.data.api.service.ApiHelper
 import com.example.final_project_android_admin.databinding.FragmentAirportBinding
+import com.example.final_project_android_admin.utils.UserDataStoreManager
 import com.example.final_project_android_admin.viewmodel.AirportViewModel
+import com.example.final_project_android_admin.viewmodel.LoginViewModel
 import com.example.final_project_android_admin.viewmodel.factory.AirportViewModelFactory
+import com.example.final_project_android_admin.viewmodel.factory.UserViewModelFactory
 import com.google.android.material.snackbar.Snackbar
 
 class AirportFragment : Fragment(), AirportAdapter.ListAirportInterface {
@@ -24,14 +27,22 @@ class AirportFragment : Fragment(), AirportAdapter.ListAirportInterface {
     private val binding get() = _binding!!
 
     private lateinit var airportViewModel: AirportViewModel
+    private lateinit var viewModel: LoginViewModel
+    private lateinit var pref: UserDataStoreManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        // Inflate the layout for this fragment
+
+        pref = UserDataStoreManager(requireContext())
+        viewModel = ViewModelProvider(
+            this, UserViewModelFactory(ApiHelper(ApiClient.instance), pref)
+        )[LoginViewModel::class.java]
 
         airportViewModel = ViewModelProvider(
-            this, AirportViewModelFactory(ApiHelper(ApiClient.instance))
+            this, AirportViewModelFactory(ApiHelper(ApiClient.instance), pref)
         )[AirportViewModel::class.java]
 
         _binding = FragmentAirportBinding.inflate(inflater,container,false)
@@ -41,6 +52,20 @@ class AirportFragment : Fragment(), AirportAdapter.ListAirportInterface {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.topAppBar.setNavigationOnClickListener {
             binding.drawerLayout.open()
+        }
+
+        val delete = arguments?.getInt("id_delete")
+
+        if (delete != null){
+            airportViewModel.getDataStoreToken().observe(viewLifecycleOwner){
+                airportViewModel.deleteAirport("Bearer $it", delete)
+                Snackbar.make(binding.root, "Airport Berhasil Dihapus", Snackbar.LENGTH_SHORT)
+                    .setBackgroundTint(ContextCompat.getColor(requireContext(),
+                        R.color.basic
+                    ))
+                    .setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+                    .show()
+            }
         }
 
         val adapter: AirportAdapter by lazy {
@@ -111,6 +136,15 @@ class AirportFragment : Fragment(), AirportAdapter.ListAirportInterface {
                 R.id.transaction -> {
                     findNavController().navigate(R.id.transactionFragment)
                     true
+                }
+                R.id.logout -> {
+                    viewModel.removeIsLoginStatus()
+                    viewModel.removeId()
+                    viewModel.removeUsername()
+                    viewModel.removeToken()
+                    viewModel.getDataStoreIsLogin().observe(viewLifecycleOwner) {
+                        findNavController().navigate(R.id.loginFragment)
+                    }
                 }
                 else -> false
             }

@@ -15,8 +15,11 @@ import com.example.final_project_android_admin.data.api.response.company.DataCom
 import com.example.final_project_android_admin.data.api.service.ApiClient
 import com.example.final_project_android_admin.data.api.service.ApiHelper
 import com.example.final_project_android_admin.databinding.FragmentCompanyBinding
+import com.example.final_project_android_admin.utils.UserDataStoreManager
 import com.example.final_project_android_admin.viewmodel.CompanyViewModel
+import com.example.final_project_android_admin.viewmodel.LoginViewModel
 import com.example.final_project_android_admin.viewmodel.factory.CompanyViewModelFactory
+import com.example.final_project_android_admin.viewmodel.factory.UserViewModelFactory
 import com.google.android.material.snackbar.Snackbar
 
 class CompanyFragment : Fragment(), CompanyAdapter.ListCompanyInterface {
@@ -24,6 +27,8 @@ class CompanyFragment : Fragment(), CompanyAdapter.ListCompanyInterface {
     private val binding get() = _binding!!
 
     private lateinit var companyViewModel: CompanyViewModel
+    private lateinit var viewModel: LoginViewModel
+    private lateinit var pref: UserDataStoreManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,8 +36,12 @@ class CompanyFragment : Fragment(), CompanyAdapter.ListCompanyInterface {
     ): View {
         // Inflate the layout for this fragment
 
+        pref = UserDataStoreManager(requireContext())
+        viewModel = ViewModelProvider(
+            this, UserViewModelFactory(ApiHelper(ApiClient.instance), pref)
+        )[LoginViewModel::class.java]
         companyViewModel = ViewModelProvider(
-            this, CompanyViewModelFactory(ApiHelper(ApiClient.instance))
+            this, CompanyViewModelFactory(ApiHelper(ApiClient.instance), pref)
         )[CompanyViewModel::class.java]
 
         _binding = FragmentCompanyBinding.inflate(inflater,container,false)
@@ -42,6 +51,20 @@ class CompanyFragment : Fragment(), CompanyAdapter.ListCompanyInterface {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.topAppBar.setNavigationOnClickListener {
             binding.drawerLayout.open()
+        }
+
+        val delete = arguments?.getInt("id_delete")
+
+        if (delete != null){
+            companyViewModel.getDataStoreToken().observe(viewLifecycleOwner){
+                companyViewModel.deleteCompany("Bearer $it", delete)
+                Snackbar.make(binding.root, "Airport Berhasil Dihapus", Snackbar.LENGTH_SHORT)
+                    .setBackgroundTint(ContextCompat.getColor(requireContext(),
+                        R.color.basic
+                    ))
+                    .setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+                    .show()
+            }
         }
 
         sideBar()
@@ -105,6 +128,15 @@ class CompanyFragment : Fragment(), CompanyAdapter.ListCompanyInterface {
                     findNavController().navigate(R.id.transactionFragment)
                     true
                 }
+                R.id.logout -> {
+                    viewModel.removeIsLoginStatus()
+                    viewModel.removeId()
+                    viewModel.removeUsername()
+                    viewModel.removeToken()
+                    viewModel.getDataStoreIsLogin().observe(viewLifecycleOwner) {
+                        findNavController().navigate(R.id.loginFragment)
+                    }
+                }
                 else -> false
             }
 
@@ -115,7 +147,7 @@ class CompanyFragment : Fragment(), CompanyAdapter.ListCompanyInterface {
 
     private fun add(){
         binding.btnAdd.setOnClickListener{
-            findNavController().navigate(R.id.action_airplaneFragment_to_addAirplaneFragment)
+            findNavController().navigate(R.id.action_companyFragment_to_addCompanyFragment)
         }
     }
 
