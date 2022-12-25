@@ -14,6 +14,8 @@ import com.example.final_project_android_admin.data.api.response.airport.DataAir
 import com.example.final_project_android_admin.data.api.response.company.CompanyIdResponse
 import com.example.final_project_android_admin.data.api.response.company.CompanyResponse
 import com.example.final_project_android_admin.data.api.response.flight.FlightResponse
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.*
@@ -47,8 +49,12 @@ interface ApiService {
     @GET("/api/company/{id}")
     fun getCompanyDetail(@Path("id") id: Int) : Call<CompanyIdResponse>
 
+    @Multipart
     @POST("/api/company/create")
-    suspend fun createCompany(@Body companyRequest: CompanyRequest, @Header("Authorization")token: String): Response<CompanyResponse>
+    suspend fun createCompany(
+        @Part("companyName") companyName: RequestBody,
+        @Part image: MultipartBody.Part,
+        @Header("Authorization")token: String): Response<CompanyResponse>
 
     @PUT("/api/company/update/{id}")
     fun updateCompany(@Body companyRequest: CompanyRequest, @Header("Authorization")token: String, @Path("id") id: Int): Call<CompanyIdResponse>

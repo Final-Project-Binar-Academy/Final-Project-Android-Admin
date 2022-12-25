@@ -2,8 +2,11 @@ package com.example.final_project_android_admin.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.*
+import com.example.final_project_android_admin.data.api.request.AirportRequest
 import com.example.final_project_android_admin.data.api.request.CompanyRequest
+import com.example.final_project_android_admin.data.api.response.BaseResponse
 import com.example.final_project_android_admin.data.api.response.DeleteResponse
+import com.example.final_project_android_admin.data.api.response.airport.AirportResponse
 import com.example.final_project_android_admin.data.api.response.company.CompanyIdResponse
 import com.example.final_project_android_admin.data.api.response.company.CompanyResponse
 import com.example.final_project_android_admin.data.api.response.company.DataCompany
@@ -11,6 +14,8 @@ import com.example.final_project_android_admin.data.api.service.ApiClient
 import com.example.final_project_android_admin.repository.CompanyRepository
 import com.example.final_project_android_admin.utils.UserDataStoreManager
 import kotlinx.coroutines.launch
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -64,6 +69,25 @@ private val pref: UserDataStoreManager
                 Log.e("Error : ", "onFailure: ${t.message}")
             }
         })
+    }
+
+    val companyResult: MutableLiveData<BaseResponse<CompanyResponse>> = MutableLiveData()
+
+    fun createCompany(companyName: RequestBody, image: MultipartBody.Part, token: String) {
+        companyResult.value = BaseResponse.Loading()
+        viewModelScope.launch {
+            try {
+                val response = companyRepository.createCompany(companyName, image, token)
+                if (response?.code() == 201) {
+                    companyResult.value = BaseResponse.Success(response.body())
+                } else {
+                    companyResult.value = BaseResponse.Error(response?.message())
+                }
+
+            } catch (ex: Exception) {
+                companyResult.value = BaseResponse.Error(ex.message)
+            }
+        }
     }
 
     fun getDataStoreToken(): LiveData<String> {

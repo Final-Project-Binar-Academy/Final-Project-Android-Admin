@@ -11,6 +11,8 @@ import com.example.final_project_android_admin.data.api.response.airport.Airport
 import com.example.final_project_android_admin.data.api.response.airport.AirportResponse
 import com.example.final_project_android_admin.data.api.response.company.CompanyIdResponse
 import com.example.final_project_android_admin.data.api.response.company.CompanyResponse
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Response
 
@@ -34,7 +36,7 @@ class ApiHelper(private val apiService: ApiService) {
 
     fun getDetailCompany(id: Int): Call<CompanyIdResponse> = apiService.getCompanyDetail(id)
 
-    suspend fun createCompany(companyRequest: CompanyRequest, token: String): Response<CompanyResponse> = apiService.createCompany(companyRequest = companyRequest, token)
+    suspend fun createCompany(companyName: RequestBody, image: MultipartBody.Part, token: String): Response<CompanyResponse> = apiService.createCompany(companyName, image, token)
 
     fun updateCompany(companyRequest: CompanyRequest, token: String, id: Int): Call<CompanyIdResponse> = apiService.updateCompany(companyRequest = companyRequest, token, id)
 
