@@ -7,6 +7,7 @@ import com.example.final_project_android_admin.data.api.request.LoginRequest
 import com.example.final_project_android_admin.data.api.response.AuthResponse
 import com.example.final_project_android_admin.data.api.response.DeleteResponse
 import com.example.final_project_android_admin.data.api.response.airplane.AirplaneIdResponse
+import com.example.final_project_android_admin.data.api.response.airplane.AirplaneResponse
 import com.example.final_project_android_admin.data.api.response.airport.AirportIdResponse
 import com.example.final_project_android_admin.data.api.response.airport.AirportResponse
 import com.example.final_project_android_admin.data.api.response.company.CompanyIdResponse
@@ -47,6 +48,8 @@ class ApiHelper(private val apiService: ApiService) {
     fun getAllAirplane() = apiService.getAirplane()
 
     fun getDetailAirplane(id: Int): Call<AirplaneIdResponse> = apiService.getAirplaneDetail(id)
+
+    suspend fun createAirplane(airplaneRequest: AirplaneRequest, token: String): Response<AirplaneResponse> = apiService.createAirplane(airplaneRequest = airplaneRequest, token)
 
     fun updateAirplane(airplaneRequest: AirplaneRequest, token: String, id: Int): Call<AirplaneIdResponse> = apiService.updateAirplane(airplaneRequest = airplaneRequest, token, id)
 

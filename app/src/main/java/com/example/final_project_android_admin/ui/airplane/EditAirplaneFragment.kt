@@ -94,7 +94,7 @@ class EditAirplaneFragment : Fragment() {
             airplaneViewModel.getDataStoreToken().observe(viewLifecycleOwner) {
                 if (id != null) {
                     airplaneViewModel.updateAirplane(_airplaneName, _airplaneCode, _companyId, "Bearer $it", id)
-                    Snackbar.make(binding.root, "Airport Berhasil Diupdate", Snackbar.LENGTH_SHORT)
+                    Snackbar.make(binding.root, "Airplane Berhasil Diupdate", Snackbar.LENGTH_SHORT)
                         .setBackgroundTint(
                             ContextCompat.getColor(
                                 requireContext(),
