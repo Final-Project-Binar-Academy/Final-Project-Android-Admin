@@ -38,7 +38,7 @@ class ApiHelper(private val apiService: ApiService) {
 
     suspend fun createCompany(companyName: RequestBody, image: MultipartBody.Part, token: String): Response<CompanyResponse> = apiService.createCompany(companyName, image, token)
 
-    fun updateCompany(companyRequest: CompanyRequest, token: String, id: Int): Call<CompanyIdResponse> = apiService.updateCompany(companyRequest = companyRequest, token, id)
+    fun updateCompany(companyName: RequestBody, image: MultipartBody.Part, token: String, id: Int): Call<CompanyIdResponse> = apiService.updateCompany(companyName, image, token, id)
 
     fun deleteCompany(token: String, id: Int): Call<DeleteResponse> = apiService.deleteCompany(token, id)
 

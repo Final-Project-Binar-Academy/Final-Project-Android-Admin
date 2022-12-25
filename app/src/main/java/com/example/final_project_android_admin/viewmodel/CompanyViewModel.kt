@@ -118,8 +118,8 @@ private val pref: UserDataStoreManager
             })
     }
 
-    fun updateCompany(company_image: String, company_name: String, token: String, id: Int) {
-        ApiClient.instance.updateCompany(CompanyRequest(company_image, company_name), token, id)
+    fun updateCompany(companyName: RequestBody, image: MultipartBody.Part, token: String, id: Int) {
+        ApiClient.instance.updateCompany(companyName, image, token, id)
             .enqueue(object : Callback<CompanyIdResponse> {
                 override fun onResponse(
                     call: Call<CompanyIdResponse>,
@@ -128,7 +128,7 @@ private val pref: UserDataStoreManager
                     if (response.isSuccessful) {
                         val responseBody = response.body()
                         if (responseBody != null) {
-                            companyRepository.updateCompany(CompanyRequest(company_image, company_name), token, id)
+                            companyRepository.updateCompany(companyName, image, token, id)
                         }
                     }
                 }

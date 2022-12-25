@@ -56,8 +56,13 @@ interface ApiService {
         @Part image: MultipartBody.Part,
         @Header("Authorization")token: String): Response<CompanyResponse>
 
+    @Multipart
     @PUT("/api/company/update/{id}")
-    fun updateCompany(@Body companyRequest: CompanyRequest, @Header("Authorization")token: String, @Path("id") id: Int): Call<CompanyIdResponse>
+    fun updateCompany(
+        @Part("companyName") companyName: RequestBody,
+        @Part image: MultipartBody.Part,
+        @Header("Authorization")token: String,
+        @Path("id") id: Int): Call<CompanyIdResponse>
 
     @DELETE("/api/company/delete/{id}")
     fun deleteCompany(@Header("Authorization")token: String, @Path("id") id: Int): Call<DeleteResponse>

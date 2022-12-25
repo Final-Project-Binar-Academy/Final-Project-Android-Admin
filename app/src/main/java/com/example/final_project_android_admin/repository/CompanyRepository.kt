@@ -15,8 +15,8 @@ class CompanyRepository (private val apiHelper: ApiHelper) {
     suspend fun createCompany(companyName: RequestBody, image: MultipartBody.Part, token: String) =
         apiHelper.createCompany(companyName, image, token)
 
-    fun updateCompany(companyRequest: CompanyRequest, token: String, id: Int) =
-        apiHelper.updateCompany(companyRequest = companyRequest, token, id)
+    fun updateCompany(companyName: RequestBody, image: MultipartBody.Part, token: String, id: Int) =
+        apiHelper.updateCompany(companyName, image, token, id)
 
     fun deleteCompany(token: String, id: Int) =
         apiHelper.deleteCompany(token, id)

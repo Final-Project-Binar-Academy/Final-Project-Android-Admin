@@ -67,7 +67,7 @@
                     </com.google.android.material.card.MaterialCardView>
 
                     <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btnEdit"
+                        android:id="@+id/btnSelectImage"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -101,6 +101,18 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
+                <com.google.android.material.button.MaterialButton
+                    android:text="@string/save"
+                    android:textSize="20sp"
+                    android:textColor="@color/white"
+                    app:cornerRadius="15dp"
+                    android:fontFamily="@font/khula_bold"
+                    android:backgroundTint="@color/basic"
+                    android:id="@+id/btnSave"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="50dp" />
             </LinearLayout>
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
