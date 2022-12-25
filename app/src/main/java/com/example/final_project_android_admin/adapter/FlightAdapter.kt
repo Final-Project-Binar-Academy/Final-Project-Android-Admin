@@ -42,11 +42,20 @@ class FlightAdapter (private val itemClick: (DataFlight) -> Unit) : RecyclerView
                 itemView.setOnClickListener { itemClick(this) }
                 binding.dataBinding = item
 
-                binding.departureDate.text = item.departureDate.toString()
-                binding.departureHour.text = item.departureTime.toString()
-                binding.destinationDate.text = item.arrivalDate.toString()
-                binding.destinationHour.text = item.arrivalTime.toString()
-                binding.kelas2.text = item.classX.toString()
+                var simpleDateFormat = SimpleDateFormat("E, dd LLL")
+                var departure : Date? = item.departureDate
+                var departureDate = simpleDateFormat.format(departure?.time).toString()
+
+                var arrival : Date? = item.arrivalDate
+                var arrivalDate = simpleDateFormat.format(arrival?.time).toString()
+
+                binding.departureDate.text = departureDate
+                binding.departureTime.text = item.departureTime.toString()
+                binding.arrivalDate.text = arrivalDate
+                binding.arrivalTime.text = item.arrivalTime.toString()
+                binding.kelas.text = item.classX.toString()
+                binding.btnKelas.text = item.classX.toString()
+                binding.price.text = item.price.toString()
 
             }
 
