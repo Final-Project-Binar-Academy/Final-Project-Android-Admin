@@ -6,6 +6,7 @@ import com.example.final_project_android_admin.data.api.request.CompanyRequest
 import com.example.final_project_android_admin.data.api.response.DeleteResponse
 import com.example.final_project_android_admin.data.api.response.company.CompanyIdResponse
 import com.example.final_project_android_admin.data.api.response.company.CompanyResponse
+import com.example.final_project_android_admin.data.api.response.company.DataCompany
 import com.example.final_project_android_admin.data.api.service.ApiClient
 import com.example.final_project_android_admin.repository.CompanyRepository
 import com.example.final_project_android_admin.utils.UserDataStoreManager
@@ -43,6 +44,26 @@ private val pref: UserDataStoreManager
                 }
 
             })
+    }
+
+    private val _airplaneCompany = MutableLiveData<List<DataCompany>?>()
+    val LiveDataAirplaneCompany: LiveData<List<DataCompany>?> = _airplaneCompany
+
+    fun getAirplaneCompany(){
+        ApiClient.instance.getCompany().enqueue(object : Callback<CompanyResponse> {
+            override fun onResponse(
+                call: Call<CompanyResponse>,
+                response: Response<CompanyResponse>
+            ) {
+                if (response.isSuccessful) {
+                    _airplaneCompany.postValue(response.body()!!.data)
+                }
+            }
+
+            override fun onFailure(call: Call<CompanyResponse>, t: Throwable) {
+                Log.e("Error : ", "onFailure: ${t.message}")
+            }
+        })
     }
 
     fun getDataStoreToken(): LiveData<String> {

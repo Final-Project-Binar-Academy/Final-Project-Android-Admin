@@ -1,22 +1,24 @@
 package com.example.final_project_android_admin.ui.airplane
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.final_project_android_admin.R
+import com.example.final_project_android_admin.adapter.ListCompanyAdapter
+import com.example.final_project_android_admin.data.api.response.company.DataCompany
 import com.example.final_project_android_admin.data.api.service.ApiClient
 import com.example.final_project_android_admin.data.api.service.ApiHelper
 import com.example.final_project_android_admin.databinding.FragmentEditAirplaneBinding
 import com.example.final_project_android_admin.utils.UserDataStoreManager
 import com.example.final_project_android_admin.viewmodel.AirplaneViewModel
+import com.example.final_project_android_admin.viewmodel.CompanyViewModel
 import com.example.final_project_android_admin.viewmodel.factory.AirplaneViewModelFactory
+import com.example.final_project_android_admin.viewmodel.factory.CompanyViewModelFactory
 import com.google.android.material.snackbar.Snackbar
 
 class EditAirplaneFragment : Fragment() {
@@ -25,6 +27,9 @@ class EditAirplaneFragment : Fragment() {
 
     private lateinit var airplaneViewModel: AirplaneViewModel
     private lateinit var pref: UserDataStoreManager
+
+    private lateinit var companyViewModel: CompanyViewModel
+    private var _companyId: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,6 +40,9 @@ class EditAirplaneFragment : Fragment() {
         airplaneViewModel = ViewModelProvider(
             this, AirplaneViewModelFactory(ApiHelper(ApiClient.instance), pref)
         )[AirplaneViewModel::class.java]
+        companyViewModel = ViewModelProvider(
+            this, CompanyViewModelFactory(ApiHelper(ApiClient.instance), pref)
+        )[CompanyViewModel::class.java]
 
         _binding = FragmentEditAirplaneBinding.inflate(inflater, container, false)
         return binding.root
@@ -51,9 +59,30 @@ class EditAirplaneFragment : Fragment() {
                 if (it != null) {
                     txtAirplane.setText(it.data?.airplaneName.toString())
                     txtAirplaneCode.setText(it.data?.airplaneCode.toString())
+                    it.data?.company?.id?.let { it1 -> companyViewModel.getCompanyDetail(it1) }
+                    companyViewModel.companyDetail.observe(viewLifecycleOwner){
+                        binding.actvCompany.hint = it?.data?.companyName
+                    }
                 }
             }
         }
+
+        companyViewModel.getAirplaneCompany()
+        companyViewModel.LiveDataAirplaneCompany.observe(viewLifecycleOwner){
+            if (it != null) {
+                val adapter = ListCompanyAdapter(requireContext(), it as ArrayList<DataCompany>)
+                binding.apply {
+                    actvCompany.threshold = 0
+                    actvCompany.setAdapter(adapter)
+                    actvCompany.setOnItemClickListener { _, _, position, _ ->
+                        val data = adapter.getItem(position)
+                        binding.actvCompany.setText(data?.companyName)
+                        _companyId = data?.id!!
+                    }
+                }
+            }
+        }
+
 
         airplaneViewModel.getDataStoreToken().observe(viewLifecycleOwner) {
             "Bearer $it"
@@ -62,7 +91,6 @@ class EditAirplaneFragment : Fragment() {
         binding.btnEdit.setOnClickListener {
             val _airplaneName = binding.txtAirplane.text.toString()
             val _airplaneCode = binding.txtAirplaneCode.text.toString()
-            val _companyId = 0
             airplaneViewModel.getDataStoreToken().observe(viewLifecycleOwner) {
                 if (id != null) {
                     airplaneViewModel.updateAirplane(_airplaneName, _airplaneCode, _companyId, "Bearer $it", id)
