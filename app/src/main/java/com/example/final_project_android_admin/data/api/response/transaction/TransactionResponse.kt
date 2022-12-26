@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName
 @Keep
 data class TransactionResponse(
     @SerializedName("data")
-    var `data`: List<DataTransaction>,
+    var `data`: List<DataTransaction>?,
     @SerializedName("message")
     var message: String?,
     @SerializedName("status")

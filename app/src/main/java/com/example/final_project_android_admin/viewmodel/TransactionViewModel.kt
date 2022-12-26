@@ -50,7 +50,7 @@ class TransactionViewModel (
     }
 
     private val _transactionFilter: MutableLiveData<TransactionResponse?> = MutableLiveData()
-    fun getTransactionFilter(): MutableLiveData<TransactionResponse?> = _transaction
+    fun getTransactionFilter(): MutableLiveData<TransactionResponse?> = _transactionFilter
 
     fun getDataTransactionFilter(token: String, status: String) {
         ApiClient.instance.getTransactionFilter(token, status)
@@ -61,15 +61,15 @@ class TransactionViewModel (
                 ) {
                     if (response.isSuccessful) {
                         transactionRepository.getTransactionFilter(token, status)
-                        _transaction.postValue(response.body())
+                        _transactionFilter.postValue(response.body())
                     } else {
-                        _transaction.postValue(null)
+                        _transactionFilter.postValue(null)
                         Log.d("notSuccess", response.body().toString())
                     }
                 }
 
                 override fun onFailure(call: Call<TransactionResponse>, t: Throwable) {
-                    _transaction.postValue(null)
+                    _transactionFilter.postValue(null)
                     Log.d("Failed", t.message.toString())
                 }
 

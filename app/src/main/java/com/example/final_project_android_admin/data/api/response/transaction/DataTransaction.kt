@@ -6,26 +6,28 @@ import com.google.gson.annotations.SerializedName
 
 @Keep
 data class DataTransaction(
+    @SerializedName("back")
+    var back: Back?,
     @SerializedName("createdAt")
     var createdAt: String?,
-    @SerializedName("from")
-    var from: From?,
+    @SerializedName("go")
+    var go: Go?,
     @SerializedName("id")
     var id: Int?,
     @SerializedName("passenger")
     var passenger: Passenger?,
     @SerializedName("passengerId")
     var passengerId: Int?,
+    @SerializedName("payment")
+    var payment: Payment?,
     @SerializedName("paymentId")
-    var paymentId: Any?,
+    var paymentId: Int?,
     @SerializedName("status")
     var status: String?,
-    @SerializedName("ticketFrom")
-    var ticketFrom: Int?,
-    @SerializedName("ticketTo")
-    var ticketTo: Int?,
-    @SerializedName("to")
-    var to: To?,
+    @SerializedName("ticketBack")
+    var ticketBack: Int?,
+    @SerializedName("ticketGo")
+    var ticketGo: Int?,
     @SerializedName("totalPrice")
     var totalPrice: String?,
     @SerializedName("transactionCode")

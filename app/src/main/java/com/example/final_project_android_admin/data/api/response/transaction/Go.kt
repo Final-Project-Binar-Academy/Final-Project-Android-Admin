@@ -3,9 +3,10 @@ package com.example.final_project_android_admin.data.api.response.transaction
 
 import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
+import java.util.*
 
 @Keep
-data class To(
+data class Go(
     @SerializedName("airplane")
     var airplane: Airplane?,
     @SerializedName("airplaneId")
@@ -23,7 +24,7 @@ data class To(
     @SerializedName("createdAt")
     var createdAt: String?,
     @SerializedName("departureDate")
-    var departureDate: String?,
+    var departureDate: Date?,
     @SerializedName("departureTime")
     var departureTime: String?,
     @SerializedName("destination")

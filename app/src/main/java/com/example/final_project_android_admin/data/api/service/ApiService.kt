@@ -102,5 +102,5 @@ interface ApiService {
     fun getTransaction(@Header("Authorization")token: String): Call<TransactionResponse>
 
     @GET("/api/transaction/admin/filter")
-    fun getTransactionFilter(@Header("Authorization")token: String, @Query("Status")status: String): Call<TransactionResponse>
+    fun getTransactionFilter(@Header("Authorization")token: String, @Query("status")status: String): Call<TransactionResponse>
 }
