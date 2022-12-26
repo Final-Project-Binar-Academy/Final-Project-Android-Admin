@@ -327,6 +327,7 @@
                     android:fontFamily="@font/khula_bold"
                     android:backgroundTint="@color/basic"
                     android:id="@+id/btnSave"
+                    android:layout_marginBottom="50dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"

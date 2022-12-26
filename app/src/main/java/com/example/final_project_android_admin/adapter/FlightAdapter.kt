@@ -1,10 +1,13 @@
 package com.example.final_project_android_admin.adapter
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.final_project_android_admin.R
 import com.example.final_project_android_admin.data.api.response.flight.DataFlight
 import com.example.final_project_android_admin.databinding.ListFlightBinding
 import java.text.SimpleDateFormat
@@ -53,6 +56,18 @@ class FlightAdapter (private val itemClick: (DataFlight) -> Unit) : RecyclerView
                 binding.btnKelas.text = item.classX.toString()
                 binding.price.text = item.price.toString()
 
+                binding.btnEdit.setOnClickListener{
+                    var bund = Bundle()
+                    item.id?.let { it1 -> bund.putInt("id", it1) }
+                    Navigation.findNavController(it)
+                        .navigate(R.id.action_flightFragment_to_editFlightFragment, bund)
+                }
+
+                binding.btnDelete.setOnClickListener{
+                    var bund = Bundle()
+                    item.id?.let { it1 -> bund.putInt("id_delete", it1) }
+                    Navigation.findNavController(it).navigate(R.id.flightFragment, bund)
+                }
             }
 
         }

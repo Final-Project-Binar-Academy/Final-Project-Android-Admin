@@ -90,7 +90,7 @@ interface ApiService {
     @POST("/api/ticket/create")
     suspend fun createFlight(@Body flightRequest: FlightRequest, @Header("Authorization")token: String): Response<FlightResponse>
 
-    @PUT("/api/ticker/update/{id}")
+    @PUT("/api/ticket/update/{id}")
     fun updateFlight(@Body flightRequest: FlightRequest, @Header("Authorization")token: String, @Path("id") id: Int): Call<FlightIdResponse>
 
     @DELETE("/api/ticket/delete/{id}")
