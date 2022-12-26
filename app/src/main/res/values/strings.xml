@@ -86,10 +86,12 @@
     <string name="seat">Seat Number</string>
     <string name="capacity">Capacity</string>
     <string name="logout">Logout</string>
-
-
-    <string-array name="company">
-        <item name="company1">Lion Air</item>
-        <item name="company2">Garuda</item>
+    <string name="flightFrom">Flight From</string>
+    <string name="flightTo">Flight To</string>
+    <string name="code">Ticket Code</string>
+    <string-array name="kelas">
+        <item name="eksekutif">Eksekutif</item>
+        <item name="bisnis">Bisnis</item>
+        <item name="ekonomi">Ekonomi</item>
     </string-array>
 </resources>

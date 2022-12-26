@@ -39,8 +39,6 @@ data class DataFlight(
     var origin: Origin?,
     @SerializedName("price")
     var price: Int?,
-    @SerializedName("seatNumber")
-    var seatNumber: String?,
     @SerializedName("updatedAt")
     var updatedAt: String?
 )

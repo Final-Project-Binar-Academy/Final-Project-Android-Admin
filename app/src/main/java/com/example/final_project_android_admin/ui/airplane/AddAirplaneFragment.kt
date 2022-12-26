@@ -72,7 +72,7 @@ class AddAirplaneFragment : Fragment() {
             val _airplaneName = binding.txtAirplane.text.toString()
             val _airplaneCode = binding.txtAirplaneCode.text.toString()
             airplaneViewModel.getDataStoreToken().observe(viewLifecycleOwner) {
-                if (id != null) {
+                if (it != null) {
                     airplaneViewModel.createAirplane(_airplaneName, _airplaneCode, _companyId, "Bearer $it")
                     Snackbar.make(binding.root, "Airplane Berhasil Ditambahkan", Snackbar.LENGTH_SHORT)
                         .setBackgroundTint(

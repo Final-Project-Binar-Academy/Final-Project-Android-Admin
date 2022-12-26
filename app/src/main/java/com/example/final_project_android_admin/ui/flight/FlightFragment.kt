@@ -42,7 +42,7 @@ class FlightFragment : Fragment(), FlightAdapter.ListFlightInterface {
         )[LoginViewModel::class.java]
 
         flightViewModel = ViewModelProvider(
-            this, FlightViewModelFactory(ApiHelper(ApiClient.instance))
+            this, FlightViewModelFactory(ApiHelper(ApiClient.instance), pref)
         )[FlightViewModel::class.java]
 
         _binding = FragmentFlightBinding.inflate(inflater,container,false)
@@ -135,7 +135,7 @@ class FlightFragment : Fragment(), FlightAdapter.ListFlightInterface {
 
     private fun add(){
         binding.btnAdd.setOnClickListener{
-            findNavController().navigate(R.id.action_airplaneFragment_to_addAirplaneFragment)
+            findNavController().navigate(R.id.action_flightFragment_to_addFlightFragment)
         }
     }
 

@@ -1,18 +1,15 @@
 package com.example.final_project_android_admin.data.api.service
 
-import com.example.final_project_android_admin.data.api.request.AirplaneRequest
-import com.example.final_project_android_admin.data.api.request.AirportRequest
-import com.example.final_project_android_admin.data.api.request.CompanyRequest
-import com.example.final_project_android_admin.data.api.request.LoginRequest
+import com.example.final_project_android_admin.data.api.request.*
 import com.example.final_project_android_admin.data.api.response.AuthResponse
 import com.example.final_project_android_admin.data.api.response.DeleteResponse
 import com.example.final_project_android_admin.data.api.response.airplane.AirplaneIdResponse
 import com.example.final_project_android_admin.data.api.response.airplane.AirplaneResponse
 import com.example.final_project_android_admin.data.api.response.airport.AirportIdResponse
 import com.example.final_project_android_admin.data.api.response.airport.AirportResponse
-import com.example.final_project_android_admin.data.api.response.airport.DataAirport
 import com.example.final_project_android_admin.data.api.response.company.CompanyIdResponse
 import com.example.final_project_android_admin.data.api.response.company.CompanyResponse
+import com.example.final_project_android_admin.data.api.response.flight.FlightIdResponse
 import com.example.final_project_android_admin.data.api.response.flight.FlightResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -86,4 +83,17 @@ interface ApiService {
 //    ticket
     @GET("/api/ticket")
     fun getFlight() : Call<FlightResponse>
+
+    @GET("/api/ticket/{id}")
+    fun getFlightDetail(@Path("id") id: Int) : Call<FlightIdResponse>
+
+    @POST("/api/ticket/create")
+    suspend fun createFlight(@Body flightRequest: FlightRequest, @Header("Authorization")token: String): Response<FlightResponse>
+
+    @PUT("/api/ticker/update/{id}")
+    fun updateFlight(@Body flightRequest: FlightRequest, @Header("Authorization")token: String, @Path("id") id: Int): Call<FlightIdResponse>
+
+    @DELETE("/api/ticket/delete/{id}")
+    fun deleteFlight(@Header("Authorization")token: String, @Path("id") id: Int): Call<DeleteResponse>
+
 }

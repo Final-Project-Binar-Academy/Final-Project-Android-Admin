@@ -8,8 +8,10 @@ import com.example.final_project_android_admin.data.api.response.BaseResponse
 import com.example.final_project_android_admin.data.api.response.DeleteResponse
 import com.example.final_project_android_admin.data.api.response.airplane.AirplaneIdResponse
 import com.example.final_project_android_admin.data.api.response.airplane.AirplaneResponse
+import com.example.final_project_android_admin.data.api.response.airplane.DataAirplane
 import com.example.final_project_android_admin.data.api.response.airport.AirportIdResponse
 import com.example.final_project_android_admin.data.api.response.airport.AirportResponse
+import com.example.final_project_android_admin.data.api.response.airport.DataAirport
 import com.example.final_project_android_admin.data.api.service.ApiClient
 import com.example.final_project_android_admin.repository.AirplaneRepository
 import com.example.final_project_android_admin.repository.AirportRepository
@@ -49,6 +51,26 @@ class AirplaneViewModel(
                 }
 
             })
+    }
+
+    private val _listAirplane = MutableLiveData<List<DataAirplane>?>()
+    val LiveDataListAirplane: LiveData<List<DataAirplane>?> = _listAirplane
+
+    fun getListAirplane(){
+        ApiClient.instance.getAirplane().enqueue(object : Callback<AirplaneResponse> {
+            override fun onResponse(
+                call: Call<AirplaneResponse>,
+                response: Response<AirplaneResponse>
+            ) {
+                if (response.isSuccessful) {
+                    _listAirplane.postValue(response.body()!!.data)
+                }
+            }
+
+            override fun onFailure(call: Call<AirplaneResponse>, t: Throwable) {
+                Log.e("Error : ", "onFailure: ${t.message}")
+            }
+        })
     }
 
     val airplaneResult: MutableLiveData<BaseResponse<AirplaneResponse>> = MutableLiveData()

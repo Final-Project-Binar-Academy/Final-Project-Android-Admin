@@ -1,9 +1,6 @@
 package com.example.final_project_android_admin.data.api.service
 
-import com.example.final_project_android_admin.data.api.request.AirplaneRequest
-import com.example.final_project_android_admin.data.api.request.AirportRequest
-import com.example.final_project_android_admin.data.api.request.CompanyRequest
-import com.example.final_project_android_admin.data.api.request.LoginRequest
+import com.example.final_project_android_admin.data.api.request.*
 import com.example.final_project_android_admin.data.api.response.AuthResponse
 import com.example.final_project_android_admin.data.api.response.DeleteResponse
 import com.example.final_project_android_admin.data.api.response.airplane.AirplaneIdResponse
@@ -12,6 +9,8 @@ import com.example.final_project_android_admin.data.api.response.airport.Airport
 import com.example.final_project_android_admin.data.api.response.airport.AirportResponse
 import com.example.final_project_android_admin.data.api.response.company.CompanyIdResponse
 import com.example.final_project_android_admin.data.api.response.company.CompanyResponse
+import com.example.final_project_android_admin.data.api.response.flight.FlightIdResponse
+import com.example.final_project_android_admin.data.api.response.flight.FlightResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -57,4 +56,13 @@ class ApiHelper(private val apiService: ApiService) {
 
 //    flight
     fun getAllFlight() = apiService.getFlight()
+
+    fun getDetailFlight(id: Int): Call<FlightIdResponse> = apiService.getFlightDetail(id)
+
+    suspend fun createFlight(flightRequest: FlightRequest, token: String): Response<FlightResponse> = apiService.createFlight(flightRequest = flightRequest, token)
+
+    fun updateFlight(flightRequest: FlightRequest, token: String, id: Int): Call<FlightIdResponse> = apiService.updateFlight(flightRequest = flightRequest, token, id)
+
+    fun deleteFlight(token: String, id: Int): Call<DeleteResponse> = apiService.deleteFlight(token, id)
+
 }

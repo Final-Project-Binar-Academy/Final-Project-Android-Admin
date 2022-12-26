@@ -27,7 +27,5 @@ data class FlightRequest(
     @SerializedName("flightTo")
     var flightTo: Int?,
     @SerializedName("price")
-    var price: Int?,
-    @SerializedName("seatNumber")
-    var seatNumber: String?
+    var price: Int?
 )

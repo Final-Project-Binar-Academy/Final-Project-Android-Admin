@@ -5,13 +5,11 @@ import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
 
 @Keep
-data class FlightResponse(
+data class FlightIdResponse(
     @SerializedName("data")
-    var `data`: List<DataFlight>?,
+    var `data`: DataFlight?,
     @SerializedName("message")
     var message: String?,
     @SerializedName("status")
-    var status: String?,
-    @SerializedName("totalData")
-    var totalData: Int?
+    var status: String?
 )
