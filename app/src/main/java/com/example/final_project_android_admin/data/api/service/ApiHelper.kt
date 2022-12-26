@@ -75,6 +75,7 @@ class ApiHelper(private val apiService: ApiService) {
 
     fun updateTransaction(transactionRequest: TransactionRequest , token: String, id: Int): Call<TransactionIdResponse> = apiService.updateTransaction(transactionRequest, token, id)
 
+    fun deleteTransaction(token: String, id: Int): Call<DeleteResponse> = apiService.deleteTransaction(token, id)
 
 
 }

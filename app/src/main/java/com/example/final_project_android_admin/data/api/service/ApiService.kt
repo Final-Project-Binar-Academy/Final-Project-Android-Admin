@@ -111,4 +111,6 @@ interface ApiService {
     @PUT("/api/transaction/admin/update/{id}")
     fun updateTransaction(@Body transactionRequest: TransactionRequest, @Header("Authorization")token: String, @Path("id") id: Int): Call<TransactionIdResponse>
 
+    @DELETE("/api/transaction/admin/delete/{id}")
+    fun deleteTransaction(@Header("Authorization")token: String, @Path("id") id: Int): Call<DeleteResponse>
 }

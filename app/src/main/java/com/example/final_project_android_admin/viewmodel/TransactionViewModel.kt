@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import com.example.final_project_android_admin.data.api.request.TransactionRequest
+import com.example.final_project_android_admin.data.api.response.DeleteResponse
 import com.example.final_project_android_admin.data.api.response.transaction.TransactionIdResponse
 import com.example.final_project_android_admin.data.api.response.transaction.TransactionResponse
 import com.example.final_project_android_admin.data.api.service.ApiClient
@@ -127,23 +128,23 @@ class TransactionViewModel (
             })
     }
 
-//    fun deleteTransaction(token: String, id: Int) {
-//        ApiClient.instance.deleteTransaction(token, id)
-//            .enqueue(object : Callback<DeleteResponse> {
-//                override fun onResponse(
-//                    call: Call<DeleteResponse>,
-//                    response: Response<DeleteResponse>
-//                ) {
-//                    if (response.isSuccessful) {
-//                        val responseBody = response.body()
-//                        if (responseBody != null) {
-//                            transactionRepository.deleteTransaction(token, id)
-//                        }
-//                    }
-//                }
-//
-//                override fun onFailure(call: Call<DeleteResponse>, t: Throwable) {
-//                }
-//            })
-//    }
+    fun deleteTransaction(token: String, id: Int) {
+        ApiClient.instance.deleteTransaction(token, id)
+            .enqueue(object : Callback<DeleteResponse> {
+                override fun onResponse(
+                    call: Call<DeleteResponse>,
+                    response: Response<DeleteResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        val responseBody = response.body()
+                        if (responseBody != null) {
+                            transactionRepository.deleteTransaction(token, id)
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<DeleteResponse>, t: Throwable) {
+                }
+            })
+    }
 }

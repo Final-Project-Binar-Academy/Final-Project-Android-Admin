@@ -58,6 +58,20 @@ class FlightFragment : Fragment(), FlightAdapter.ListFlightInterface {
         sideBar()
         add()
 
+        val delete = arguments?.getInt("id_delete")
+
+        if (delete != null){
+            flightViewModel.getDataStoreToken().observe(viewLifecycleOwner){
+                flightViewModel.deleteFlight("Bearer $it", delete)
+                Snackbar.make(binding.root, "Airport Berhasil Dihapus", Snackbar.LENGTH_SHORT)
+                    .setBackgroundTint(ContextCompat.getColor(requireContext(),
+                        R.color.basic
+                    ))
+                    .setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+                    .show()
+            }
+        }
+
         val adapter: FlightAdapter by lazy {
             FlightAdapter {
 

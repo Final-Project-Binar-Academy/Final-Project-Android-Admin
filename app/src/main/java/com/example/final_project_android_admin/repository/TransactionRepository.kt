@@ -14,4 +14,6 @@ class TransactionRepository (private val apiHelper: ApiHelper) {
     fun updateTransaction(transactionRequest: TransactionRequest, token: String, id: Int) =
         apiHelper.updateTransaction(transactionRequest, token, id)
 
+    fun deleteTransaction(token: String, id: Int) =
+        apiHelper.deleteTransaction(token, id)
 }

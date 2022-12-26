@@ -60,6 +60,20 @@ class TransactionFragment : Fragment(), TransactionAdapter.ListTransactionInterf
         topBar()
         allTransaction()
 
+        val delete = arguments?.getInt("id_delete")
+
+        if (delete != null){
+            transactionViewModel.getDataStoreToken().observe(viewLifecycleOwner){
+                transactionViewModel.deleteTransaction("Bearer $it", delete)
+                Snackbar.make(binding.root, "Airport Berhasil Dihapus", Snackbar.LENGTH_SHORT)
+                    .setBackgroundTint(ContextCompat.getColor(requireContext(),
+                        R.color.basic
+                    ))
+                    .setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+                    .show()
+            }
+        }
+
         binding.btnSuccess.setOnClickListener{
             if (!isSuccess) {
                 isSuccess = true
