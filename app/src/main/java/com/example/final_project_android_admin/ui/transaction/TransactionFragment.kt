@@ -35,6 +35,7 @@ class TransactionFragment : Fragment(), TransactionAdapter.ListTransactionInterf
     private lateinit var transactionViewModel: TransactionViewModel
     private lateinit var viewModel: LoginViewModel
     private lateinit var pref: UserDataStoreManager
+    private var click: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,39 +57,43 @@ class TransactionFragment : Fragment(), TransactionAdapter.ListTransactionInterf
         binding.topAppBar.setNavigationOnClickListener {
             binding.drawerLayout.open()
         }
-
         sideBar()
+        topBar()
+        choice()
 
+        super.onViewCreated(view, savedInstanceState)
+    }
+
+    private fun choice(){
         val adapter: TransactionAdapter by lazy {
             TransactionAdapter {
 
             }
         }
-        binding.apply {
-            transactionViewModel.getDataStoreToken().observe(viewLifecycleOwner) {
-                transactionViewModel.getDataTransaction("Bearer $it")
-            }
-            transactionViewModel.getLiveDataTransaction().observe(viewLifecycleOwner){
-                if (it != null){
-                    adapter.setData(it.data as List<DataTransaction>)
-                }else{
-                    Snackbar.make(binding.root, "Data Gagal Dimuat", Snackbar.LENGTH_SHORT)
-                        .setBackgroundTint(
-                            ContextCompat.getColor(requireContext(),
-                                R.color.button
-                            ))
-                        .setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-                        .show()
+        if (click == false){
+            binding.apply {
+                transactionViewModel.getDataStoreToken().observe(viewLifecycleOwner) {
+                    transactionViewModel.getDataTransaction("Bearer $it")
                 }
+                transactionViewModel.getLiveDataTransaction().observe(viewLifecycleOwner){
+                    if (it != null){
+                        adapter.setData(it.data as List<DataTransaction>)
+                    }else{
+                        Snackbar.make(binding.root, "Data Gagal Dimuat", Snackbar.LENGTH_SHORT)
+                            .setBackgroundTint(
+                                ContextCompat.getColor(requireContext(),
+                                    R.color.button
+                                ))
+                            .setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+                            .show()
+                    }
+                }
+                rvPost.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                rvPost.adapter = adapter
+
+
             }
-            rvPost.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-            rvPost.adapter = adapter
-
-
         }
-
-
-        super.onViewCreated(view, savedInstanceState)
     }
 
     private fun sideBar(){
@@ -136,6 +141,10 @@ class TransactionFragment : Fragment(), TransactionAdapter.ListTransactionInterf
             binding.drawerLayout.close()
             true
         }
+    }
+
+    private fun topBar(){
+
     }
 
     override fun onItemClick(TransactionDetail: DataTransaction) {

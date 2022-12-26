@@ -10,7 +10,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.final_project_android_admin.R
+import com.example.final_project_android_admin.adapter.ListAirplaneAdapter
 import com.example.final_project_android_admin.adapter.ListCompanyAdapter
+import com.example.final_project_android_admin.data.api.response.airplane.DataAirplane
 import com.example.final_project_android_admin.data.api.response.company.DataCompany
 import com.example.final_project_android_admin.data.api.service.ApiClient
 import com.example.final_project_android_admin.data.api.service.ApiHelper
@@ -52,7 +54,8 @@ class AddAirplaneFragment : Fragment() {
         companyViewModel.getAirplaneCompany()
         companyViewModel.LiveDataAirplaneCompany.observe(viewLifecycleOwner){
             if (it != null) {
-                val adapter = ListCompanyAdapter(requireContext(), it as ArrayList<DataCompany>)
+                val listCompany: ArrayList<DataCompany> = it as ArrayList<DataCompany>
+                val adapter = ListCompanyAdapter(requireContext(), listCompany)
                 binding.apply {
                     actvCompany.threshold = 0
                     actvCompany.setAdapter(adapter)

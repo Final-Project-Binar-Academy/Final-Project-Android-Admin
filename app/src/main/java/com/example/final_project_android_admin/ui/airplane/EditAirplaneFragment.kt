@@ -70,7 +70,8 @@ class EditAirplaneFragment : Fragment() {
         companyViewModel.getAirplaneCompany()
         companyViewModel.LiveDataAirplaneCompany.observe(viewLifecycleOwner){
             if (it != null) {
-                val adapter = ListCompanyAdapter(requireContext(), it as ArrayList<DataCompany>)
+                val listCompany: ArrayList<DataCompany> = it as ArrayList<DataCompany>
+                val adapter = ListCompanyAdapter(requireContext(), listCompany)
                 binding.apply {
                     actvCompany.threshold = 0
                     actvCompany.setAdapter(adapter)

@@ -48,4 +48,31 @@ class TransactionViewModel (
     fun getDataStoreToken(): LiveData<String> {
         return pref.getToken.asLiveData()
     }
+
+    private val _transactionFilter: MutableLiveData<TransactionResponse?> = MutableLiveData()
+    fun getTransactionFilter(): MutableLiveData<TransactionResponse?> = _transaction
+
+    fun getDataTransactionFilter(token: String, status: String) {
+        ApiClient.instance.getTransactionFilter(token, status)
+            .enqueue(object : Callback<TransactionResponse> {
+                override fun onResponse(
+                    call: Call<TransactionResponse>,
+                    response: Response<TransactionResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        transactionRepository.getTransactionFilter(token, status)
+                        _transaction.postValue(response.body())
+                    } else {
+                        _transaction.postValue(null)
+                        Log.d("notSuccess", response.body().toString())
+                    }
+                }
+
+                override fun onFailure(call: Call<TransactionResponse>, t: Throwable) {
+                    _transaction.postValue(null)
+                    Log.d("Failed", t.message.toString())
+                }
+
+            })
+    }
 }

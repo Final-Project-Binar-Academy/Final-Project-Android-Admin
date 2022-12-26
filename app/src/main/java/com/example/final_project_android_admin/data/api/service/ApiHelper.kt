@@ -67,4 +67,6 @@ class ApiHelper(private val apiService: ApiService) {
 
 //    transaction
     fun getTransaction(token: String) = apiService.getTransaction(token)
+
+    fun getTransactionFilter(token: String, status: String) = apiService.getTransactionFilter(token, status)
 }

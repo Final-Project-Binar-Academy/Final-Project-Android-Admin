@@ -72,6 +72,7 @@
                             android:layout_marginStart="1dp"
                             android:layout_marginEnd="1dp"
                             android:text="@string/Success"
+                            android:id="@+id/btnSuccess"
                             android:textColor="@color/black"
                             android:fontFamily="@font/rubik_medium"
                             android:textAllCaps="false"
@@ -87,6 +88,7 @@
                             android:layout_marginStart="1dp"
                             android:layout_marginEnd="1dp"
                             android:text="@string/Pending"
+                            android:id="@+id/btnPending"
                             android:textColor="@color/black"
                             android:fontFamily="@font/rubik_medium"
                             android:textAllCaps="false"
@@ -99,11 +101,11 @@
                             />
 
                         <com.google.android.material.button.MaterialButton
-                            android:id="@+id/canceled"
                             android:backgroundTint="@color/white"
                             app:strokeColor="@color/abu"
                             android:gravity="center"
                             android:text="@string/Canceled"
+                            android:id="@+id/btnCanceled"
                             android:textColor="@color/black"
                             android:fontFamily="@font/rubik_medium"
                             android:textAllCaps="false"

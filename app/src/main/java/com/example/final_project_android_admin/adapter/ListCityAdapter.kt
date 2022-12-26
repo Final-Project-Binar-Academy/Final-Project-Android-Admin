@@ -44,6 +44,7 @@ class ListCityAdapter(context: Context, airports: ArrayList<DataAirport>) :
             if (constraint == null) return FilterResults()
 
             val result = FilterResults()
+            airport.clear()
 
             if (constraint.isNotEmpty()) {
 
@@ -61,6 +62,7 @@ class ListCityAdapter(context: Context, airports: ArrayList<DataAirport>) :
             }
             return result
         }
+
 
         override fun publishResults(constraint: CharSequence?, results: FilterResults) {
             if (results.values == null) return

@@ -131,7 +131,8 @@ class EditFlightFragment : Fragment() {
         airplaneViewModel.getListAirplane()
         airplaneViewModel.LiveDataListAirplane.observe(viewLifecycleOwner){
             if (it != null){
-                val airplaneAdapter = ListAirplaneAdapter(requireContext(), it as ArrayList<DataAirplane>)
+                val listAirplane: ArrayList<DataAirplane> = it as ArrayList<DataAirplane>
+                val airplaneAdapter = ListAirplaneAdapter(requireContext(), listAirplane)
                 binding.apply {
                     actvAirplane.threshold = 0
                     actvAirplane.setAdapter(airplaneAdapter)
@@ -155,7 +156,8 @@ class EditFlightFragment : Fragment() {
         airportViewModel.getCityAirport()
         airportViewModel.LiveDataCityAirport.observe(viewLifecycleOwner){
             if (it != null) {
-                val cityAdapter = ListCityAdapter(requireContext(), it as ArrayList<DataAirport>)
+                val listAirport: ArrayList<DataAirport> = it as ArrayList<DataAirport>
+                val cityAdapter = ListCityAdapter(requireContext(), listAirport)
                 binding.apply {
                     actvOrigin.threshold = 0
                     actvOrigin.setAdapter(cityAdapter)
