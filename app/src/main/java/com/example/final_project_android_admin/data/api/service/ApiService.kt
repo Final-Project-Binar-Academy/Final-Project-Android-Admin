@@ -11,6 +11,7 @@ import com.example.final_project_android_admin.data.api.response.company.Company
 import com.example.final_project_android_admin.data.api.response.company.CompanyResponse
 import com.example.final_project_android_admin.data.api.response.flight.FlightIdResponse
 import com.example.final_project_android_admin.data.api.response.flight.FlightResponse
+import com.example.final_project_android_admin.data.api.response.transaction.TransactionIdResponse
 import com.example.final_project_android_admin.data.api.response.transaction.TransactionResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -101,6 +102,13 @@ interface ApiService {
     @GET("/api/transaction/admin/")
     fun getTransaction(@Header("Authorization")token: String): Call<TransactionResponse>
 
+    @GET("/api/transaction/admin/{id}")
+    fun getTransactionDetail(@Header("Authorization")token: String, @Path("id") id: Int): Call<TransactionIdResponse>
+
     @GET("/api/transaction/admin/filter")
     fun getTransactionFilter(@Header("Authorization")token: String, @Query("status")status: String): Call<TransactionResponse>
+
+    @PUT("/api/transaction/admin/update/{id}")
+    fun updateTransaction(@Body transactionRequest: TransactionRequest, @Header("Authorization")token: String, @Path("id") id: Int): Call<TransactionIdResponse>
+
 }

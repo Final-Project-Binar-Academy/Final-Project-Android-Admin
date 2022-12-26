@@ -5,6 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
+import com.example.final_project_android_admin.data.api.request.TransactionRequest
+import com.example.final_project_android_admin.data.api.response.transaction.TransactionIdResponse
 import com.example.final_project_android_admin.data.api.response.transaction.TransactionResponse
 import com.example.final_project_android_admin.data.api.service.ApiClient
 import com.example.final_project_android_admin.repository.TransactionRepository
@@ -75,4 +77,73 @@ class TransactionViewModel (
 
             })
     }
+
+    private val getDetailTransaction: MutableLiveData<TransactionIdResponse?> = MutableLiveData()
+    val transactionDetail: LiveData<TransactionIdResponse?> get() = getDetailTransaction
+
+    fun getTransactionDetail(token: String, id : Int){
+        ApiClient.instance.getTransactionDetail(token, id)
+            .enqueue(object : Callback <TransactionIdResponse> {
+                override fun onResponse(
+                    call: Call<TransactionIdResponse>,
+                    response: Response<TransactionIdResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        val responseBody = response.body()
+                        if (responseBody != null) {
+                            transactionRepository.getDetailTransaction(token, id)
+                            getDetailTransaction.postValue(responseBody)
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<TransactionIdResponse>, t: Throwable) {
+                }
+            })
+    }
+
+    fun updateTransaction(birthDate: String, firstname: String,
+                        lastname: String, _nik: String, ticketBack: Int,
+                        ticketGo: Int, tripId: Int, token: String, id: Int) {
+        ApiClient.instance.updateTransaction(
+            TransactionRequest(birthDate, firstname, lastname, _nik, ticketBack, ticketGo, tripId), token, id)
+            .enqueue(object : Callback<TransactionIdResponse> {
+                override fun onResponse(
+                    call: Call<TransactionIdResponse>,
+                    response: Response<TransactionIdResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        val responseBody = response.body()
+                        if (responseBody != null) {
+                            transactionRepository.updateTransaction(
+                                TransactionRequest(birthDate, firstname, lastname, _nik, ticketBack, ticketGo, tripId
+                            ), token, id)
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<TransactionIdResponse>, t: Throwable) {
+                }
+            })
+    }
+
+//    fun deleteTransaction(token: String, id: Int) {
+//        ApiClient.instance.deleteTransaction(token, id)
+//            .enqueue(object : Callback<DeleteResponse> {
+//                override fun onResponse(
+//                    call: Call<DeleteResponse>,
+//                    response: Response<DeleteResponse>
+//                ) {
+//                    if (response.isSuccessful) {
+//                        val responseBody = response.body()
+//                        if (responseBody != null) {
+//                            transactionRepository.deleteTransaction(token, id)
+//                        }
+//                    }
+//                }
+//
+//                override fun onFailure(call: Call<DeleteResponse>, t: Throwable) {
+//                }
+//            })
+//    }
 }

@@ -11,6 +11,7 @@ import com.example.final_project_android_admin.data.api.response.company.Company
 import com.example.final_project_android_admin.data.api.response.company.CompanyResponse
 import com.example.final_project_android_admin.data.api.response.flight.FlightIdResponse
 import com.example.final_project_android_admin.data.api.response.flight.FlightResponse
+import com.example.final_project_android_admin.data.api.response.transaction.TransactionIdResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -68,5 +69,12 @@ class ApiHelper(private val apiService: ApiService) {
 //    transaction
     fun getTransaction(token: String) = apiService.getTransaction(token)
 
+    fun getDetailTransaction(token: String, id: Int): Call<TransactionIdResponse> = apiService.getTransactionDetail(token, id)
+
     fun getTransactionFilter(token: String, status: String) = apiService.getTransactionFilter(token, status)
+
+    fun updateTransaction(transactionRequest: TransactionRequest , token: String, id: Int): Call<TransactionIdResponse> = apiService.updateTransaction(transactionRequest, token, id)
+
+
+
 }
