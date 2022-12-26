@@ -14,4 +14,5 @@
     <color name="button_logout">#3F3F89</color>
     <color name="edit">#92FDA9</color>
     <color name="delete">#FD929B</color>
+    <color name="text_blue">#AAE6E3</color>
 </resources>

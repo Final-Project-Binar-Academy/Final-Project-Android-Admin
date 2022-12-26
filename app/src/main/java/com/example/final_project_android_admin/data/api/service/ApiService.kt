@@ -11,6 +11,7 @@ import com.example.final_project_android_admin.data.api.response.company.Company
 import com.example.final_project_android_admin.data.api.response.company.CompanyResponse
 import com.example.final_project_android_admin.data.api.response.flight.FlightIdResponse
 import com.example.final_project_android_admin.data.api.response.flight.FlightResponse
+import com.example.final_project_android_admin.data.api.response.transaction.TransactionResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -96,4 +97,7 @@ interface ApiService {
     @DELETE("/api/ticket/delete/{id}")
     fun deleteFlight(@Header("Authorization")token: String, @Path("id") id: Int): Call<DeleteResponse>
 
+//    transaction
+    @GET("/api/transaction/admin/")
+    fun getTransaction(@Header("Authorization")token: String): Call<TransactionResponse>
 }

@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="dataBinding"
+            type="com.example.final_project_android_admin.data.api.response.transaction.DataTransaction" />
+    </data>
+
+    <RelativeLayout
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="15dp"
+            app:cardElevation="0dp"
+            app:cardPreventCornerOverlap="false"
+            app:cardUseCompatPadding="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:paddingHorizontal="20dp"
+                    android:layout_marginTop="165dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/tiket1"
+                                android:textColor="@color/black"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="0dp"
+                                android:fontFamily="@font/rubik_medium"
+                                android:text="Ticket"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/ticketCode"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:textColor="@color/black"
+                                android:fontFamily="@font/rubik_medium"
+                                android:text="@{dataBinding.from.code}"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/departureDate"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="0dp"
+                                android:fontFamily="@font/rubik_medium"
+                                android:text="@{dataBinding.from.departureDate}"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/airplane1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="0dp"
+                                android:fontFamily="@font/rubik_medium"
+                                android:text="@{dataBinding.from.airplane.airplaneName}"
+                                android:textSize="12sp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:gravity="right"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/tiket2"
+                                android:textColor="@color/black"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="0dp"
+                                android:fontFamily="@font/rubik_medium"
+                                android:text="Ticket"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/ticketCode2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:fontFamily="@font/rubik_medium"
+                                android:text="@{dataBinding.to.code}"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/departureDate2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="0dp"
+                                android:fontFamily="@font/rubik_medium"
+                                android:text="@{dataBinding.to.departureDate}"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/airplane2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="0dp"
+                                android:fontFamily="@font/rubik_medium"
+                                android:text="@{dataBinding.to.airplane.airplaneName}"
+                                android:textSize="12sp" />
+
+                        </LinearLayout>
+
+                </LinearLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="20dp"
+                    android:paddingBottom="15dp"
+                    android:layout_marginStart="100dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:backgroundTint="@color/birutua"
+                    android:text="@{dataBinding.status}"
+                    android:textAllCaps="false"
+                    app:cornerRadius="100dp"
+                    android:padding="10dp" />
+
+        </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="165dp"
+            app:cardBackgroundColor="@color/button"
+            app:cardCornerRadius="15dp"
+            app:cardElevation="0dp"
+            app:cardPreventCornerOverlap="false"
+            app:cardUseCompatPadding="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/transactionCode"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:textSize="18dp"
+                        android:text="@{dataBinding.transactionCode}"/>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="48dp"
+                        android:layout_gravity="end"
+                        android:layout_marginStart="110dp"
+                        android:paddingEnd="15dp"
+                        android:text="@{dataBinding.typeTrip.type}"
+                        android:textAllCaps="false"
+                        app:cornerRadius="100dp"
+                        android:padding="10dp"
+                        app:icon="@drawable/person"
+                        app:iconSize="25dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:paddingHorizontal="20dp"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:textColor="@color/abu"
+                            android:text="User"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/rubik_medium"
+                            android:textColor="@color/white"
+                            android:text="@{dataBinding.user.firstName}"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/email"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/rubik_medium"
+                            android:textColor="@color/white"
+                            android:text="@{dataBinding.user.email}"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_marginStart="50dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:textColor="@color/abu"
+                            android:text="Passenger"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/namePassenger"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/rubik_medium"
+                            android:textColor="@color/white"
+                            android:text="@{dataBinding.passenger.firstName}"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/NIK"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/rubik_medium"
+                            android:textColor="@color/white"
+                            android:text="@{dataBinding.passenger.NIK}"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </RelativeLayout>
+</layout>

@@ -5,6 +5,7 @@ import androidx.lifecycle.*
 import com.example.final_project_android_admin.data.api.request.FlightRequest
 import com.example.final_project_android_admin.data.api.response.BaseResponse
 import com.example.final_project_android_admin.data.api.response.DeleteResponse
+import com.example.final_project_android_admin.data.api.response.flight.DataFlight
 import com.example.final_project_android_admin.data.api.response.flight.FlightIdResponse
 import com.example.final_project_android_admin.data.api.response.flight.FlightResponse
 import com.example.final_project_android_admin.data.api.service.ApiClient
@@ -77,6 +78,27 @@ class FlightViewModel (
     fun getDataStoreToken(): LiveData<String> {
         return pref.getToken.asLiveData()
     }
+
+    private val _flightList = MutableLiveData<List<DataFlight>?>()
+    val LiveDataListFlight: LiveData<List<DataFlight>?> = _flightList
+
+    fun getListFlight(){
+        ApiClient.instance.getFlight().enqueue(object : Callback<FlightResponse> {
+            override fun onResponse(
+                call: Call<FlightResponse>,
+                response: Response<FlightResponse>
+            ) {
+                if (response.isSuccessful) {
+                    _flightList.postValue(response.body()!!.data)
+                }
+            }
+
+            override fun onFailure(call: Call<FlightResponse>, t: Throwable) {
+                Log.e("Error : ", "onFailure: ${t.message}")
+            }
+        })
+    }
+
 
     private val getDetailFlight: MutableLiveData<FlightIdResponse?> = MutableLiveData()
     val flightDetail: LiveData<FlightIdResponse?> get() = getDetailFlight

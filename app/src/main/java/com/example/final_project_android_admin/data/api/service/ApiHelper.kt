@@ -65,4 +65,6 @@ class ApiHelper(private val apiService: ApiService) {
 
     fun deleteFlight(token: String, id: Int): Call<DeleteResponse> = apiService.deleteFlight(token, id)
 
+//    transaction
+    fun getTransaction(token: String) = apiService.getTransaction(token)
 }

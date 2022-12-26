@@ -1,14 +1,142 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.TransactionFragment">
+    tools:context=".ui.transaction.TransactionFragment"
+    android:background="@drawable/bg_light"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawerLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        tools:openDrawer="start">
 
-</FrameLayout>
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true">
+
+            <com.google.android.material.appbar.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.AppBarLayout.PrimarySurface"
+                android:fitsSystemWindows="true">
+
+                <com.google.android.material.appbar.MaterialToolbar
+                    android:id="@+id/topAppBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:title="@string/flight"
+                    app:navigationIcon="@drawable/ic_baseline_menu_24"
+                    style="@style/Widget.MaterialComponents.Toolbar.PrimarySurface"
+                    android:background="@android:color/transparent"
+                    android:elevation="0dp" />
+
+            </com.google.android.material.appbar.AppBarLayout>
+
+            <LinearLayout
+            android:background="@drawable/bg_home"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:gravity="center"
+                android:layout_marginTop="50dp"
+                android:orientation="horizontal"
+                android:padding="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_height="70dp"
+                    android:textSize="14sp"
+                    android:textAlignment="center"
+                    android:textAllCaps="false"
+                    android:textColor="#FFF5F1"
+                    app:cardCornerRadius="15dp"
+                    app:cardBackgroundColor="@color/white">
+
+                    <LinearLayout
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:layout_marginStart="1dp"
+                            android:layout_marginEnd="1dp"
+                            android:text="@string/Success"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/rubik_medium"
+                            android:textAllCaps="false"
+                            android:textSize="14sp"
+                            app:strokeColor="@color/abu"
+                            android:gravity="center"
+                            android:backgroundTint="@color/white"
+                            android:layout_width="110dp"
+                            android:layout_height="70dp"
+                            />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:layout_marginStart="1dp"
+                            android:layout_marginEnd="1dp"
+                            android:text="@string/Pending"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/rubik_medium"
+                            android:textAllCaps="false"
+                            android:textSize="14sp"
+                            app:strokeColor="@color/abu"
+                            android:gravity="center"
+                            android:backgroundTint="@color/white"
+                            android:layout_width="110dp"
+                            android:layout_height="70dp"
+                            />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/canceled"
+                            android:backgroundTint="@color/white"
+                            app:strokeColor="@color/abu"
+                            android:gravity="center"
+                            android:text="@string/Canceled"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/rubik_medium"
+                            android:textAllCaps="false"
+                            android:textSize="14sp"
+                            android:layout_width="110dp"
+                            android:layout_height="70dp"
+                            />
+
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+            </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvPost"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/list_transaction"/>
+
+    </LinearLayout>
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/navigationView"
+            app:menu="@menu/menu_main"
+            app:headerLayout="@layout/header_navigation"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start" />
+
+    </androidx.drawerlayout.widget.DrawerLayout>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

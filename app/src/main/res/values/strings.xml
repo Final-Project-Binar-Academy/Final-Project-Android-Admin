@@ -89,6 +89,11 @@
     <string name="flightFrom">Flight From</string>
     <string name="flightTo">Flight To</string>
     <string name="code">Ticket Code</string>
+    <string name="new_flight">New Flight</string>
+    <string name="total_flight">Total Flight</string>
+    <string name="Success">Success</string>
+    <string name="Pending">Pending</string>
+    <string name="Canceled">Canceled</string>
     <string-array name="kelas">
         <item name="eksekutif">Eksekutif</item>
         <item name="bisnis">Bisnis</item>
