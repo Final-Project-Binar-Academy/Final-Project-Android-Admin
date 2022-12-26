@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
+<layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     tools:context=".ui.airplane.EditAirplaneFragment"
     android:background="@drawable/bg_light"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
 
     <androidx.drawerlayout.widget.DrawerLayout
         android:id="@+id/drawerLayout"
@@ -104,7 +103,8 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:inputType="none"
-                        android:text="@string/company_name"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/black"
                         />
 
                     <!--                    <com.anthonyfdev.dropdownview.DropDownView-->
@@ -136,4 +136,4 @@
     </androidx.drawerlayout.widget.DrawerLayout>
 
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

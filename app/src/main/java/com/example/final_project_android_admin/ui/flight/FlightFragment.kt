@@ -42,7 +42,7 @@ class FlightFragment : Fragment(), FlightAdapter.ListFlightInterface {
         )[LoginViewModel::class.java]
 
         flightViewModel = ViewModelProvider(
-            this, FlightViewModelFactory(ApiHelper(ApiClient.instance))
+            this, FlightViewModelFactory(ApiHelper(ApiClient.instance), pref)
         )[FlightViewModel::class.java]
 
         _binding = FragmentFlightBinding.inflate(inflater,container,false)
@@ -57,6 +57,20 @@ class FlightFragment : Fragment(), FlightAdapter.ListFlightInterface {
 
         sideBar()
         add()
+
+        val delete = arguments?.getInt("id_delete")
+
+        if (delete != null){
+            flightViewModel.getDataStoreToken().observe(viewLifecycleOwner){
+                flightViewModel.deleteFlight("Bearer $it", delete)
+                Snackbar.make(binding.root, "Airport Berhasil Dihapus", Snackbar.LENGTH_SHORT)
+                    .setBackgroundTint(ContextCompat.getColor(requireContext(),
+                        R.color.basic
+                    ))
+                    .setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+                    .show()
+            }
+        }
 
         val adapter: FlightAdapter by lazy {
             FlightAdapter {
@@ -135,7 +149,7 @@ class FlightFragment : Fragment(), FlightAdapter.ListFlightInterface {
 
     private fun add(){
         binding.btnAdd.setOnClickListener{
-            findNavController().navigate(R.id.action_airplaneFragment_to_addAirplaneFragment)
+            findNavController().navigate(R.id.action_flightFragment_to_addFlightFragment)
         }
     }
 

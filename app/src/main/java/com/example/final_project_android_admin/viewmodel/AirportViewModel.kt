@@ -55,6 +55,26 @@ class AirportViewModel(
             })
     }
 
+    private val _airportCity = MutableLiveData<List<DataAirport>?>()
+    val LiveDataCityAirport: LiveData<List<DataAirport>?> = _airportCity
+
+    fun getCityAirport(){
+        ApiClient.instance.getAirport().enqueue(object : Callback<AirportResponse> {
+            override fun onResponse(
+                call: Call<AirportResponse>,
+                response: Response<AirportResponse>
+            ) {
+                if (response.isSuccessful) {
+                    _airportCity.postValue(response.body()!!.data)
+                }
+            }
+
+            override fun onFailure(call: Call<AirportResponse>, t: Throwable) {
+                Log.e("Error : ", "onFailure: ${t.message}")
+            }
+        })
+    }
+
     val airportResult: MutableLiveData<BaseResponse<AirportResponse>> = MutableLiveData()
 
     fun createAirport(airport_name: String, _city: String, _cityCode: String, token: String) {

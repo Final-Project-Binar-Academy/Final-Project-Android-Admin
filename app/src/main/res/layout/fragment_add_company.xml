@@ -50,8 +50,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="250dp">
 
+                    <ImageView
+                        android:id="@+id/ivEditImage"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        tools:src="@tools:sample/avatars" />
+
                     <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btnUpload"
+                        android:id="@+id/btnSelectImage"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -66,7 +73,6 @@
 
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/txtCompany"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
@@ -76,11 +82,12 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_gravity="center"
+                        android:id="@+id/txtCompany"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:maxLines="1"
-                        android:textColor="#F6F4F4"
-                        android:textColorHint="#FFFFFF"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/black"
                         />
 
                 </com.google.android.material.textfield.TextInputLayout>

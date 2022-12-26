@@ -28,11 +28,6 @@
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
     <fragment
-        android:id="@+id/transactionFragment"
-        android:name="com.example.final_project_android_admin.ui.TransactionFragment"
-        android:label="fragment_transaction"
-        tools:layout="@layout/fragment_transaction" />
-    <fragment
         android:id="@+id/flightFragment"
         android:name="com.example.final_project_android_admin.ui.flight.FlightFragment"
         android:label="fragment_flight"
@@ -151,5 +146,22 @@
         <action
             android:id="@+id/action_editCompanyFragment_to_companyFragment"
             app:destination="@id/companyFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/transactionFragment"
+        android:name="com.example.final_project_android_admin.ui.transaction.TransactionFragment"
+        android:label="fragment_transaction"
+        tools:layout="@layout/fragment_transaction" >
+        <action
+            android:id="@+id/action_transactionFragment_to_editTransactionFragment"
+            app:destination="@id/editTransactionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editTransactionFragment"
+        android:name="com.example.final_project_android_admin.ui.transaction.EditTransactionFragment"
+        android:label="EditTransactionFragment" >
+        <action
+            android:id="@+id/action_editTransactionFragment_to_transactionFragment"
+            app:destination="@id/transactionFragment" />
     </fragment>
 </navigation>

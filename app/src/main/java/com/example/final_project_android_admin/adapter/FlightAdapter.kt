@@ -3,15 +3,14 @@ package com.example.final_project_android_admin.adapter
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.final_project_android_admin.R
 import com.example.final_project_android_admin.data.api.response.flight.DataFlight
 import com.example.final_project_android_admin.databinding.ListFlightBinding
-import java.text.DateFormat
 import java.text.SimpleDateFormat
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 import java.util.*
 
 class FlightAdapter (private val itemClick: (DataFlight) -> Unit) : RecyclerView.Adapter<FlightAdapter.ViewHolder>(){
@@ -42,12 +41,33 @@ class FlightAdapter (private val itemClick: (DataFlight) -> Unit) : RecyclerView
                 itemView.setOnClickListener { itemClick(this) }
                 binding.dataBinding = item
 
-                binding.departureDate.text = item.departureDate.toString()
-                binding.departureHour.text = item.departureTime.toString()
-                binding.destinationDate.text = item.arrivalDate.toString()
-                binding.destinationHour.text = item.arrivalTime.toString()
-                binding.kelas2.text = item.classX.toString()
+                var simpleDateFormat = SimpleDateFormat("E, dd LLL")
+                var departure : Date? = item.departureDate
+                var departureDate = simpleDateFormat.format(departure?.time).toString()
 
+                var arrival : Date? = item.arrivalDate
+                var arrivalDate = simpleDateFormat.format(arrival?.time).toString()
+
+                binding.departureDate.text = departureDate
+                binding.departureTime.text = item.departureTime.toString()
+                binding.arrivalDate.text = arrivalDate
+                binding.arrivalTime.text = item.arrivalTime.toString()
+                binding.kelas.text = item.classX.toString()
+                binding.btnKelas.text = item.classX.toString()
+                binding.price.text = item.price.toString()
+
+                binding.btnEdit.setOnClickListener{
+                    var bund = Bundle()
+                    item.id?.let { it1 -> bund.putInt("id", it1) }
+                    Navigation.findNavController(it)
+                        .navigate(R.id.action_flightFragment_to_editFlightFragment, bund)
+                }
+
+                binding.btnDelete.setOnClickListener{
+                    var bund = Bundle()
+                    item.id?.let { it1 -> bund.putInt("id_delete", it1) }
+                    Navigation.findNavController(it).navigate(R.id.flightFragment, bund)
+                }
             }
 
         }

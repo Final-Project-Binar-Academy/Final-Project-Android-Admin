@@ -12,7 +12,9 @@ import com.example.final_project_android_admin.data.api.service.ApiClient
 import com.example.final_project_android_admin.data.api.service.ApiHelper
 import com.example.final_project_android_admin.databinding.FragmentHomeBinding
 import com.example.final_project_android_admin.utils.UserDataStoreManager
+import com.example.final_project_android_admin.viewmodel.FlightViewModel
 import com.example.final_project_android_admin.viewmodel.LoginViewModel
+import com.example.final_project_android_admin.viewmodel.factory.FlightViewModelFactory
 import com.example.final_project_android_admin.viewmodel.factory.UserViewModelFactory
 
 class HomeFragment : Fragment() {
@@ -20,6 +22,7 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var viewModel: LoginViewModel
     private lateinit var pref: UserDataStoreManager
+    private lateinit var flightViewModel: FlightViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,6 +34,9 @@ class HomeFragment : Fragment() {
         viewModel = ViewModelProvider(
             this, UserViewModelFactory(ApiHelper(ApiClient.instance), pref)
         )[LoginViewModel::class.java]
+        flightViewModel = ViewModelProvider(
+            this, FlightViewModelFactory(ApiHelper(ApiClient.instance), pref)
+        )[FlightViewModel::class.java]
 
         _binding = FragmentHomeBinding.inflate(inflater,container,false)
         return binding.root
@@ -41,6 +47,20 @@ class HomeFragment : Fragment() {
         binding.topAppBar.setNavigationOnClickListener {
             binding.drawerLayout.open()
         }
+        sideBar()
+        flight()
+
+        super.onViewCreated(view, savedInstanceState)
+    }
+
+    private fun flight() {
+        flightViewModel.getDataFlight()
+        flightViewModel.getLiveDataFlight().observe(viewLifecycleOwner){
+            binding.totalFlight.text = it?.totalData.toString()
+        }
+    }
+
+    private fun sideBar(){
         binding.navigationView.setNavigationItemSelectedListener { menuItem ->
             // Handle menu item selected
             menuItem.isChecked = true
@@ -85,13 +105,6 @@ class HomeFragment : Fragment() {
             binding.drawerLayout.close()
             true
         }
-
-        sideBar()
-
-        super.onViewCreated(view, savedInstanceState)
-    }
-
-    private fun sideBar(){
 
     }
 

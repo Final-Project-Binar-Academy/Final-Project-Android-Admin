@@ -47,7 +47,6 @@
                 android:layout_height="match_parent">
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/txt_airplane"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
@@ -57,17 +56,17 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_gravity="center"
+                        android:id="@+id/txt_airplane"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:maxLines="1"
-                        android:textColor="#F6F4F4"
-                        android:textColorHint="#FFFFFF"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/black"
                         />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/txt_airplane_code"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
@@ -77,11 +76,12 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_gravity="center"
+                        android:id="@+id/txt_airplane_code"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:maxLines="1"
-                        android:textColor="#F6F4F4"
-                        android:textColorHint="#FFFFFF"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/black"
                         />
 
                 </com.google.android.material.textfield.TextInputLayout>

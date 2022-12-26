@@ -86,10 +86,30 @@
     <string name="seat">Seat Number</string>
     <string name="capacity">Capacity</string>
     <string name="logout">Logout</string>
-
-
-    <string-array name="company">
-        <item name="company1">Lion Air</item>
-        <item name="company2">Garuda</item>
+    <string name="flightFrom">Flight From</string>
+    <string name="flightTo">Flight To</string>
+    <string name="code">Ticket Code</string>
+    <string name="new_flight">New Flight</string>
+    <string name="total_flight">Total Flight</string>
+    <string name="Success">Success</string>
+    <string name="Pending">Pending</string>
+    <string name="Canceled">Canceled</string>
+    <string name="add_transaction">New Transaction</string>
+    <string name="edit_transaction">Edit Transaction</string>
+    <string name="firstname">Firstname</string>
+    <string name="lastname">Lastname</string>
+    <string name="ticketCode">Ticket Code Go</string>
+    <string name="tipe">Type</string>
+    <string name="ticketCodeBack">Ticket Code Back</string>
+    <string name="nik">NIK</string>
+    <string name="birthday">Birthday</string>
+    <string-array name="kelas">
+        <item name="eksekutif">Eksekutif</item>
+        <item name="bisnis">Bisnis</item>
+        <item name="ekonomi">Ekonomi</item>
+    </string-array>
+    <string-array name="tipe">
+        <item name="oneway">Oneway</item>
+        <item name="roundtrip">Round trip</item>
     </string-array>
 </resources>

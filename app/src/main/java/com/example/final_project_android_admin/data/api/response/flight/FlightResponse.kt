@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName
 @Keep
 data class FlightResponse(
     @SerializedName("data")
-    var `data`: List<DataFlight?>?,
+    var `data`: List<DataFlight>?,
     @SerializedName("message")
     var message: String?,
     @SerializedName("status")

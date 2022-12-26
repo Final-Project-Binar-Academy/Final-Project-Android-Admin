@@ -3,6 +3,7 @@ package com.example.final_project_android_admin.data.api.response.flight
 
 import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
+import java.util.*
 
 @Keep
 data class DataFlight(
@@ -11,7 +12,7 @@ data class DataFlight(
     @SerializedName("airplaneId")
     var airplaneId: Int?,
     @SerializedName("arrivalDate")
-    var arrivalDate: String?,
+    var arrivalDate: Date?,
     @SerializedName("arrivalTime")
     var arrivalTime: String?,
     @SerializedName("capacity")
@@ -23,7 +24,7 @@ data class DataFlight(
     @SerializedName("createdAt")
     var createdAt: String?,
     @SerializedName("departureDate")
-    var departureDate: String?,
+    var departureDate: Date?,
     @SerializedName("departureTime")
     var departureTime: String?,
     @SerializedName("destination")
@@ -38,8 +39,6 @@ data class DataFlight(
     var origin: Origin?,
     @SerializedName("price")
     var price: Int?,
-    @SerializedName("seatNumber")
-    var seatNumber: String?,
     @SerializedName("updatedAt")
     var updatedAt: String?
 )
