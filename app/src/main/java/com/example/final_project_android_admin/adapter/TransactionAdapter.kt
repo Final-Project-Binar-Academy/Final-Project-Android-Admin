@@ -14,7 +14,7 @@ import com.example.final_project_android_admin.databinding.ListTransactionBindin
 import java.text.SimpleDateFormat
 import java.util.*
 
-class TransactionAdapter(private val itemClick: (DataTransaction) -> Unit) : RecyclerView.Adapter<TransactionAdapter.ViewHolder>(){
+class TransactionAdapter(private val itemClick: TransactionAdapter.ListTransactionInterface) : RecyclerView.Adapter<TransactionAdapter.ViewHolder>(){
 
     private val differCallback = object : DiffUtil.ItemCallback<DataTransaction>(){
         override fun areItemsTheSame(
@@ -34,12 +34,11 @@ class TransactionAdapter(private val itemClick: (DataTransaction) -> Unit) : Rec
     }
     private val differ = AsyncListDiffer(this, differCallback)
 
-    class ViewHolder(private val binding: ListTransactionBinding, val itemClick: (DataTransaction) -> Unit) :
+    inner class ViewHolder(private val binding: ListTransactionBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: DataTransaction) {
             with(item) {
-                itemView.setOnClickListener { itemClick(this) }
                 binding.dataBinding = item
 
                 var simpleDateFormat = SimpleDateFormat("E, dd LLL")
@@ -53,16 +52,11 @@ class TransactionAdapter(private val itemClick: (DataTransaction) -> Unit) : Rec
                 binding.date2.text = date2
 
                 binding.btnEdit.setOnClickListener{
-                    var bund = Bundle()
-                    item.id?.let { it1 -> bund.putInt("id", it1) }
-                    Navigation.findNavController(it)
-                        .navigate(R.id.action_transactionFragment_to_editTransactionFragment, bund)
+                    item.id?.let { it1 -> itemClick.edit(it1) }
                 }
 
                 binding.btnDelete.setOnClickListener{
-                    var bund = Bundle()
-                    item.id?.let { it1 -> bund.putInt("id_delete", it1) }
-                    Navigation.findNavController(it).navigate(R.id.airportFragment, bund)
+                    item.id?.let { it1 -> itemClick.delete(it1) }
                 }
             }
 
@@ -71,7 +65,7 @@ class TransactionAdapter(private val itemClick: (DataTransaction) -> Unit) : Rec
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ListTransactionBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder(binding, itemClick)
+        return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -88,6 +82,7 @@ class TransactionAdapter(private val itemClick: (DataTransaction) -> Unit) : Rec
     }
 
     interface ListTransactionInterface {
-        fun onItemClick(TransactionDetail: DataTransaction)
+        fun edit(id: Int)
+        fun delete(id:Int)
     }
 }

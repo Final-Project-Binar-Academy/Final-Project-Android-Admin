@@ -1,5 +1,6 @@
 package com.example.final_project_android_admin.ui.airplane
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -29,6 +30,7 @@ class AirplaneFragment : Fragment(), AirplaneAdapter.ListAirplaneInterface {
     private lateinit var airplaneViewModel: AirplaneViewModel
     private lateinit var viewModel: LoginViewModel
     private lateinit var pref: UserDataStoreManager
+    private lateinit var builder : AlertDialog.Builder
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,6 +45,7 @@ class AirplaneFragment : Fragment(), AirplaneAdapter.ListAirplaneInterface {
         airplaneViewModel = ViewModelProvider(
             this, AirplaneViewModelFactory(ApiHelper(ApiClient.instance), pref)
         )[AirplaneViewModel::class.java]
+        builder = AlertDialog.Builder(context)
 
         _binding = FragmentAirplaneBinding.inflate(inflater,container,false)
         return binding.root
@@ -54,28 +57,10 @@ class AirplaneFragment : Fragment(), AirplaneAdapter.ListAirplaneInterface {
             binding.drawerLayout.open()
         }
 
-        val delete = arguments?.getInt("id_delete")
-
-        if (delete != null){
-            airplaneViewModel.getDataStoreToken().observe(viewLifecycleOwner){
-                airplaneViewModel.deleteAirplane("Bearer $it", delete)
-                Snackbar.make(binding.root, "Airport Berhasil Dihapus", Snackbar.LENGTH_SHORT)
-                    .setBackgroundTint(ContextCompat.getColor(requireContext(),
-                        R.color.basic
-                    ))
-                    .setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-                    .show()
-            }
-        }
-
         sideBar()
         add()
 
-        val adapter: AirplaneAdapter by lazy {
-            AirplaneAdapter {
-
-            }
-        }
+        val adapter = AirplaneAdapter(this)
 
         binding.apply {
             airplaneViewModel.getDataAirplane()
@@ -153,7 +138,28 @@ class AirplaneFragment : Fragment(), AirplaneAdapter.ListAirplaneInterface {
         }
     }
 
-    override fun onItemClick(AirplaneDetail: DataAirplane) {
-        TODO("Not yet implemented")
+    override fun edit(id: Int) {
+        val bund = Bundle()
+        bund.putInt("id", id)
+        findNavController().navigate(R.id.action_companyFragment_to_editCompanyFragment, bund)
+    }
+
+    override fun delete(id: Int) {
+        airplaneViewModel.getDataStoreToken().observe(viewLifecycleOwner){
+            builder.setTitle("Warning!")
+                .setMessage("Ingin menghapus Airplane ini?")
+                .setCancelable(true)
+                .setPositiveButton("Ya"){ _, _ ->
+                    airplaneViewModel.deleteAirplane("Bearer $it", id)
+                    Snackbar.make(binding.root, "Airplane Berhasil Dihapus", Snackbar.LENGTH_SHORT)
+                        .setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.basic))
+                        .setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+                        .show()
+                }
+                .setNegativeButton("Tidak") { dialog, _ ->
+                    dialog.dismiss()
+                }
+                .show()
+        }
     }
 }

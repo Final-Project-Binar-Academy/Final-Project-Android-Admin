@@ -12,7 +12,7 @@ import com.example.final_project_android_admin.data.api.response.airport.DataAir
 import com.example.final_project_android_admin.databinding.ListAirportBinding
 import com.example.final_project_android_admin.ui.airport.AirportFragmentDirections
 
-class AirportAdapter (private val itemClick: (DataAirport) -> Unit) : RecyclerView.Adapter<AirportAdapter.ViewHolder>(){
+class AirportAdapter (private val itemClick: AirportAdapter.ListAirportInterface) : RecyclerView.Adapter<AirportAdapter.ViewHolder>(){
 
     private val differCallback = object : DiffUtil.ItemCallback<DataAirport>(){
         override fun areItemsTheSame(
@@ -32,24 +32,19 @@ class AirportAdapter (private val itemClick: (DataAirport) -> Unit) : RecyclerVi
     }
     private val differ = AsyncListDiffer(this, differCallback)
 
-    class ViewHolder(private val binding: ListAirportBinding, val itemClick: (DataAirport) -> Unit) :
+    inner class ViewHolder(private val binding: ListAirportBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: DataAirport) {
             with(item) {
-                itemView.setOnClickListener { itemClick(this) }
                 binding.dataBinding = item
 
                 binding.btnEdit.setOnClickListener{
-                    var bund = Bundle()
-                    item.id?.let { it1 -> bund.putInt("id", it1) }
-                    findNavController(it).navigate(R.id.action_airportFragment_to_editAirportFragment, bund)
+                    item.id?.let { it1 -> itemClick.edit(it1) }
                 }
 
                 binding.btnDelete.setOnClickListener{
-                    var bund = Bundle()
-                    item.id?.let { it1 -> bund.putInt("id_delete", it1) }
-                    findNavController(it).navigate(R.id.airportFragment, bund)
+                    item.id?.let { it1 -> itemClick.delete(it1) }
                 }
             }
 
@@ -58,7 +53,7 @@ class AirportAdapter (private val itemClick: (DataAirport) -> Unit) : RecyclerVi
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ListAirportBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder(binding, itemClick)
+        return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -75,6 +70,7 @@ class AirportAdapter (private val itemClick: (DataAirport) -> Unit) : RecyclerVi
     }
 
     interface ListAirportInterface {
-        fun onItemClick(AirportDetail: DataAirport)
+        fun edit(id: Int)
+        fun delete(id:Int)
     }
 }

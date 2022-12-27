@@ -1,5 +1,6 @@
 package com.example.final_project_android_admin.ui.transaction
 
+import android.app.AlertDialog
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -35,6 +36,7 @@ class TransactionFragment : Fragment(), TransactionAdapter.ListTransactionInterf
     private var isSuccess = false
     private var isPending = false
     private var isCanceled = false
+    private lateinit var builder : AlertDialog.Builder
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,6 +48,7 @@ class TransactionFragment : Fragment(), TransactionAdapter.ListTransactionInterf
         transactionViewModel = ViewModelProvider(
             this, TransactionViewModelFactory(ApiHelper(ApiClient.instance), pref)
         )[TransactionViewModel::class.java]
+        builder = AlertDialog.Builder(context)
 
         _binding = FragmentTransactionBinding.inflate(inflater,container,false)
         return binding.root
@@ -59,20 +62,6 @@ class TransactionFragment : Fragment(), TransactionAdapter.ListTransactionInterf
         sideBar()
         topBar()
         allTransaction()
-
-        val delete = arguments?.getInt("id_delete")
-
-        if (delete != null){
-            transactionViewModel.getDataStoreToken().observe(viewLifecycleOwner){
-                transactionViewModel.deleteTransaction("Bearer $it", delete)
-                Snackbar.make(binding.root, "Airport Berhasil Dihapus", Snackbar.LENGTH_SHORT)
-                    .setBackgroundTint(ContextCompat.getColor(requireContext(),
-                        R.color.basic
-                    ))
-                    .setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-                    .show()
-            }
-        }
 
         binding.btnSuccess.setOnClickListener{
             if (!isSuccess) {
@@ -127,11 +116,7 @@ class TransactionFragment : Fragment(), TransactionAdapter.ListTransactionInterf
     }
 
     private fun rvPost(status: String){
-        val adapter: TransactionAdapter by lazy {
-            TransactionAdapter {
-
-            }
-        }
+        val adapter = TransactionAdapter(this)
         binding.apply {
             transactionViewModel.getDataStoreToken().observe(viewLifecycleOwner) {
                 transactionViewModel.getDataTransactionFilter("Bearer $it", status)
@@ -157,11 +142,7 @@ class TransactionFragment : Fragment(), TransactionAdapter.ListTransactionInterf
     }
 
     private fun allTransaction(){
-        val adapter: TransactionAdapter by lazy {
-            TransactionAdapter {
-
-            }
-        }
+        val adapter = TransactionAdapter(this)
         binding.apply {
             transactionViewModel.getDataStoreToken().observe(viewLifecycleOwner) {
                 transactionViewModel.getDataTransaction("Bearer $it")
@@ -237,7 +218,28 @@ class TransactionFragment : Fragment(), TransactionAdapter.ListTransactionInterf
 
     }
 
-    override fun onItemClick(TransactionDetail: DataTransaction) {
-        TODO("Not yet implemented")
+    override fun edit(id: Int) {
+        val bund = Bundle()
+        bund.putInt("id", id)
+        findNavController().navigate(R.id.action_companyFragment_to_editCompanyFragment, bund)
+    }
+
+    override fun delete(id: Int) {
+        transactionViewModel.getDataStoreToken().observe(viewLifecycleOwner){
+            builder.setTitle("Warning!")
+                .setMessage("Ingin menghapus transaksi ini?")
+                .setCancelable(true)
+                .setPositiveButton("Ya"){ _, _ ->
+                    transactionViewModel.deleteTransaction("Bearer $it", id)
+                    Snackbar.make(binding.root, "Transaksi Berhasil Dihapus", Snackbar.LENGTH_SHORT)
+                        .setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.basic))
+                        .setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+                        .show()
+                }
+                .setNegativeButton("Tidak") { dialog, _ ->
+                    dialog.dismiss()
+                }
+                .show()
+        }
     }
 }

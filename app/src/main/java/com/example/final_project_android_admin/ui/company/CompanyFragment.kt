@@ -1,5 +1,6 @@
 package com.example.final_project_android_admin.ui.company
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -30,6 +31,8 @@ class CompanyFragment : Fragment(), CompanyAdapter.ListCompanyInterface {
     private lateinit var viewModel: LoginViewModel
     private lateinit var pref: UserDataStoreManager
 
+    private lateinit var builder : AlertDialog.Builder
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -44,37 +47,21 @@ class CompanyFragment : Fragment(), CompanyAdapter.ListCompanyInterface {
             this, CompanyViewModelFactory(ApiHelper(ApiClient.instance), pref)
         )[CompanyViewModel::class.java]
 
+        builder = AlertDialog.Builder(context)
         _binding = FragmentCompanyBinding.inflate(inflater,container,false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         binding.topAppBar.setNavigationOnClickListener {
             binding.drawerLayout.open()
-        }
-
-        val delete = arguments?.getInt("id_delete")
-
-        if (delete != null){
-            companyViewModel.getDataStoreToken().observe(viewLifecycleOwner){
-                companyViewModel.deleteCompany("Bearer $it", delete)
-                Snackbar.make(binding.root, "Airport Berhasil Dihapus", Snackbar.LENGTH_SHORT)
-                    .setBackgroundTint(ContextCompat.getColor(requireContext(),
-                        R.color.basic
-                    ))
-                    .setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-                    .show()
-            }
         }
 
         sideBar()
         add()
 
-        val adapter: CompanyAdapter by lazy {
-            CompanyAdapter {
-
-            }
-        }
+        val adapter = CompanyAdapter(this)
 
         binding.apply {
             companyViewModel.getDataCompany()
@@ -151,7 +138,28 @@ class CompanyFragment : Fragment(), CompanyAdapter.ListCompanyInterface {
         }
     }
 
-    override fun onItemClick(CompanyDetail: DataCompany) {
-        TODO("Not yet implemented")
+    override fun edit(id: Int) {
+        val bund = Bundle()
+        bund.putInt("id", id)
+        findNavController().navigate(R.id.action_companyFragment_to_editCompanyFragment, bund)
+    }
+
+    override fun delete(id: Int) {
+        companyViewModel.getDataStoreToken().observe(viewLifecycleOwner){
+            builder.setTitle("Warning!")
+                .setMessage("Ingin menghapus company ini?")
+                .setCancelable(true)
+                .setPositiveButton("Ya"){ _, _ ->
+                    companyViewModel.deleteCompany("Bearer $it", id)
+                    Snackbar.make(binding.root, "Company Berhasil Dihapus", Snackbar.LENGTH_SHORT)
+                        .setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.basic))
+                        .setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+                        .show()
+                }
+                .setNegativeButton("Tidak") { dialog, _ ->
+                    dialog.dismiss()
+                }
+                .show()
+        }
     }
 }

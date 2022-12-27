@@ -12,7 +12,7 @@ import com.example.final_project_android_admin.R
 import com.example.final_project_android_admin.data.api.response.airplane.DataAirplane
 import com.example.final_project_android_admin.databinding.ListAirplaneBinding
 
-class AirplaneAdapter (private val itemClick: (DataAirplane) -> Unit) : RecyclerView.Adapter<AirplaneAdapter.ViewHolder>(){
+class AirplaneAdapter (private val itemClick: AirplaneAdapter.ListAirplaneInterface) : RecyclerView.Adapter<AirplaneAdapter.ViewHolder>(){
 
     private val differCallback = object : DiffUtil.ItemCallback<DataAirplane>(){
         override fun areItemsTheSame(
@@ -32,12 +32,11 @@ class AirplaneAdapter (private val itemClick: (DataAirplane) -> Unit) : Recycler
     }
     private val differ = AsyncListDiffer(this, differCallback)
 
-    class ViewHolder(private val binding: ListAirplaneBinding, val itemClick: (DataAirplane) -> Unit) :
+    inner class ViewHolder(private val binding: ListAirplaneBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: DataAirplane) {
             with(item) {
-                itemView.setOnClickListener { itemClick(this) }
                 binding.dataBinding = item
 
                 binding.imgFilm.load(item.company?.companyImage) {
@@ -46,16 +45,11 @@ class AirplaneAdapter (private val itemClick: (DataAirplane) -> Unit) : Recycler
                 }
 
                 binding.btnEdit.setOnClickListener{
-                    var bund = Bundle()
-                    item.id?.let { it1 -> bund.putInt("id", it1) }
-                    Navigation.findNavController(it)
-                        .navigate(R.id.action_airplaneFragment_to_editAirplaneFragment, bund)
+                    item.id?.let { it1 -> itemClick.edit(it1) }
                 }
 
                 binding.btnDelete.setOnClickListener{
-                    var bund = Bundle()
-                    item.id?.let { it1 -> bund.putInt("id_delete", it1) }
-                    Navigation.findNavController(it).navigate(R.id.airplaneFragment, bund)
+                    item.id?.let { it1 -> itemClick.delete(it1) }
                 }
 
             }
@@ -65,7 +59,7 @@ class AirplaneAdapter (private val itemClick: (DataAirplane) -> Unit) : Recycler
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ListAirplaneBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder(binding, itemClick)
+        return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -82,6 +76,7 @@ class AirplaneAdapter (private val itemClick: (DataAirplane) -> Unit) : Recycler
     }
 
     interface ListAirplaneInterface {
-        fun onItemClick(AirplaneDetail: DataAirplane)
+        fun edit(id: Int)
+        fun delete(id:Int)
     }
 }
