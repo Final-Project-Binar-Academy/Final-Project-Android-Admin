@@ -11,10 +11,13 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.load.engine.Resource
 import com.example.final_project_android_admin.R
 import com.example.final_project_android_admin.adapter.TransactionAdapter
+import com.example.final_project_android_admin.data.api.response.airplane.DataAirplane
 import com.example.final_project_android_admin.data.api.response.transaction.DataTransaction
 import com.example.final_project_android_admin.data.api.service.ApiClient
 import com.example.final_project_android_admin.data.api.service.ApiHelper
@@ -36,7 +39,7 @@ class TransactionFragment : Fragment(), TransactionAdapter.ListTransactionInterf
     private var isSuccess = false
     private var isPending = false
     private var isCanceled = false
-    private lateinit var builder : AlertDialog.Builder
+    private lateinit var builder: AlertDialog.Builder
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,7 +53,7 @@ class TransactionFragment : Fragment(), TransactionAdapter.ListTransactionInterf
         )[TransactionViewModel::class.java]
         builder = AlertDialog.Builder(context)
 
-        _binding = FragmentTransactionBinding.inflate(inflater,container,false)
+        _binding = FragmentTransactionBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -63,7 +66,7 @@ class TransactionFragment : Fragment(), TransactionAdapter.ListTransactionInterf
         topBar()
         allTransaction()
 
-        binding.btnSuccess.setOnClickListener{
+        binding.btnSuccess.setOnClickListener {
             if (!isSuccess) {
                 isSuccess = true
                 rvPost("success")
@@ -79,7 +82,7 @@ class TransactionFragment : Fragment(), TransactionAdapter.ListTransactionInterf
             }
         }
 
-        binding.btnPending.setOnClickListener{
+        binding.btnPending.setOnClickListener {
             if (!isPending) {
                 isPending = true
                 rvPost("pending")
@@ -95,7 +98,7 @@ class TransactionFragment : Fragment(), TransactionAdapter.ListTransactionInterf
             }
         }
 
-        binding.btnCanceled.setOnClickListener{
+        binding.btnCanceled.setOnClickListener {
             if (!isCanceled) {
                 isCanceled = true
                 rvPost("canceled")
@@ -115,7 +118,7 @@ class TransactionFragment : Fragment(), TransactionAdapter.ListTransactionInterf
         super.onViewCreated(view, savedInstanceState)
     }
 
-    private fun rvPost(status: String){
+    private fun rvPost(status: String) {
         val adapter = TransactionAdapter(this)
         binding.apply {
             transactionViewModel.getDataStoreToken().observe(viewLifecycleOwner) {
@@ -141,7 +144,7 @@ class TransactionFragment : Fragment(), TransactionAdapter.ListTransactionInterf
         }
     }
 
-    private fun allTransaction(){
+    private fun allTransaction() {
         val adapter = TransactionAdapter(this)
         binding.apply {
             transactionViewModel.getDataStoreToken().observe(viewLifecycleOwner) {
@@ -149,15 +152,54 @@ class TransactionFragment : Fragment(), TransactionAdapter.ListTransactionInterf
                 val TAG = "token"
                 Log.d(TAG, it)
             }
-            transactionViewModel.getLiveDataTransaction().observe(viewLifecycleOwner){
-                if (it != null){
+            transactionViewModel.getLiveDataTransaction().observe(viewLifecycleOwner) {
+                if (it != null) {
                     adapter.setData(it.data as List<DataTransaction>)
-                }else{
+                    ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
+                        override fun onMove(
+                            recyclerView: RecyclerView,
+                            viewHolder: RecyclerView.ViewHolder,
+                            target: RecyclerView.ViewHolder
+                        ): Boolean {
+                            return false
+                        }
+
+                        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                            val deletedCourse: DataTransaction = it.data!!.get(viewHolder.adapterPosition)
+
+                            transactionViewModel.getDataStoreToken().observe(viewLifecycleOwner){
+                                builder.setTitle("Warning!")
+                                    .setMessage("Ingin menghapus Airplane ini?")
+                                    .setCancelable(true)
+                                    .setPositiveButton("Ya"){ _, _ ->
+                                        deletedCourse.id?.let { it1 ->
+                                            transactionViewModel.deleteTransaction("Bearer $it",
+                                                it1
+                                            )
+                                        }
+                                        Snackbar.make(binding.root, "Airplane Berhasil Dihapus", Snackbar.LENGTH_SHORT)
+                                            .setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.basic))
+                                            .setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+                                            .show()
+                                    }
+                                    .setNegativeButton("Tidak") { dialog, _ ->
+                                        dialog.dismiss()
+                                    }
+                                    .show()
+                            }
+                            adapter.notifyItemRemoved(viewHolder.adapterPosition)
+                            adapter.notifyItemChanged(viewHolder.adapterPosition)
+                        }
+                    }).attachToRecyclerView(binding.rvPost)
+
+                } else {
                     Snackbar.make(binding.root, "Data Gagal Dimuat", Snackbar.LENGTH_SHORT)
                         .setBackgroundTint(
-                            ContextCompat.getColor(requireContext(),
+                            ContextCompat.getColor(
+                                requireContext(),
                                 R.color.button
-                            ))
+                            )
+                        )
                         .setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
                         .show()
                 }
@@ -167,7 +209,7 @@ class TransactionFragment : Fragment(), TransactionAdapter.ListTransactionInterf
         }
     }
 
-    private fun sideBar(){
+    private fun sideBar() {
         binding.navigationView.setNavigationItemSelectedListener { menuItem ->
             // Handle menu item selected
             menuItem.isChecked = true
@@ -214,7 +256,7 @@ class TransactionFragment : Fragment(), TransactionAdapter.ListTransactionInterf
         }
     }
 
-    private fun topBar(){
+    private fun topBar() {
 
     }
 
@@ -224,22 +266,4 @@ class TransactionFragment : Fragment(), TransactionAdapter.ListTransactionInterf
         findNavController().navigate(R.id.action_companyFragment_to_editCompanyFragment, bund)
     }
 
-    override fun delete(id: Int) {
-        transactionViewModel.getDataStoreToken().observe(viewLifecycleOwner){
-            builder.setTitle("Warning!")
-                .setMessage("Ingin menghapus transaksi ini?")
-                .setCancelable(true)
-                .setPositiveButton("Ya"){ _, _ ->
-                    transactionViewModel.deleteTransaction("Bearer $it", id)
-                    Snackbar.make(binding.root, "Transaksi Berhasil Dihapus", Snackbar.LENGTH_SHORT)
-                        .setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.basic))
-                        .setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-                        .show()
-                }
-                .setNegativeButton("Tidak") { dialog, _ ->
-                    dialog.dismiss()
-                }
-                .show()
-        }
-    }
 }

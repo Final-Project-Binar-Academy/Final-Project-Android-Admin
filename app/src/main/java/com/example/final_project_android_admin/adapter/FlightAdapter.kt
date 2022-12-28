@@ -55,12 +55,8 @@ class FlightAdapter (private var itemClick: FlightAdapter.ListFlightInterface) :
                 binding.btnKelas.text = item.classX.toString()
                 binding.price.text = item.price.toString()
 
-                binding.btnEdit.setOnClickListener{
+                binding.card.setOnClickListener{
                     item.id?.let { it1 -> itemClick.edit(it1) }
-                }
-
-                binding.btnDelete.setOnClickListener{
-                    item.id?.let { it1 -> itemClick.delete(it1) }
                 }
             }
 
@@ -87,6 +83,5 @@ class FlightAdapter (private var itemClick: FlightAdapter.ListFlightInterface) :
 
     interface ListFlightInterface {
         fun edit(id: Int)
-        fun delete(id:Int)
     }
 }

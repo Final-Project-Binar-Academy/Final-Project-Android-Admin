@@ -39,12 +39,8 @@ class AirportAdapter (private val itemClick: AirportAdapter.ListAirportInterface
             with(item) {
                 binding.dataBinding = item
 
-                binding.btnEdit.setOnClickListener{
+                binding.card.setOnClickListener{
                     item.id?.let { it1 -> itemClick.edit(it1) }
-                }
-
-                binding.btnDelete.setOnClickListener{
-                    item.id?.let { it1 -> itemClick.delete(it1) }
                 }
             }
 
@@ -71,6 +67,5 @@ class AirportAdapter (private val itemClick: AirportAdapter.ListAirportInterface
 
     interface ListAirportInterface {
         fun edit(id: Int)
-        fun delete(id:Int)
     }
 }

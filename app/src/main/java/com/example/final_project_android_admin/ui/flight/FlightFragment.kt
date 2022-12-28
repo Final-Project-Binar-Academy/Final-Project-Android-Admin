@@ -9,9 +9,12 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.final_project_android_admin.R
 import com.example.final_project_android_admin.adapter.FlightAdapter
+import com.example.final_project_android_admin.data.api.response.airplane.DataAirplane
 import com.example.final_project_android_admin.data.api.response.flight.DataFlight
 import com.example.final_project_android_admin.data.api.service.ApiClient
 import com.example.final_project_android_admin.data.api.service.ApiHelper
@@ -68,6 +71,43 @@ class FlightFragment : Fragment(), FlightAdapter.ListFlightInterface {
             flightViewModel.getLiveDataFlight().observe(viewLifecycleOwner){
                 if (it != null){
                     adapter.setData(it.data as List<DataFlight>)
+                    ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
+                        override fun onMove(
+                            recyclerView: RecyclerView,
+                            viewHolder: RecyclerView.ViewHolder,
+                            target: RecyclerView.ViewHolder
+                        ): Boolean {
+                            return false
+                        }
+
+                        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                            val deletedCourse: DataFlight = it.data!!.get(viewHolder.adapterPosition)
+
+                            flightViewModel.getDataStoreToken().observe(viewLifecycleOwner){
+                                builder.setTitle("Warning!")
+                                    .setMessage("Ingin menghapus Airplane ini?")
+                                    .setCancelable(true)
+                                    .setPositiveButton("Ya"){ _, _ ->
+                                        deletedCourse.id?.let { it1 ->
+                                            flightViewModel.deleteFlight("Bearer $it",
+                                                it1
+                                            )
+                                        }
+                                        Snackbar.make(binding.root, "Airplane Berhasil Dihapus", Snackbar.LENGTH_SHORT)
+                                            .setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.basic))
+                                            .setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+                                            .show()
+                                    }
+                                    .setNegativeButton("Tidak") { dialog, _ ->
+                                        dialog.dismiss()
+                                    }
+                                    .show()
+                            }
+                            adapter.notifyItemRemoved(viewHolder.adapterPosition)
+                            adapter.notifyItemChanged(viewHolder.adapterPosition)
+                        }
+                    }).attachToRecyclerView(binding.rvPost)
+
                 }else{
                     Snackbar.make(binding.root, "Data Gagal Dimuat", Snackbar.LENGTH_SHORT)
                         .setBackgroundTint(
@@ -146,22 +186,4 @@ class FlightFragment : Fragment(), FlightAdapter.ListFlightInterface {
 
     }
 
-    override fun delete(id: Int) {
-        flightViewModel.getDataStoreToken().observe(viewLifecycleOwner){
-            builder.setTitle("Warning!")
-                .setMessage("Ingin menghapus ticket ini?")
-                .setCancelable(true)
-                .setPositiveButton("Ya"){ _, _ ->
-                    flightViewModel.deleteFlight("Bearer $it", id)
-                    Snackbar.make(binding.root, "Ticket Berhasil Dihapus", Snackbar.LENGTH_SHORT)
-                        .setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.basic))
-                        .setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-                        .show()
-                }
-                .setNegativeButton("Tidak") { dialog, _ ->
-                    dialog.dismiss()
-                }
-                .show()
-        }
-    }
 }

@@ -37,7 +37,7 @@ class AirplaneViewModel(
                     response: Response<AirplaneResponse>
                 ) {
                     if (response.isSuccessful){
-                        airplaneRepository.getAirplane()
+//                        airplaneRepository.getAirplane()
                         _airplane.postValue(response.body())
                     }else{
                         _airplane.postValue(null)

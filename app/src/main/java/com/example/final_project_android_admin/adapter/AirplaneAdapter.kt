@@ -44,12 +44,8 @@ class AirplaneAdapter (private val itemClick: AirplaneAdapter.ListAirplaneInterf
                     placeholder(R.drawable.img_placeholder)
                 }
 
-                binding.btnEdit.setOnClickListener{
+                binding.card.setOnClickListener{
                     item.id?.let { it1 -> itemClick.edit(it1) }
-                }
-
-                binding.btnDelete.setOnClickListener{
-                    item.id?.let { it1 -> itemClick.delete(it1) }
                 }
 
             }
@@ -77,6 +73,5 @@ class AirplaneAdapter (private val itemClick: AirplaneAdapter.ListAirplaneInterf
 
     interface ListAirplaneInterface {
         fun edit(id: Int)
-        fun delete(id:Int)
     }
 }

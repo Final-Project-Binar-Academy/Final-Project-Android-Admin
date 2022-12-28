@@ -207,43 +207,6 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="15dp"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <View
-                    android:layout_width="350dp"
-                    android:visibility="visible"
-                    android:layout_height="1dp"
-                    android:background="@color/abu"/>
-
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <androidx.appcompat.widget.AppCompatImageButton
-                        android:id="@+id/btnEdit"
-                        android:layout_width="70dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="200dp"
-                        android:backgroundTint="@color/edit"
-                        android:src="@drawable/ic_baseline_edit_24" />
-
-                    <androidx.appcompat.widget.AppCompatImageButton
-                        android:id="@+id/btnDelete"
-                        android:backgroundTint="@color/delete"
-                        android:src="@drawable/ic_baseline_delete_24"
-                        android:layout_width="70dp"
-                        android:layout_height="wrap_content"/>
-
-                </LinearLayout>
-
-            </LinearLayout>
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 </layout>

@@ -9,9 +9,12 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.final_project_android_admin.R
 import com.example.final_project_android_admin.adapter.CompanyAdapter
+import com.example.final_project_android_admin.data.api.response.airplane.DataAirplane
 import com.example.final_project_android_admin.data.api.response.company.DataCompany
 import com.example.final_project_android_admin.data.api.service.ApiClient
 import com.example.final_project_android_admin.data.api.service.ApiHelper
@@ -68,6 +71,43 @@ class CompanyFragment : Fragment(), CompanyAdapter.ListCompanyInterface {
             companyViewModel.getLiveDataCompany().observe(viewLifecycleOwner){
                 if (it != null){
                     adapter.setData(it.data as List<DataCompany>)
+                    ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
+                        override fun onMove(
+                            recyclerView: RecyclerView,
+                            viewHolder: RecyclerView.ViewHolder,
+                            target: RecyclerView.ViewHolder
+                        ): Boolean {
+                            return false
+                        }
+
+                        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                            val deletedCourse: DataCompany = it.data!!.get(viewHolder.adapterPosition)
+
+                            companyViewModel.getDataStoreToken().observe(viewLifecycleOwner){
+                                builder.setTitle("Warning!")
+                                    .setMessage("Ingin menghapus Airplane ini?")
+                                    .setCancelable(true)
+                                    .setPositiveButton("Ya"){ _, _ ->
+                                        deletedCourse.id?.let { it1 ->
+                                            companyViewModel.deleteCompany("Bearer $it",
+                                                it1
+                                            )
+                                        }
+                                        Snackbar.make(binding.root, "Airplane Berhasil Dihapus", Snackbar.LENGTH_SHORT)
+                                            .setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.basic))
+                                            .setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+                                            .show()
+                                    }
+                                    .setNegativeButton("Tidak") { dialog, _ ->
+                                        dialog.dismiss()
+                                    }
+                                    .show()
+                            }
+                            adapter.notifyItemRemoved(viewHolder.adapterPosition)
+                            adapter.notifyItemChanged(viewHolder.adapterPosition)
+                        }
+                    }).attachToRecyclerView(binding.rvPost)
+
                 }else{
                     Snackbar.make(binding.root, "Data Gagal Dimuat", Snackbar.LENGTH_SHORT)
                         .setBackgroundTint(
@@ -142,24 +182,5 @@ class CompanyFragment : Fragment(), CompanyAdapter.ListCompanyInterface {
         val bund = Bundle()
         bund.putInt("id", id)
         findNavController().navigate(R.id.action_companyFragment_to_editCompanyFragment, bund)
-    }
-
-    override fun delete(id: Int) {
-        companyViewModel.getDataStoreToken().observe(viewLifecycleOwner){
-            builder.setTitle("Warning!")
-                .setMessage("Ingin menghapus company ini?")
-                .setCancelable(true)
-                .setPositiveButton("Ya"){ _, _ ->
-                    companyViewModel.deleteCompany("Bearer $it", id)
-                    Snackbar.make(binding.root, "Company Berhasil Dihapus", Snackbar.LENGTH_SHORT)
-                        .setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.basic))
-                        .setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-                        .show()
-                }
-                .setNegativeButton("Tidak") { dialog, _ ->
-                    dialog.dismiss()
-                }
-                .show()
-        }
     }
 }

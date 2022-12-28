@@ -51,12 +51,8 @@ class TransactionAdapter(private val itemClick: TransactionAdapter.ListTransacti
                 binding.date.text = date1
                 binding.date2.text = date2
 
-                binding.btnEdit.setOnClickListener{
+                binding.card.setOnClickListener{
                     item.id?.let { it1 -> itemClick.edit(it1) }
-                }
-
-                binding.btnDelete.setOnClickListener{
-                    item.id?.let { it1 -> itemClick.delete(it1) }
                 }
             }
 
@@ -83,6 +79,5 @@ class TransactionAdapter(private val itemClick: TransactionAdapter.ListTransacti
 
     interface ListTransactionInterface {
         fun edit(id: Int)
-        fun delete(id:Int)
     }
 }

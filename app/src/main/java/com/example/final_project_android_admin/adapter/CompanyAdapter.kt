@@ -10,7 +10,7 @@ import com.example.final_project_android_admin.R
 import com.example.final_project_android_admin.data.api.response.company.DataCompany
 import com.example.final_project_android_admin.databinding.ListCompanyBinding
 
-class CompanyAdapter(private var onClick : CompanyAdapter.ListCompanyInterface) : RecyclerView.Adapter<CompanyAdapter.ViewHolder>() {
+class CompanyAdapter(private var itemClick : CompanyAdapter.ListCompanyInterface) : RecyclerView.Adapter<CompanyAdapter.ViewHolder>() {
 
     private val differCallback = object : DiffUtil.ItemCallback<DataCompany>(){
         override fun areItemsTheSame(
@@ -43,12 +43,8 @@ class CompanyAdapter(private var onClick : CompanyAdapter.ListCompanyInterface) 
                     placeholder(R.drawable.img_placeholder)
                 }
 
-                binding.btnEdit.setOnClickListener{
-                    item.id?.let { it1 -> onClick.edit(it1) }
-                }
-
-                binding.btnDelete.setOnClickListener{
-                    item.id?.let { it1 -> onClick.delete(it1) }
+                binding.card.setOnClickListener{
+                    item.id?.let { it1 -> itemClick.edit(it1) }
                 }
 
             }
@@ -58,7 +54,6 @@ class CompanyAdapter(private var onClick : CompanyAdapter.ListCompanyInterface) 
 
     interface ListCompanyInterface {
         fun edit(id: Int)
-        fun delete(id:Int)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
