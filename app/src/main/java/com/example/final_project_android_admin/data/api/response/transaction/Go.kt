@@ -24,7 +24,7 @@ data class Go(
     @SerializedName("createdAt")
     var createdAt: String?,
     @SerializedName("departureDate")
-    var departureDate: Date?,
+    var departureDate: String?,
     @SerializedName("departureTime")
     var departureTime: String?,
     @SerializedName("destination")

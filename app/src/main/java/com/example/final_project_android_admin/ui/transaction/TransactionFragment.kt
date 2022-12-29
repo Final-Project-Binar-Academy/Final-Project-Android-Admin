@@ -263,7 +263,7 @@ class TransactionFragment : Fragment(), TransactionAdapter.ListTransactionInterf
     override fun edit(id: Int) {
         val bund = Bundle()
         bund.putInt("id", id)
-        findNavController().navigate(R.id.action_companyFragment_to_editCompanyFragment, bund)
+        findNavController().navigate(R.id.action_transactionFragment_to_editTransactionFragment, bund)
     }
 
 }

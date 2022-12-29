@@ -1,16 +1,15 @@
 package com.example.final_project_android_admin.adapter
 
-import android.os.Bundle
-import android.util.Log
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.navigation.Navigation
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.final_project_android_admin.R
 import com.example.final_project_android_admin.data.api.response.transaction.DataTransaction
 import com.example.final_project_android_admin.databinding.ListTransactionBinding
+import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -37,16 +36,22 @@ class TransactionAdapter(private val itemClick: TransactionAdapter.ListTransacti
     inner class ViewHolder(private val binding: ListTransactionBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
+        @RequiresApi(Build.VERSION_CODES.N)
         fun bind(item: DataTransaction) {
             with(item) {
                 binding.dataBinding = item
 
-                var simpleDateFormat = SimpleDateFormat("E, dd LLL")
-                var departure : Date? = item.go?.departureDate
-                var date1 = simpleDateFormat.format(departure?.time).toString()
+//                var simpleDateFormat = SimpleDateFormat("E, dd LLL")
+//                var departure : Date? = item.go?.departureDate
+//                var date1 = simpleDateFormat.format(departure?.time).toString()
 
-                var arrival : Date? = item.back?.departureDate
-                var date2 = simpleDateFormat.format(arrival?.time).toString()
+                var departureDateOrigin: String? = item.go?.departureDate
+                var date1 = departureDateOrigin?.subSequence(0, 9).toString()
+
+                var destinationDateOrigin: String? = item.back?.departureDate
+                var date2 = destinationDateOrigin?.subSequence(0, 9).toString()
+//                var arrival : Date? = item.back?.departureDate
+//                var date2 = simpleDateFormat.format(arrival?.time).toString()
 
                 binding.date.text = date1
                 binding.date2.text = date2
@@ -64,6 +69,7 @@ class TransactionAdapter(private val itemClick: TransactionAdapter.ListTransacti
         return ViewHolder(binding)
     }
 
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val flight = differ.currentList[position]
         holder.bind(flight)

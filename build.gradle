@@ -8,10 +8,9 @@ buildscript {
     repositories {
         google()
         mavenCentral()
-
-        // add the following
-        maven { url "https://jitpack.io" }
+        maven { url "https://www.jitpack.io" }
     }
+
 }
 
 plugins {
