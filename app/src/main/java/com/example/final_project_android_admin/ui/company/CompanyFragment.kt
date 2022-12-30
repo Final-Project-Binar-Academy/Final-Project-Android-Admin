@@ -85,7 +85,7 @@ class CompanyFragment : Fragment(), CompanyAdapter.ListCompanyInterface {
 
                             companyViewModel.getDataStoreToken().observe(viewLifecycleOwner){
                                 builder.setTitle("Warning!")
-                                    .setMessage("Ingin menghapus Airplane ini?")
+                                    .setMessage("Ingin menghapus Company ini?")
                                     .setCancelable(true)
                                     .setPositiveButton("Ya"){ _, _ ->
                                         deletedCourse.id?.let { it1 ->
@@ -93,7 +93,7 @@ class CompanyFragment : Fragment(), CompanyAdapter.ListCompanyInterface {
                                                 it1
                                             )
                                         }
-                                        Snackbar.make(binding.root, "Airplane Berhasil Dihapus", Snackbar.LENGTH_SHORT)
+                                        Snackbar.make(binding.root, "Company Berhasil Dihapus", Snackbar.LENGTH_SHORT)
                                             .setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.basic))
                                             .setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
                                             .show()
@@ -125,7 +125,7 @@ class CompanyFragment : Fragment(), CompanyAdapter.ListCompanyInterface {
         super.onViewCreated(view, savedInstanceState)
     }
 
-    private fun sideBar(){
+    private fun sideBar() {
         binding.navigationView.setNavigationItemSelectedListener { menuItem ->
             // Handle menu item selected
             menuItem.isChecked = true
@@ -135,24 +135,8 @@ class CompanyFragment : Fragment(), CompanyAdapter.ListCompanyInterface {
                     findNavController().navigate(R.id.homeFragment)
                     true
                 }
-                R.id.flight -> {
-                    findNavController().navigate(R.id.flightFragment)
-                    true
-                }
-                R.id.airplane -> {
-                    findNavController().navigate(R.id.airplaneFragment)
-                    true
-                }
-                R.id.airport -> {
-                    findNavController().navigate(R.id.airportFragment)
-                    true
-                }
-                R.id.company -> {
-                    findNavController().navigate(R.id.companyFragment)
-                    true
-                }
-                R.id.transaction -> {
-                    findNavController().navigate(R.id.transactionFragment)
+                R.id.profile -> {
+                    findNavController().navigate(R.id.profileFragment)
                     true
                 }
                 R.id.logout -> {

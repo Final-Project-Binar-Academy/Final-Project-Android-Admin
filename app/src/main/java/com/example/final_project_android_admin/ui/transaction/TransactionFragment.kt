@@ -127,6 +127,43 @@ class TransactionFragment : Fragment(), TransactionAdapter.ListTransactionInterf
             transactionViewModel.getTransactionFilter().observe(viewLifecycleOwner) {
                 if (it != null) {
                     adapter.setData(it.data as List<DataTransaction>)
+                    ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
+                        override fun onMove(
+                            recyclerView: RecyclerView,
+                            viewHolder: RecyclerView.ViewHolder,
+                            target: RecyclerView.ViewHolder
+                        ): Boolean {
+                            return false
+                        }
+
+                        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                            val deletedCourse: DataTransaction = it.data!![viewHolder.adapterPosition]
+
+                            transactionViewModel.getDataStoreToken().observe(viewLifecycleOwner){
+                                builder.setTitle("Warning!")
+                                    .setMessage("Ingin menghapus Transaction ini?")
+                                    .setCancelable(true)
+                                    .setPositiveButton("Ya"){ _, _ ->
+                                        deletedCourse.id_transaction?.let { it1 ->
+                                            transactionViewModel.deleteTransaction("Bearer $it",
+                                                it1
+                                            )
+                                        }
+                                        Snackbar.make(binding.root, "Transaction Berhasil Dihapus", Snackbar.LENGTH_SHORT)
+                                            .setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.basic))
+                                            .setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+                                            .show()
+                                    }
+                                    .setNegativeButton("Tidak") { dialog, _ ->
+                                        dialog.dismiss()
+                                    }
+                                    .show()
+                            }
+                            adapter.notifyItemRemoved(viewHolder.adapterPosition)
+                            adapter.notifyItemChanged(viewHolder.adapterPosition)
+                        }
+                    }).attachToRecyclerView(binding.rvPost)
+
                 } else {
                     Snackbar.make(binding.root, "Data Gagal Dimuat", Snackbar.LENGTH_SHORT)
                         .setBackgroundTint(
@@ -143,6 +180,7 @@ class TransactionFragment : Fragment(), TransactionAdapter.ListTransactionInterf
             rvPost.adapter = adapter
         }
     }
+
 
     private fun allTransaction() {
         val adapter = TransactionAdapter(this)
@@ -165,19 +203,19 @@ class TransactionFragment : Fragment(), TransactionAdapter.ListTransactionInterf
                         }
 
                         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                            val deletedCourse: DataTransaction = it.data!!.get(viewHolder.adapterPosition)
+                            val deletedCourse: DataTransaction = it.data!![viewHolder.adapterPosition]
 
                             transactionViewModel.getDataStoreToken().observe(viewLifecycleOwner){
                                 builder.setTitle("Warning!")
-                                    .setMessage("Ingin menghapus Airplane ini?")
+                                    .setMessage("Ingin menghapus Transaction ini?")
                                     .setCancelable(true)
                                     .setPositiveButton("Ya"){ _, _ ->
-                                        deletedCourse.id?.let { it1 ->
+                                        deletedCourse.id_transaction?.let { it1 ->
                                             transactionViewModel.deleteTransaction("Bearer $it",
                                                 it1
                                             )
                                         }
-                                        Snackbar.make(binding.root, "Airplane Berhasil Dihapus", Snackbar.LENGTH_SHORT)
+                                        Snackbar.make(binding.root, "Transaction Berhasil Dihapus", Snackbar.LENGTH_SHORT)
                                             .setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.basic))
                                             .setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
                                             .show()
@@ -219,24 +257,8 @@ class TransactionFragment : Fragment(), TransactionAdapter.ListTransactionInterf
                     findNavController().navigate(R.id.homeFragment)
                     true
                 }
-                R.id.flight -> {
-                    findNavController().navigate(R.id.flightFragment)
-                    true
-                }
-                R.id.airplane -> {
-                    findNavController().navigate(R.id.airplaneFragment)
-                    true
-                }
-                R.id.airport -> {
-                    findNavController().navigate(R.id.airportFragment)
-                    true
-                }
-                R.id.company -> {
-                    findNavController().navigate(R.id.companyFragment)
-                    true
-                }
-                R.id.transaction -> {
-                    findNavController().navigate(R.id.transactionFragment)
+                R.id.profile -> {
+                    findNavController().navigate(R.id.profileFragment)
                     true
                 }
                 R.id.logout -> {

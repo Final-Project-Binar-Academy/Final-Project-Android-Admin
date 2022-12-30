@@ -13,7 +13,7 @@ data class DataTransaction(
     @SerializedName("go")
     var go: Go?,
     @SerializedName("id")
-    var id: Int?,
+    var id_transaction: Int?,
     @SerializedName("passenger")
     var passenger: Passenger?,
     @SerializedName("passengerId")

@@ -115,6 +115,15 @@
     <string name="see_payment">See Payment</string>
     <string name="total_transaction">Total Transaction</string>
     <string name="see_transaction">See Transaction</string>
+    <string name="explore">Let\'s Explore!</string>
+    <string name="profile">Profile</string>
+    <string name="username_profile">Username</string>
+    <string name="firstName">Firstname</string>
+    <string name="lastName">lastname</string>
+    <string name="address_profile">Address</string>
+    <string name="no_hp_profile">no hp</string>
+    <string name="select_image">Select Image</string>
+    <string name="update">Update</string>
     <string-array name="kelas">
         <item name="eksekutif">Eksekutif</item>
         <item name="bisnis">Bisnis</item>

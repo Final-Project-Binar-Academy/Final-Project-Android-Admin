@@ -2,6 +2,7 @@ package com.example.final_project_android_admin.ui.flight
 
 import android.app.AlertDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -85,7 +86,7 @@ class FlightFragment : Fragment(), FlightAdapter.ListFlightInterface {
 
                             flightViewModel.getDataStoreToken().observe(viewLifecycleOwner){
                                 builder.setTitle("Warning!")
-                                    .setMessage("Ingin menghapus Airplane ini?")
+                                    .setMessage("Ingin menghapus Flight ini?")
                                     .setCancelable(true)
                                     .setPositiveButton("Ya"){ _, _ ->
                                         deletedCourse.id?.let { it1 ->
@@ -93,7 +94,8 @@ class FlightFragment : Fragment(), FlightAdapter.ListFlightInterface {
                                                 it1
                                             )
                                         }
-                                        Snackbar.make(binding.root, "Airplane Berhasil Dihapus", Snackbar.LENGTH_SHORT)
+                                        Log.d("Tag", deletedCourse.id.toString())
+                                        Snackbar.make(binding.root, "Flight Berhasil Dihapus", Snackbar.LENGTH_SHORT)
                                             .setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.basic))
                                             .setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
                                             .show()
@@ -126,7 +128,7 @@ class FlightFragment : Fragment(), FlightAdapter.ListFlightInterface {
         super.onViewCreated(view, savedInstanceState)
     }
 
-    private fun sideBar(){
+    private fun sideBar() {
         binding.navigationView.setNavigationItemSelectedListener { menuItem ->
             // Handle menu item selected
             menuItem.isChecked = true
@@ -136,24 +138,8 @@ class FlightFragment : Fragment(), FlightAdapter.ListFlightInterface {
                     findNavController().navigate(R.id.homeFragment)
                     true
                 }
-                R.id.flight -> {
-                    findNavController().navigate(R.id.flightFragment)
-                    true
-                }
-                R.id.airplane -> {
-                    findNavController().navigate(R.id.airplaneFragment)
-                    true
-                }
-                R.id.airport -> {
-                    findNavController().navigate(R.id.airportFragment)
-                    true
-                }
-                R.id.company -> {
-                    findNavController().navigate(R.id.companyFragment)
-                    true
-                }
-                R.id.transaction -> {
-                    findNavController().navigate(R.id.transactionFragment)
+                R.id.profile -> {
+                    findNavController().navigate(R.id.profileFragment)
                     true
                 }
                 R.id.logout -> {

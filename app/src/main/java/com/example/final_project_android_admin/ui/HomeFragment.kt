@@ -9,32 +9,29 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.example.final_project_android_admin.R
 import com.example.final_project_android_admin.data.api.service.ApiClient
 import com.example.final_project_android_admin.data.api.service.ApiHelper
 import com.example.final_project_android_admin.databinding.FragmentHomeBinding
 import com.example.final_project_android_admin.utils.TotalDataManager
 import com.example.final_project_android_admin.utils.UserDataStoreManager
-import com.example.final_project_android_admin.viewmodel.CompanyViewModel
-import com.example.final_project_android_admin.viewmodel.FlightViewModel
-import com.example.final_project_android_admin.viewmodel.LoginViewModel
-import com.example.final_project_android_admin.viewmodel.TotalDataViewModel
-import com.example.final_project_android_admin.viewmodel.factory.CompanyViewModelFactory
-import com.example.final_project_android_admin.viewmodel.factory.FlightViewModelFactory
-import com.example.final_project_android_admin.viewmodel.factory.TotalDataViewModelFactory
-import com.example.final_project_android_admin.viewmodel.factory.UserViewModelFactory
+import com.example.final_project_android_admin.viewmodel.*
+import com.example.final_project_android_admin.viewmodel.factory.*
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
-
+import dagger.hilt.android.AndroidEntryPoint
+import kotlin.properties.Delegates
 
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private lateinit var viewModel: LoginViewModel
+    private lateinit var profileViewModel : ProfileViewModel
     private lateinit var pref: UserDataStoreManager
     private lateinit var total: TotalDataManager
     private lateinit var flightViewModel: FlightViewModel
@@ -49,7 +46,7 @@ class HomeFragment : Fragment() {
     lateinit var barEntriesList: ArrayList<BarEntry>
 
     // creating a string array for displaying days.
-    var days = arrayOf("", "Monday", "Tuesday", "Thursday", "Friday", "s")
+    var days = arrayOf("", "Airport", "Airplane", "Company", "Ticket", "Transaction")
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -71,6 +68,10 @@ class HomeFragment : Fragment() {
         totalDataViewModel = ViewModelProvider(
             this, TotalDataViewModelFactory(total)
         )[TotalDataViewModel::class.java]
+
+        profileViewModel = ViewModelProvider(
+            this, ProfileViewModelFactory(pref)
+        )[ProfileViewModel::class.java]
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -83,8 +84,49 @@ class HomeFragment : Fragment() {
         sideBar()
         flight()
         barchart()
+        seeDetails()
+
+        setUsername()
+        setImageProfile()
 
         super.onViewCreated(view, savedInstanceState)
+    }
+
+    private fun setUsername() {
+        viewModel.getDataStoreUsername().observe(viewLifecycleOwner){
+            binding.txtHi.text = "Hi, $it"
+        }
+    }
+
+    private fun setImageProfile() {
+        profileViewModel.getDataStoreToken().observe(viewLifecycleOwner) {
+            profileViewModel.getUserProfile("Bearer $it")
+        }
+        profileViewModel.user.observe(viewLifecycleOwner){
+            Glide.with(requireContext())
+                .load(it?.data?.avatar)
+                .circleCrop()
+                .into(binding.profileImage)
+        }
+    }
+
+    private fun seeDetails(){
+        binding.seeAirplane.setOnClickListener(){
+            findNavController().navigate(R.id.airplaneFragment)
+        }
+        binding.seeAirport.setOnClickListener(){
+            findNavController().navigate(R.id.airportFragment)
+        }
+        binding.seeCompany.setOnClickListener(){
+            findNavController().navigate(R.id.companyFragment)
+        }
+        binding.seeTicket.setOnClickListener(){
+            findNavController().navigate(R.id.flightFragment)
+        }
+        binding.seeTransaction.setOnClickListener(){
+            findNavController().navigate(R.id.transactionFragment)
+        }
+
     }
 
     private fun barchart() {
@@ -158,19 +200,18 @@ class HomeFragment : Fragment() {
         }
         // on below line we are adding
         // data to our bar entries list
-        totalDataViewModel.getTotalCompany().observe(viewLifecycleOwner){
-            var total = it.toString().toFloat()
-            Log.d("total", total.toString())
-            barEntriesList.add(BarEntry(total, total))
-            barEntriesList.add(BarEntry(2f, 2f))
-            barEntriesList.add(BarEntry(3f, 3f))
-            barEntriesList.add(BarEntry(4f, 4f))
-            barEntriesList.add(BarEntry(5f, 5f))
-        }
-//        barEntriesList.add(BarEntry(2f, 2f))
-//        barEntriesList.add(BarEntry(3f, 3f))
-//        barEntriesList.add(BarEntry(4f, 4f))
-//        barEntriesList.add(BarEntry(5f, 5f))
+//        var totalCompany by Delegates.notNull<Float>()
+//        totalDataViewModel.getTotalCompany().observe(viewLifecycleOwner){
+//            totalCompany = it.toFloat()
+////            Log.d("company", total.toString())
+//        }
+//
+//        Log.d("company", totalCompany.toString()))
+        barEntriesList.add(BarEntry(1f, 1f))
+        barEntriesList.add(BarEntry(2f, 2f))
+        barEntriesList.add(BarEntry(3f, 3f))
+        barEntriesList.add(BarEntry(4f, 4f))
+        barEntriesList.add(BarEntry(5f, 5f))
         return barEntriesList
     }
 
@@ -191,24 +232,8 @@ class HomeFragment : Fragment() {
                     findNavController().navigate(R.id.homeFragment)
                     true
                 }
-                R.id.flight -> {
-                    findNavController().navigate(R.id.flightFragment)
-                    true
-                }
-                R.id.airplane -> {
-                    findNavController().navigate(R.id.airplaneFragment)
-                    true
-                }
-                R.id.airport -> {
-                    findNavController().navigate(R.id.airportFragment)
-                    true
-                }
-                R.id.company -> {
-                    findNavController().navigate(R.id.companyFragment)
-                    true
-                }
-                R.id.transaction -> {
-                    findNavController().navigate(R.id.transactionFragment)
+                R.id.profile -> {
+                    findNavController().navigate(R.id.profileFragment)
                     true
                 }
                 R.id.logout -> {

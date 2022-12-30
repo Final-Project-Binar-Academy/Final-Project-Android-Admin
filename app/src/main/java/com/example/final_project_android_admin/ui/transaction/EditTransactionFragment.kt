@@ -1,6 +1,7 @@
 package com.example.final_project_android_admin.ui.transaction
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -56,6 +57,7 @@ class EditTransactionFragment : Fragment() {
         ticketCodeGo()
         ticketCodeBack()
         val id = arguments?.getInt("id")
+        Log.d("id", id.toString())
 
         binding.btnEdit.setOnClickListener(){
             val birthDate = binding.birthday.text.toString()

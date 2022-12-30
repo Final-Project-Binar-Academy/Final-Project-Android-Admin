@@ -81,7 +81,7 @@ class AirportFragment : Fragment(), AirportAdapter.ListAirportInterface {
 
                             airportViewModel.getDataStoreToken().observe(viewLifecycleOwner){
                                 builder.setTitle("Warning!")
-                                    .setMessage("Ingin menghapus Airplane ini?")
+                                    .setMessage("Ingin menghapus Airport ini?")
                                     .setCancelable(true)
                                     .setPositiveButton("Ya"){ _, _ ->
                                         deletedCourse.id?.let { it1 ->
@@ -89,7 +89,7 @@ class AirportFragment : Fragment(), AirportAdapter.ListAirportInterface {
                                                 it1
                                             )
                                         }
-                                        Snackbar.make(binding.root, "Airplane Berhasil Dihapus", Snackbar.LENGTH_SHORT)
+                                        Snackbar.make(binding.root, "Airport Berhasil Dihapus", Snackbar.LENGTH_SHORT)
                                             .setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.basic))
                                             .setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
                                             .show()
@@ -132,7 +132,7 @@ class AirportFragment : Fragment(), AirportAdapter.ListAirportInterface {
         _binding = null
     }
 
-    private fun sideBar(){
+    private fun sideBar() {
         binding.navigationView.setNavigationItemSelectedListener { menuItem ->
             // Handle menu item selected
             menuItem.isChecked = true
@@ -142,24 +142,8 @@ class AirportFragment : Fragment(), AirportAdapter.ListAirportInterface {
                     findNavController().navigate(R.id.homeFragment)
                     true
                 }
-                R.id.flight -> {
-                    findNavController().navigate(R.id.flightFragment)
-                    true
-                }
-                R.id.airplane -> {
-                    findNavController().navigate(R.id.airplaneFragment)
-                    true
-                }
-                R.id.airport -> {
-                    findNavController().navigate(R.id.airportFragment)
-                    true
-                }
-                R.id.company -> {
-                    findNavController().navigate(R.id.companyFragment)
-                    true
-                }
-                R.id.transaction -> {
-                    findNavController().navigate(R.id.transactionFragment)
+                R.id.profile -> {
+                    findNavController().navigate(R.id.profileFragment)
                     true
                 }
                 R.id.logout -> {
@@ -182,6 +166,6 @@ class AirportFragment : Fragment(), AirportAdapter.ListAirportInterface {
     override fun edit(id: Int) {
         val bund = Bundle()
         bund.putInt("id", id)
-        findNavController().navigate(R.id.action_airportFragment_to_addAirportFragment, bund)
+        findNavController().navigate(R.id.action_airportFragment_to_editAirportFragment, bund)
     }
 }

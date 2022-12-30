@@ -1,5 +1,7 @@
 package com.example.final_project_android_admin.data.api.service
 
+import com.example.final_project_android_admin.data.api.response.profile.GetUserResponse
+import com.binar.finalproject14.data.api.response.profile.User
 import com.example.final_project_android_admin.data.api.request.*
 import com.example.final_project_android_admin.data.api.response.AuthResponse
 import com.example.final_project_android_admin.data.api.response.DeleteResponse
@@ -113,4 +115,16 @@ interface ApiService {
 
     @DELETE("/api/transaction/admin/delete/{id}")
     fun deleteTransaction(@Header("Authorization")token: String, @Path("id") id: Int): Call<DeleteResponse>
+    @GET("/api/user")
+    fun getUserProfile(@Header("Authorization")token: String): Call <GetUserResponse>
+
+    @Multipart
+    @PUT("/api/user/update")
+    fun updateUser(@Part("firstName") firstName: RequestBody,
+                   @Part("lastName") lastName: RequestBody,
+                   @Part("address") address: RequestBody,
+                   @Part("phoneNumber") phoneNumber: RequestBody,
+                   @Part image: MultipartBody.Part,
+                   @Header("Authorization") token: String): Call <User>
+
 }

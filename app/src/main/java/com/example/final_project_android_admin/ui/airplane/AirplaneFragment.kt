@@ -124,7 +124,7 @@ class AirplaneFragment : Fragment(), AirplaneAdapter.ListAirplaneInterface {
         super.onViewCreated(view, savedInstanceState)
     }
 
-    private fun sideBar(){
+    private fun sideBar() {
         binding.navigationView.setNavigationItemSelectedListener { menuItem ->
             // Handle menu item selected
             menuItem.isChecked = true
@@ -134,24 +134,8 @@ class AirplaneFragment : Fragment(), AirplaneAdapter.ListAirplaneInterface {
                     findNavController().navigate(R.id.homeFragment)
                     true
                 }
-                R.id.flight -> {
-                    findNavController().navigate(R.id.flightFragment)
-                    true
-                }
-                R.id.airplane -> {
-                    findNavController().navigate(R.id.airplaneFragment)
-                    true
-                }
-                R.id.airport -> {
-                    findNavController().navigate(R.id.airportFragment)
-                    true
-                }
-                R.id.company -> {
-                    findNavController().navigate(R.id.companyFragment)
-                    true
-                }
-                R.id.transaction -> {
-                    findNavController().navigate(R.id.transactionFragment)
+                R.id.profile -> {
+                    findNavController().navigate(R.id.profileFragment)
                     true
                 }
                 R.id.logout -> {

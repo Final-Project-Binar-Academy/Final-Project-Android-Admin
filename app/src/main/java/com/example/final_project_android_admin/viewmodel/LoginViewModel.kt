@@ -74,4 +74,8 @@ class LoginViewModel(
         }
     }
 
+    fun getDataStoreUsername(): LiveData<String> {
+        return pref.getUsername.asLiveData()
+    }
+
 }

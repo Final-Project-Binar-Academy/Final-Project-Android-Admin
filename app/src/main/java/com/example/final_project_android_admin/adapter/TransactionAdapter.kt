@@ -20,7 +20,7 @@ class TransactionAdapter(private val itemClick: TransactionAdapter.ListTransacti
             oldItem: DataTransaction,
             newItem: DataTransaction
         ): Boolean {
-            return oldItem.id == oldItem.id
+            return oldItem.id_transaction == oldItem.id_transaction
         }
 
         override fun areContentsTheSame(
@@ -57,7 +57,7 @@ class TransactionAdapter(private val itemClick: TransactionAdapter.ListTransacti
                 binding.date2.text = date2
 
                 binding.card.setOnClickListener{
-                    item.id?.let { it1 -> itemClick.edit(it1) }
+                    item.id_transaction?.let { it1 -> itemClick.edit(it1) }
                 }
             }
 
