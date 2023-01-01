@@ -29,7 +29,7 @@
                     android:id="@+id/topAppBar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
-                    app:title="@string/add_flight"
+                    app:title="@string/add_ticket"
                     style="@style/Widget.MaterialComponents.Toolbar.PrimarySurface"
                     android:background="@android:color/transparent"
                     android:elevation="0dp" />
@@ -56,6 +56,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:hint="@string/code"
+                    app:boxBackgroundColor="@color/white"
                     android:textColorHint="@color/black"
                     style="@style/Widget.MyApp.TextInputLayout2">
 
@@ -64,6 +65,7 @@
                         android:id="@+id/code"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:backgroundTint="@color/white"
                         android:maxLines="1"
                         android:textColor="@color/black"
                         android:textColorHint="@color/black"
@@ -103,7 +105,7 @@
                         app:cardCornerRadius="10dp"
                         android:background="@color/white"
                         android:padding="20dp"
-                        android:layout_width="160dp"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent">
 
                         <TextView
@@ -154,7 +156,7 @@
                         app:cardCornerRadius="10dp"
                         android:background="@color/white"
                         android:padding="20dp"
-                        android:layout_width="160dp"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent">
 
                         <TextView
@@ -284,6 +286,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:hint="@string/capacity"
+                    app:boxBackgroundColor="@color/white"
                     android:textColorHint="@color/black"
                     style="@style/Widget.MyApp.TextInputLayout2">
 
@@ -305,6 +308,7 @@
                     android:layout_marginTop="20dp"
                     android:hint="@string/price"
                     android:textColorHint="@color/black"
+                    app:boxBackgroundColor="@color/white"
                     style="@style/Widget.MyApp.TextInputLayout2">
 
                     <com.google.android.material.textfield.TextInputEditText

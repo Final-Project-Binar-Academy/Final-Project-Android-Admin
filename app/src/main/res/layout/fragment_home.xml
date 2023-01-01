@@ -1,415 +1,330 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:id="@+id/motionLayout"
+    app:layoutDescription="@xml/fragment_home_scene"
     tools:context=".ui.HomeFragment"
     android:background="@drawable/bg_home"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <androidx.drawerlayout.widget.DrawerLayout
-        android:id="@+id/drawerLayout"
+    <FrameLayout
+        android:id="@+id/textViewContainer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:openDrawer="start">
+        android:layout_height="match_parent" >
 
-        <androidx.coordinatorlayout.widget.CoordinatorLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fitsSystemWindows="true">
+            android:layout_height="wrap_content"
+            android:padding="25dp"
+            android:orientation="vertical">
 
-            <com.google.android.material.appbar.AppBarLayout
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="25dp"
+                app:cardCornerRadius="200dp">
+
+                <ImageView
+                    android:id="@+id/profile_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    tools:src="@tools:sample/avatars" />
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/txt_hi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                style="@style/TextAppearance.MyApp.TextHome"
+                android:textSize="24sp"
+                android:text="@string/hi" />
+
+            <TextView
+                android:id="@+id/explore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="25dp"
+                style="@style/TextAppearance.MyApp.TextHome"
+                android:textSize="24sp"
+                android:text="@string/explore" />
+
+            <LinearLayout
+                android:layout_gravity="center"
+                android:gravity="center_horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/Widget.MaterialComponents.AppBarLayout.PrimarySurface"
-                android:fitsSystemWindows="true">
-
-                <com.google.android.material.appbar.MaterialToolbar
-                    android:id="@+id/topAppBar"
-                    android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    app:title="@string/app_name"
-                    app:navigationIcon="@drawable/ic_baseline_menu_24"
-                    style="@style/Widget.MaterialComponents.Toolbar.PrimarySurface"
-                    android:background="@android:color/transparent"
-                    android:elevation="0dp" />
-
-            </com.google.android.material.appbar.AppBarLayout>
-
-            <!-- Screen content -->
-            <!-- Use app:layout_behavior="@string/appbar_scrolling_view_behavior" to fit below top app bar -->
-
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="25dp"
-                    android:orientation="vertical">
-
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/cardView"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_marginTop="50dp"
-                        android:layout_marginBottom="25dp"
-                        app:cardCornerRadius="200dp">
-
-                        <ImageView
-                            android:id="@+id/profile_image"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            tools:src="@tools:sample/avatars" />
-
-                    </androidx.cardview.widget.CardView>
-
-                    <TextView
-                        android:id="@+id/txt_hi"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        style="@style/TextAppearance.MyApp.TextHome"
-                        android:textSize="24sp"
-                        android:text="@string/hi" />
-
-                    <TextView
-                        android:id="@+id/explore"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="25dp"
-                        style="@style/TextAppearance.MyApp.TextHome"
-                        android:textSize="24sp"
-                        android:text="@string/explore" />
-
-<!--                <androidx.recyclerview.widget.RecyclerView-->
-<!--                    android:scrollbars="horizontal"-->
-<!--                    android:layout_marginTop="10dp"-->
-<!--                    android:id="@+id/rv_important"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    tools:listitem="@layout/list_important_info"-->
-<!--                    tools:visibility="visible" />-->
-
-                    <com.google.android.material.card.MaterialCardView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="20dp"
-                        app:cardCornerRadius="20dp">
-
-                            <com.github.mikephil.charting.charts.BarChart
-                                android:id="@+id/idBarChart"
-                                android:layout_marginTop="50dp"
-                                android:layout_width="match_parent"
-                                android:layout_height="250dp" />
-                    </com.google.android.material.card.MaterialCardView>
-
-                <LinearLayout
-                    android:layout_gravity="center"
-                    android:gravity="center_horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <com.google.android.material.card.MaterialCardView
-                        android:layout_width="165dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="20dp"
-                        app:cardCornerRadius="20dp"
-                        android:layout_marginTop="50dp">
-
-                        <LinearLayout
-                            android:padding="15dp"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:text="@string/total_airport" />
-
-                            <TextView
-                                android:id="@+id/total_airport"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/user"
-                                android:textAppearance="@style/TextAppearance.MyApp.Text" />
-
-                            <com.google.android.material.button.MaterialButton
-                                android:id="@+id/see_airport"
-                                android:layout_width="wrap_content"
-                                android:layout_height="43dp"
-                                android:paddingEnd="10dp"
-                                android:paddingTop="3dp"
-                                android:paddingStart="5dp"
-                                android:text="@string/see_airport"
-                                android:gravity="center"
-                                android:textAllCaps="false"
-                                android:textSize="12sp"
-                                app:cornerRadius="100dp"
-                                app:icon="@drawable/ic_baseline_local_airport_24"
-                                app:iconSize="25dp" />
-
-                        </LinearLayout>
-
-                    </com.google.android.material.card.MaterialCardView>
-
-                    <com.google.android.material.card.MaterialCardView
-                        android:layout_width="165dp"
-                        android:layout_height="wrap_content"
-                        android:backgroundTint="@color/white"
-                        app:cardCornerRadius="20dp"
-                        android:layout_marginTop="50dp">
-
-                        <LinearLayout
-                            android:padding="15dp"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:text="@string/total_airplane" />
-
-                            <TextView
-                                android:id="@+id/total_airplane"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/user"
-                                android:textAppearance="@style/TextAppearance.MyApp.Text" />
-
-                            <com.google.android.material.button.MaterialButton
-                                android:id="@+id/see_airplane"
-                                android:layout_width="wrap_content"
-                                android:layout_height="43dp"
-                                android:paddingEnd="10dp"
-                                android:paddingTop="3dp"
-                                android:paddingStart="5dp"
-                                android:text="@string/see_airplane"
-                                android:gravity="center"
-                                android:textAllCaps="false"
-                                android:textSize="12sp"
-                                app:cornerRadius="100dp"
-                                app:icon="@drawable/ic_baseline_connecting_airports_24"
-                                app:iconSize="25dp" />
-
-                        </LinearLayout>
-
-                    </com.google.android.material.card.MaterialCardView>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_gravity="center"
-                    android:gravity="center_horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <com.google.android.material.card.MaterialCardView
-                        android:layout_width="165dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="20dp"
-                        android:backgroundTint="@color/white"
-                        app:cardCornerRadius="20dp"
-                        android:layout_marginTop="20dp">
-
-                        <LinearLayout
-                            android:padding="15dp"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:text="@string/total_company" />
-
-                            <TextView
-                                android:id="@+id/total_company"
-                                android:text="10"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textAppearance="@style/TextAppearance.MyApp.Text" />
-
-                            <com.google.android.material.button.MaterialButton
-                                android:id="@+id/see_company"
-                                android:layout_width="wrap_content"
-                                android:layout_height="43dp"
-                                android:paddingEnd="10dp"
-                                android:paddingTop="3dp"
-                                android:paddingStart="5dp"
-                                android:text="@string/see_company"
-                                android:gravity="center"
-                                android:textAllCaps="false"
-                                android:textSize="12sp"
-                                app:cornerRadius="100dp"
-                                app:icon="@drawable/ic_baseline_home_work_24"
-                                app:iconSize="25dp" />
-
-                        </LinearLayout>
-
-                    </com.google.android.material.card.MaterialCardView>
-
-                    <com.google.android.material.card.MaterialCardView
-                        android:layout_width="165dp"
-                        android:layout_height="wrap_content"
-                        android:backgroundTint="@color/white"
-                        app:cardCornerRadius="20dp"
-                        android:layout_marginTop="20dp">
-
-                        <LinearLayout
-                            android:padding="15dp"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:text="@string/total_payment" />
-
-                            <TextView
-                                android:id="@+id/total_payment"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/user"
-                                android:textAppearance="@style/TextAppearance.MyApp.Text" />
-
-                            <com.google.android.material.button.MaterialButton
-                                android:id="@+id/see_payment"
-                                android:layout_width="wrap_content"
-                                android:layout_height="43dp"
-                                android:paddingEnd="10dp"
-                                android:paddingTop="3dp"
-                                android:paddingStart="5dp"
-                                android:text="@string/see_payment"
-                                android:gravity="center"
-                                android:textAllCaps="false"
-                                android:textSize="12sp"
-                                app:cornerRadius="100dp"
-                                app:icon="@drawable/ic_baseline_payment_24"
-                                app:iconSize="25dp" />
-
-                        </LinearLayout>
-
-                    </com.google.android.material.card.MaterialCardView>
-
-                </LinearLayout>
+                android:orientation="horizontal">
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="15dp"
+                    app:cardCornerRadius="20dp"
+                    android:layout_marginTop="20dp">
+
+                    <LinearLayout
+                        android:padding="20dp"
+                        android:background="@drawable/bg_card_ticket"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:textColor="@color/black"
+                            android:textSize="15sp"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:text="@string/total_ticket" />
+
+                        <TextView
+                            android:layout_marginTop="30dp"
+                            android:id="@+id/total_ticket"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="10"
+                            android:textSize="25sp"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:textColor="@color/basic"
+                            android:textAppearance="@style/TextAppearance.MyApp.Text" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/see_ticket"
+                            android:layout_width="wrap_content"
+                            android:layout_height="50dp"
+                            android:layout_marginTop="20dp"
+                            android:paddingEnd="20dp"
+                            android:paddingStart="20dp"
+                            android:paddingVertical="5dp"
+                            android:text="@string/see_ticket"
+                            android:gravity="center"
+                            android:textAllCaps="false"
+                            android:textSize="20sp"
+                            app:cornerRadius="100dp"
+                            app:icon="@drawable/ic_baseline_airplane_ticket_24"
+                            app:iconSize="25dp" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_gravity="center"
+                android:gravity="center_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="165dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    app:cardCornerRadius="20dp"
+                    android:layout_marginTop="20dp">
+
+                    <LinearLayout
+                        android:padding="15dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="@string/total_airport" />
+
+                        <TextView
+                            android:id="@+id/total_airport"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/user"
+                            android:textAppearance="@style/TextAppearance.MyApp.Text" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/see_airport"
+                            android:layout_width="wrap_content"
+                            android:layout_height="43dp"
+                            android:paddingEnd="10dp"
+                            android:paddingTop="3dp"
+                            android:paddingStart="5dp"
+                            android:text="@string/see_airport"
+                            android:gravity="center"
+                            android:textAllCaps="false"
+                            android:textSize="12sp"
+                            app:cornerRadius="100dp"
+                            app:icon="@drawable/ic_baseline_local_airport_24"
+                            app:iconSize="25dp" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="165dp"
+                    android:layout_height="wrap_content"
                     android:backgroundTint="@color/white"
                     app:cardCornerRadius="20dp"
                     android:layout_marginTop="20dp">
 
                     <LinearLayout
+                        android:padding="15dp"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal">
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
 
-                        <LinearLayout
-                            android:padding="15dp"
+                        <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical">
+                            android:layout_marginTop="10dp"
+                            android:text="@string/total_airplane" />
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:text="@string/total_ticket" />
-
-                            <TextView
-                                android:id="@+id/total_ticket"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/user"
-                                android:textAppearance="@style/TextAppearance.MyApp.Text" />
-
-                            <com.google.android.material.button.MaterialButton
-                                android:id="@+id/see_ticket"
-                                android:layout_width="wrap_content"
-                                android:layout_height="43dp"
-                                android:paddingEnd="10dp"
-                                android:paddingTop="3dp"
-                                android:paddingStart="5dp"
-                                android:text="@string/see_ticket"
-                                android:gravity="center"
-                                android:textAllCaps="false"
-                                android:textSize="12sp"
-                                app:cornerRadius="100dp"
-                                app:icon="@drawable/ic_baseline_airplane_ticket_24"
-                                app:iconSize="25dp" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:gravity="end"
-                            android:padding="15dp"
-                            android:layout_width="match_parent"
+                        <TextView
+                            android:id="@+id/total_airplane"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical">
+                            android:text="@string/user"
+                            android:textAppearance="@style/TextAppearance.MyApp.Text" />
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:text="@string/total_transaction" />
-
-                            <TextView
-                                android:id="@+id/total_transaction"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/user"
-                                android:textAppearance="@style/TextAppearance.MyApp.Text" />
-
-                            <com.google.android.material.button.MaterialButton
-                                android:id="@+id/see_transaction"
-                                android:layout_width="wrap_content"
-                                android:layout_height="43dp"
-                                android:paddingEnd="10dp"
-                                android:paddingTop="3dp"
-                                android:paddingStart="5dp"
-                                android:text="@string/see_transaction"
-                                android:gravity="center"
-                                android:textAllCaps="false"
-                                android:textSize="12sp"
-                                app:cornerRadius="100dp"
-                                app:icon="@drawable/ic_baseline_attach_money_24"
-                                app:iconSize="25dp" />
-
-                        </LinearLayout>
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/see_airplane"
+                            android:layout_width="wrap_content"
+                            android:layout_height="43dp"
+                            android:paddingEnd="10dp"
+                            android:paddingTop="3dp"
+                            android:paddingStart="5dp"
+                            android:text="@string/see_airplane"
+                            android:gravity="center"
+                            android:textAllCaps="false"
+                            android:textSize="12sp"
+                            app:cornerRadius="100dp"
+                            app:icon="@drawable/ic_baseline_connecting_airports_24"
+                            app:iconSize="25dp" />
 
                     </LinearLayout>
 
-                    </com.google.android.material.card.MaterialCardView>
+                </com.google.android.material.card.MaterialCardView>
 
             </LinearLayout>
 
-            </ScrollView>
+        </LinearLayout>
 
-        </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-        <com.google.android.material.navigation.NavigationView
-            android:id="@+id/navigationView"
-            app:menu="@menu/menu_main"
-            app:headerLayout="@layout/header_navigation"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="start" />
-
-    </androidx.drawerlayout.widget.DrawerLayout>
+    </FrameLayout>
 
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/image"
+            android:backgroundTint="@color/basic"
+            android:layout_width="250dp"
+            android:layout_height="100dp">
+
+            <LinearLayout
+                android:padding="10dp"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/see_dashboard"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_baseline_home_24"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:text="@string/dashboard"
+                        android:textSize="15sp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/see_company"
+                    android:gravity="center"
+                    android:layout_marginStart="30dp"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_baseline_home_work_24"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:text="@string/company"
+                        android:textSize="15sp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/see_transaction"
+                    android:layout_marginStart="30dp"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_baseline_attach_money_24"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:text="@string/transaction"
+                        android:textSize="15sp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/profile"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="30dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/person"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:text="@string/profile"
+                        android:textSize="15sp"/>
+
+                </LinearLayout>
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.motion.widget.MotionLayout>

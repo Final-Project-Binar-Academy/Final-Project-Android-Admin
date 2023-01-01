@@ -55,6 +55,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
                         android:hint="@string/firstname"
+                        app:boxBackgroundColor="@color/white"
                         android:textColorHint="@color/black"
                         style="@style/Widget.MyApp.TextInputLayout2">
 
@@ -75,6 +76,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
                         android:hint="@string/lastname"
+                        app:boxBackgroundColor="@color/white"
                         android:textColorHint="@color/black"
                         style="@style/Widget.MyApp.TextInputLayout2">
 
@@ -95,6 +97,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
                         android:hint="@string/nik"
+                        app:boxBackgroundColor="@color/white"
                         android:textColorHint="@color/black"
                         style="@style/Widget.MyApp.TextInputLayout2">
 

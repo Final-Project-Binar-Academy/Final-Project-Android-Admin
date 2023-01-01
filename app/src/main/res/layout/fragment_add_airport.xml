@@ -51,6 +51,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:hint="@string/txt_airport_name"
+                    app:boxBackgroundColor="@color/white"
                     android:textColorHint="@color/black"
                     style="@style/Widget.MyApp.TextInputLayout2">
 
@@ -71,6 +72,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:hint="@string/txt_city"
+                    app:boxBackgroundColor="@color/white"
                     android:textColorHint="@color/black"
                     style="@style/Widget.MyApp.TextInputLayout2">
 
@@ -91,6 +93,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:hint="@string/txt_city_code"
+                    app:boxBackgroundColor="@color/white"
                     android:textColorHint="@color/black"
                     style="@style/Widget.MyApp.TextInputLayout2">
 

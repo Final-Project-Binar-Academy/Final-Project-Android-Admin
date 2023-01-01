@@ -38,12 +38,9 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        binding.topAppBar.setNavigationOnClickListener {
-            binding.drawerLayout.open()
+        binding.btnBack.setOnClickListener(){
+            findNavController().navigate(R.id.homeFragment)
         }
-        sideBar()
-
         viewModel.getDataStoreToken().observe(viewLifecycleOwner) {
             viewModel.getUserProfile("Bearer $it")
         }
@@ -88,38 +85,6 @@ class ProfileFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    private fun sideBar(){
-        binding.navigationView.setNavigationItemSelectedListener { menuItem ->
-            // Handle menu item selected
-            menuItem.isChecked = true
-
-            when (menuItem.itemId) {
-                R.id.dashboard -> {
-                    findNavController().navigate(R.id.homeFragment)
-                    true
-                }
-                R.id.profile -> {
-                    findNavController().navigate(R.id.profileFragment)
-                    true
-                }
-                R.id.logout -> {
-                    viewModel.removeIsLoginStatus()
-                    viewModel.removeId()
-                    viewModel.removeUsername()
-                    viewModel.removeToken()
-                    viewModel.getDataStoreIsLogin().observe(viewLifecycleOwner) {
-                        findNavController().navigate(R.id.loginFragment)
-                    }
-                }
-                else -> false
-            }
-
-            binding.drawerLayout.close()
-            true
-        }
-
     }
 
 

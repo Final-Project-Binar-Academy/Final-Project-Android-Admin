@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     tools:context=".ui.airplane.EditAirplaneFragment"
     android:background="@drawable/bg_light"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -50,6 +52,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:hint="@string/txt_airplane_name"
+                    app:boxBackgroundColor="@color/white"
                     android:textColorHint="@color/black"
                     style="@style/Widget.MyApp.TextInputLayout2">
 
@@ -70,6 +73,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:hint="@string/txt_airplane_code"
+                    app:boxBackgroundColor="@color/white"
                     android:textColorHint="@color/black"
                     style="@style/Widget.MyApp.TextInputLayout2">
 
@@ -134,6 +138,4 @@
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     </androidx.drawerlayout.widget.DrawerLayout>
-
-
-</layout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

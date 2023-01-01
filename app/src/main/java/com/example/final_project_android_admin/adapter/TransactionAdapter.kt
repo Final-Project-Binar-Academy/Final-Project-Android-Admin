@@ -54,7 +54,20 @@ class TransactionAdapter(private val itemClick: TransactionAdapter.ListTransacti
 //                var date2 = simpleDateFormat.format(arrival?.time).toString()
 
                 binding.date.text = date1
-                binding.date2.text = date2
+
+
+                var airplaneBack = item.back?.airplane?.airplaneName
+                if (airplaneBack.isNullOrEmpty()){
+                    binding.airplane2.text = ""
+                    binding.ticketCode2.text = ""
+                    binding.date2.text = ""
+                    binding.tiket2.text = ""
+
+                } else {
+                    binding.airplane2.text = airplaneBack
+                    binding.ticketCode2.text = item.back?.code.toString()
+                    binding.date2.text = date2
+                }
 
                 binding.card.setOnClickListener{
                     item.id_transaction?.let { it1 -> itemClick.edit(it1) }

@@ -59,10 +59,9 @@ class TransactionFragment : Fragment(), TransactionAdapter.ListTransactionInterf
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        binding.topAppBar.setNavigationOnClickListener {
-            binding.drawerLayout.open()
+        binding.btnBack.setOnClickListener(){
+            findNavController().navigate(R.id.homeFragment)
         }
-        sideBar()
         topBar()
         allTransaction()
 
@@ -127,43 +126,6 @@ class TransactionFragment : Fragment(), TransactionAdapter.ListTransactionInterf
             transactionViewModel.getTransactionFilter().observe(viewLifecycleOwner) {
                 if (it != null) {
                     adapter.setData(it.data as List<DataTransaction>)
-                    ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
-                        override fun onMove(
-                            recyclerView: RecyclerView,
-                            viewHolder: RecyclerView.ViewHolder,
-                            target: RecyclerView.ViewHolder
-                        ): Boolean {
-                            return false
-                        }
-
-                        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                            val deletedCourse: DataTransaction = it.data!![viewHolder.adapterPosition]
-
-                            transactionViewModel.getDataStoreToken().observe(viewLifecycleOwner){
-                                builder.setTitle("Warning!")
-                                    .setMessage("Ingin menghapus Transaction ini?")
-                                    .setCancelable(true)
-                                    .setPositiveButton("Ya"){ _, _ ->
-                                        deletedCourse.id_transaction?.let { it1 ->
-                                            transactionViewModel.deleteTransaction("Bearer $it",
-                                                it1
-                                            )
-                                        }
-                                        Snackbar.make(binding.root, "Transaction Berhasil Dihapus", Snackbar.LENGTH_SHORT)
-                                            .setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.basic))
-                                            .setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-                                            .show()
-                                    }
-                                    .setNegativeButton("Tidak") { dialog, _ ->
-                                        dialog.dismiss()
-                                    }
-                                    .show()
-                            }
-                            adapter.notifyItemRemoved(viewHolder.adapterPosition)
-                            adapter.notifyItemChanged(viewHolder.adapterPosition)
-                        }
-                    }).attachToRecyclerView(binding.rvPost)
-
                 } else {
                     Snackbar.make(binding.root, "Data Gagal Dimuat", Snackbar.LENGTH_SHORT)
                         .setBackgroundTint(
@@ -244,37 +206,6 @@ class TransactionFragment : Fragment(), TransactionAdapter.ListTransactionInterf
             }
             rvPost.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             rvPost.adapter = adapter
-        }
-    }
-
-    private fun sideBar() {
-        binding.navigationView.setNavigationItemSelectedListener { menuItem ->
-            // Handle menu item selected
-            menuItem.isChecked = true
-
-            when (menuItem.itemId) {
-                R.id.dashboard -> {
-                    findNavController().navigate(R.id.homeFragment)
-                    true
-                }
-                R.id.profile -> {
-                    findNavController().navigate(R.id.profileFragment)
-                    true
-                }
-                R.id.logout -> {
-                    viewModel.removeIsLoginStatus()
-                    viewModel.removeId()
-                    viewModel.removeUsername()
-                    viewModel.removeToken()
-                    viewModel.getDataStoreIsLogin().observe(viewLifecycleOwner) {
-                        findNavController().navigate(R.id.loginFragment)
-                    }
-                }
-                else -> false
-            }
-
-            binding.drawerLayout.close()
-            true
         }
     }
 

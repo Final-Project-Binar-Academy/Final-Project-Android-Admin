@@ -124,6 +124,12 @@
     <string name="no_hp_profile">no hp</string>
     <string name="select_image">Select Image</string>
     <string name="update">Update</string>
+    <string name="create_airplane">Create Airplane</string>
+    <string name="create_airport">Create Airport</string>
+    <string name="create_company">Create Company</string>
+    <string name="create_flight">Create Flight</string>
+    <string name="add_ticket">New Ticket</string>
+    <string name="create_ticket">Create Ticket</string>
     <string-array name="kelas">
         <item name="eksekutif">Eksekutif</item>
         <item name="bisnis">Bisnis</item>

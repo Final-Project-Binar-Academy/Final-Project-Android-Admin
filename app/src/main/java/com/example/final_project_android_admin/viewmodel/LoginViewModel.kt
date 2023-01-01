@@ -78,4 +78,9 @@ class LoginViewModel(
         return pref.getUsername.asLiveData()
     }
 
+    fun saveUsername(username: String) {
+        viewModelScope.launch {
+            pref.saveUsername(username)
+        }
+    }
 }

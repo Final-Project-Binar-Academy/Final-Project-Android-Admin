@@ -8,35 +8,6 @@
     android:background="@drawable/bg_light"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.drawerlayout.widget.DrawerLayout
-        android:id="@+id/drawerLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:openDrawer="start">
-
-        <androidx.coordinatorlayout.widget.CoordinatorLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fitsSystemWindows="true">
-
-            <com.google.android.material.appbar.AppBarLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/Widget.MaterialComponents.AppBarLayout.PrimarySurface"
-                android:fitsSystemWindows="true">
-
-                <com.google.android.material.appbar.MaterialToolbar
-                    android:id="@+id/topAppBar"
-                    android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    app:title="@string/profile"
-                    app:navigationIcon="@drawable/ic_baseline_menu_24"
-                    style="@style/Widget.MaterialComponents.Toolbar.PrimarySurface"
-                    android:background="@android:color/transparent"
-                    android:elevation="0dp" />
-
-            </com.google.android.material.appbar.AppBarLayout>
-
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -59,12 +30,29 @@
                 android:layout_weight="1"
                 android:orientation="vertical">
 
-                <androidx.cardview.widget.CardView
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:gravity="start"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginStart="20dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/btnBack"
+                        android:layout_gravity="start"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_baseline_arrow_back_ios_24"/>
+                </LinearLayout>
+
+                    <androidx.cardview.widget.CardView
                     android:id="@+id/cardView"
                     android:layout_width="180dp"
                     android:layout_height="180dp"
                     android:layout_gravity="center"
-                    android:layout_marginTop="100dp"
+                    android:layout_marginTop="30dp"
                     app:cardCornerRadius="200dp">
 
                     <ImageView
@@ -84,7 +72,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="20dp"
                 android:fontFamily="@font/poppins_medium"
                 android:text="@string/username_profile"
                 android:textAlignment="center"
@@ -103,7 +91,7 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
                 android:text="@string/edit"
                 app:cornerRadius="20dp" />
 
@@ -260,18 +248,6 @@
     </ScrollView>
 ]
 </RelativeLayout>
-        </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-        <com.google.android.material.navigation.NavigationView
-            android:id="@+id/navigationView"
-            app:menu="@menu/menu_main"
-            app:headerLayout="@layout/header_navigation"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="start" />
-
-    </androidx.drawerlayout.widget.DrawerLayout>
-
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

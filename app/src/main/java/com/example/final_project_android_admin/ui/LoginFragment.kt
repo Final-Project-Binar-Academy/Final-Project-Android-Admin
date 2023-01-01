@@ -73,6 +73,7 @@ class LoginFragment : Fragment() {
         if (data?.data?.accessToken != null) {
             viewModel.saveIsLoginStatus(true)
             viewModel.saveToken(data?.data?.accessToken.toString())
+            viewModel.saveUsername(data.data?.name.toString())
             findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
         }
 

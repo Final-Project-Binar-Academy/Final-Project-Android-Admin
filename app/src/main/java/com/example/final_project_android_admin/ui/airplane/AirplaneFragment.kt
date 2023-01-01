@@ -56,12 +56,11 @@ class AirplaneFragment : Fragment(), AirplaneAdapter.ListAirplaneInterface {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        binding.topAppBar.setNavigationOnClickListener {
-            binding.drawerLayout.open()
-        }
-
-        sideBar()
         add()
+
+        binding.btnBack.setOnClickListener(){
+            findNavController().navigate(R.id.homeFragment)
+        }
 
         val adapter = AirplaneAdapter(this)
 
@@ -122,37 +121,6 @@ class AirplaneFragment : Fragment(), AirplaneAdapter.ListAirplaneInterface {
 
 
         super.onViewCreated(view, savedInstanceState)
-    }
-
-    private fun sideBar() {
-        binding.navigationView.setNavigationItemSelectedListener { menuItem ->
-            // Handle menu item selected
-            menuItem.isChecked = true
-
-            when (menuItem.itemId) {
-                R.id.dashboard -> {
-                    findNavController().navigate(R.id.homeFragment)
-                    true
-                }
-                R.id.profile -> {
-                    findNavController().navigate(R.id.profileFragment)
-                    true
-                }
-                R.id.logout -> {
-                    viewModel.removeIsLoginStatus()
-                    viewModel.removeId()
-                    viewModel.removeUsername()
-                    viewModel.removeToken()
-                    viewModel.getDataStoreIsLogin().observe(viewLifecycleOwner) {
-                        findNavController().navigate(R.id.loginFragment)
-                    }
-                }
-                else -> false
-            }
-
-            binding.drawerLayout.close()
-            true
-        }
     }
 
     private fun add(){
