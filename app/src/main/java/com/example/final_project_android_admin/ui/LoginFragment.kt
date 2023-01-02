@@ -11,8 +11,6 @@ import androidx.navigation.fragment.findNavController
 import com.example.final_project_android_admin.R
 import com.example.final_project_android_admin.data.api.response.AuthResponse
 import com.example.final_project_android_admin.data.api.response.BaseResponse
-import com.example.final_project_android_admin.data.api.service.ApiClient
-import com.example.final_project_android_admin.data.api.service.ApiHelper
 import com.example.final_project_android_admin.databinding.FragmentLoginBinding
 import com.example.final_project_android_admin.utils.UserDataStoreManager
 import com.example.final_project_android_admin.viewmodel.LoginViewModel

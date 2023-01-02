@@ -1,31 +1,31 @@
 package com.example.final_project_android_admin.data.api.response.company
 
 
-import androidx.annotation.Keep
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 @Entity(tableName = "tb_company")
-data class DataCompany(
+class DataCompany: Serializable {
     @Expose
     @SerializedName("companyImage")
-    var companyImage: String?,
+    var companyImage: String? = null
 
     @Expose
     @SerializedName("companyName")
-    var companyName: String?,
+    var companyName: String? = null
 
     @Expose
     @SerializedName("createdAt")
-    var createdAt: String?,
+    var createdAt: String? = null
 
     @PrimaryKey(autoGenerate = true)
     @SerializedName("id")
-    var id: Int?,
+    var id: Int? = null
 
     @Expose
     @SerializedName("updatedAt")
-    var updatedAt: String?
-)
+    var updatedAt: String? = null
+}

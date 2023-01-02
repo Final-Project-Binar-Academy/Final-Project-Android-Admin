@@ -1,6 +1,9 @@
-package com.example.final_project_android_admin.data.api.service
+package com.example.final_project_android_admin.data.di
 
 import android.content.Context
+import com.example.final_project_android_admin.data.api.service.ApiHelper
+import com.example.final_project_android_admin.data.api.service.ApiHelperImpl
+import com.example.final_project_android_admin.data.api.service.ApiService
 import com.example.final_project_android_admin.utils.UserDataStoreManager
 import dagger.Module
 import dagger.Provides
@@ -58,6 +61,4 @@ object ApiClient {
     @Provides
     fun getUserManager(@ApplicationContext context: Context): UserDataStoreManager =
         UserDataStoreManager(context)
-
-
 }

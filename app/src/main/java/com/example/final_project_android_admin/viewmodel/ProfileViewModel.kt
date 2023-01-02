@@ -5,7 +5,6 @@ import android.net.Uri
 import androidx.lifecycle.*
 import com.example.final_project_android_admin.data.api.response.profile.GetUserResponse
 import com.binar.finalproject14.data.api.response.profile.User
-import com.example.final_project_android_admin.data.api.service.ApiClient
 import com.example.final_project_android_admin.data.api.service.ApiService
 import com.example.final_project_android_admin.utils.UserDataStoreManager
 import dagger.hilt.android.lifecycle.HiltViewModel

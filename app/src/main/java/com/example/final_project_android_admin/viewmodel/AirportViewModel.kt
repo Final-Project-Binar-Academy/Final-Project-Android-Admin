@@ -2,23 +2,16 @@ package com.example.final_project_android_admin.viewmodel
 
 import android.app.Application
 import android.util.Log
-import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.*
-import com.example.final_project_android_admin.R
 import com.example.final_project_android_admin.data.api.request.AirportRequest
 import com.example.final_project_android_admin.data.api.response.BaseResponse
-import com.example.final_project_android_admin.data.api.response.Data
 import com.example.final_project_android_admin.data.api.response.DeleteResponse
 import com.example.final_project_android_admin.data.api.response.airport.AirportIdResponse
 import com.example.final_project_android_admin.data.api.response.airport.AirportResponse
 import com.example.final_project_android_admin.data.api.response.airport.DataAirport
-import com.example.final_project_android_admin.data.api.service.ApiClient
 import com.example.final_project_android_admin.data.api.service.ApiService
 import com.example.final_project_android_admin.repository.AirportRepository
 import com.example.final_project_android_admin.utils.UserDataStoreManager
-import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import retrofit2.Call

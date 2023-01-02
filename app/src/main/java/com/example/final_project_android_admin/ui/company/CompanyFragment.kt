@@ -7,8 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -56,13 +58,39 @@ class CompanyFragment : Fragment(), CompanyAdapter.ListCompanyInterface {
 
         add()
 
-        val adapter = CompanyAdapter(this)
 
+        companyViewModel.fetchCompanyData(requireContext())
+        fetchData()
+
+        super.onViewCreated(view, savedInstanceState)
+    }
+
+    private fun fetchData() {
+        companyViewModel.getCompanyData().observe(viewLifecycleOwner, Observer<List<DataCompany>> { items ->
+            if (items != null) {
+                setupRecyclerView(items)
+            }
+        })
+    }
+
+    private fun setupRecyclerView(items:List<DataCompany>) {
+        val adapter = CompanyAdapter(this)
+        adapter.setData(items)
+        delete()
         binding.apply {
-            companyViewModel.getDataCompany()
-            companyViewModel.getLiveDataCompany().observe(viewLifecycleOwner){
+            rvPost.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            rvPost.setHasFixedSize(true)
+            rvPost.isNestedScrollingEnabled = false
+            rvPost.adapter = adapter
+        }
+    }
+
+    private fun delete(){
+        val adapter = CompanyAdapter(this)
+        binding.apply {
+//            companyViewModel.getDataCompany()
+            companyViewModel.getCompanyData().observe(viewLifecycleOwner){
                 if (it != null){
-                    adapter.setData(it.data as List<DataCompany>)
                     ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
                         override fun onMove(
                             recyclerView: RecyclerView,
@@ -73,7 +101,7 @@ class CompanyFragment : Fragment(), CompanyAdapter.ListCompanyInterface {
                         }
 
                         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                            val deletedCourse: DataCompany = it.data!!.get(viewHolder.adapterPosition)
+                            val deletedCourse: DataCompany = it[viewHolder.adapterPosition]
 
                             companyViewModel.getDataStoreToken().observe(viewLifecycleOwner){
                                 builder.setTitle("Warning!")
@@ -89,6 +117,7 @@ class CompanyFragment : Fragment(), CompanyAdapter.ListCompanyInterface {
                                             .setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.basic))
                                             .setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
                                             .show()
+                                        findNavController().navigate(R.id.homeFragment)
                                     }
                                     .setNegativeButton("Tidak") { dialog, _ ->
                                         dialog.dismiss()
@@ -114,9 +143,7 @@ class CompanyFragment : Fragment(), CompanyAdapter.ListCompanyInterface {
             rvPost.adapter = adapter
         }
 
-        super.onViewCreated(view, savedInstanceState)
     }
-
     private fun add(){
         binding.btnAdd.setOnClickListener{
             findNavController().navigate(R.id.action_companyFragment_to_addCompanyFragment)
