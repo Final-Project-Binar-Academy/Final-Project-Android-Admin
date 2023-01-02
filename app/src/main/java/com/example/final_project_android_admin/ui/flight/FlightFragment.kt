@@ -15,18 +15,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.final_project_android_admin.R
 import com.example.final_project_android_admin.adapter.FlightAdapter
-import com.example.final_project_android_admin.data.api.response.airplane.DataAirplane
 import com.example.final_project_android_admin.data.api.response.flight.DataFlight
-import com.example.final_project_android_admin.data.api.service.ApiClient
-import com.example.final_project_android_admin.data.api.service.ApiHelper
 import com.example.final_project_android_admin.databinding.FragmentFlightBinding
 import com.example.final_project_android_admin.utils.UserDataStoreManager
 import com.example.final_project_android_admin.viewmodel.FlightViewModel
 import com.example.final_project_android_admin.viewmodel.LoginViewModel
-import com.example.final_project_android_admin.viewmodel.factory.FlightViewModelFactory
-import com.example.final_project_android_admin.viewmodel.factory.UserViewModelFactory
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class FlightFragment : Fragment(), FlightAdapter.ListFlightInterface {
     private var _binding: FragmentFlightBinding? = null
     private val binding get() = _binding!!
@@ -43,13 +40,9 @@ class FlightFragment : Fragment(), FlightAdapter.ListFlightInterface {
         // Inflate the layout for this fragment
 
         pref = UserDataStoreManager(requireContext())
-        viewModel = ViewModelProvider(
-            this, UserViewModelFactory(ApiHelper(ApiClient.instance), pref)
-        )[LoginViewModel::class.java]
+        viewModel = ViewModelProvider(this)[LoginViewModel::class.java]
 
-        flightViewModel = ViewModelProvider(
-            this, FlightViewModelFactory(ApiHelper(ApiClient.instance), pref)
-        )[FlightViewModel::class.java]
+        flightViewModel = ViewModelProvider(this)[FlightViewModel::class.java]
         builder = AlertDialog.Builder(context)
 
         _binding = FragmentFlightBinding.inflate(inflater,container,false)

@@ -16,22 +16,19 @@ import com.example.final_project_android_admin.adapter.ListAirplaneAdapter
 import com.example.final_project_android_admin.adapter.ListCityAdapter
 import com.example.final_project_android_admin.data.api.response.airplane.DataAirplane
 import com.example.final_project_android_admin.data.api.response.airport.DataAirport
-import com.example.final_project_android_admin.data.api.service.ApiClient
-import com.example.final_project_android_admin.data.api.service.ApiHelper
 import com.example.final_project_android_admin.databinding.FragmentEditFlightBinding
 import com.example.final_project_android_admin.utils.UserDataStoreManager
 import com.example.final_project_android_admin.viewmodel.AirplaneViewModel
 import com.example.final_project_android_admin.viewmodel.AirportViewModel
 import com.example.final_project_android_admin.viewmodel.FlightViewModel
-import com.example.final_project_android_admin.viewmodel.factory.AirplaneViewModelFactory
-import com.example.final_project_android_admin.viewmodel.factory.AirportViewModelFactory
-import com.example.final_project_android_admin.viewmodel.factory.FlightViewModelFactory
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
+import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.*
 
+@AndroidEntryPoint
 class EditFlightFragment : Fragment() {
     private var _binding: FragmentEditFlightBinding? = null
     private val binding get() = _binding!!
@@ -49,15 +46,9 @@ class EditFlightFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         pref = UserDataStoreManager(requireContext())
-        airportViewModel = ViewModelProvider(
-            this, AirportViewModelFactory(ApiHelper(ApiClient.instance), pref)
-        )[AirportViewModel::class.java]
-        flightViewModel = ViewModelProvider(
-            this, FlightViewModelFactory(ApiHelper(ApiClient.instance), pref)
-        )[FlightViewModel::class.java]
-        airplaneViewModel = ViewModelProvider(
-            this, AirplaneViewModelFactory(ApiHelper(ApiClient.instance), pref)
-        )[AirplaneViewModel::class.java]
+        airportViewModel = ViewModelProvider(this)[AirportViewModel::class.java]
+        flightViewModel = ViewModelProvider(this)[FlightViewModel::class.java]
+        airplaneViewModel = ViewModelProvider(this)[AirplaneViewModel::class.java]
 
         _binding = FragmentEditFlightBinding.inflate(inflater, container, false)
         return binding.root

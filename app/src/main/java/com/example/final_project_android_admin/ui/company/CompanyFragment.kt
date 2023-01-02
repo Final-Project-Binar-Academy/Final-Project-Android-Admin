@@ -14,18 +14,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.final_project_android_admin.R
 import com.example.final_project_android_admin.adapter.CompanyAdapter
-import com.example.final_project_android_admin.data.api.response.airplane.DataAirplane
 import com.example.final_project_android_admin.data.api.response.company.DataCompany
-import com.example.final_project_android_admin.data.api.service.ApiClient
-import com.example.final_project_android_admin.data.api.service.ApiHelper
 import com.example.final_project_android_admin.databinding.FragmentCompanyBinding
 import com.example.final_project_android_admin.utils.UserDataStoreManager
 import com.example.final_project_android_admin.viewmodel.CompanyViewModel
 import com.example.final_project_android_admin.viewmodel.LoginViewModel
-import com.example.final_project_android_admin.viewmodel.factory.CompanyViewModelFactory
-import com.example.final_project_android_admin.viewmodel.factory.UserViewModelFactory
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class CompanyFragment : Fragment(), CompanyAdapter.ListCompanyInterface {
     private var _binding: FragmentCompanyBinding? = null
     private val binding get() = _binding!!
@@ -43,12 +40,8 @@ class CompanyFragment : Fragment(), CompanyAdapter.ListCompanyInterface {
         // Inflate the layout for this fragment
 
         pref = UserDataStoreManager(requireContext())
-        viewModel = ViewModelProvider(
-            this, UserViewModelFactory(ApiHelper(ApiClient.instance), pref)
-        )[LoginViewModel::class.java]
-        companyViewModel = ViewModelProvider(
-            this, CompanyViewModelFactory(ApiHelper(ApiClient.instance), pref)
-        )[CompanyViewModel::class.java]
+        viewModel = ViewModelProvider(this)[LoginViewModel::class.java]
+        companyViewModel = ViewModelProvider(this)[CompanyViewModel::class.java]
 
         builder = AlertDialog.Builder(context)
         _binding = FragmentCompanyBinding.inflate(inflater,container,false)

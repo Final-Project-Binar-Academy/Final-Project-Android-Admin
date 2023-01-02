@@ -4,31 +4,28 @@ import android.app.AlertDialog
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.load.engine.Resource
 import com.example.final_project_android_admin.R
 import com.example.final_project_android_admin.adapter.TransactionAdapter
-import com.example.final_project_android_admin.data.api.response.airplane.DataAirplane
 import com.example.final_project_android_admin.data.api.response.transaction.DataTransaction
-import com.example.final_project_android_admin.data.api.service.ApiClient
-import com.example.final_project_android_admin.data.api.service.ApiHelper
 import com.example.final_project_android_admin.databinding.FragmentTransactionBinding
 import com.example.final_project_android_admin.utils.UserDataStoreManager
 import com.example.final_project_android_admin.viewmodel.LoginViewModel
 import com.example.final_project_android_admin.viewmodel.TransactionViewModel
-import com.example.final_project_android_admin.viewmodel.factory.TransactionViewModelFactory
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 
 
+@AndroidEntryPoint
 class TransactionFragment : Fragment(), TransactionAdapter.ListTransactionInterface {
     private var _binding: FragmentTransactionBinding? = null
     private val binding get() = _binding!!
@@ -48,9 +45,7 @@ class TransactionFragment : Fragment(), TransactionAdapter.ListTransactionInterf
         // Inflate the layout for this fragment
 
         pref = UserDataStoreManager(requireContext())
-        transactionViewModel = ViewModelProvider(
-            this, TransactionViewModelFactory(ApiHelper(ApiClient.instance), pref)
-        )[TransactionViewModel::class.java]
+        transactionViewModel = ViewModelProvider(this)[TransactionViewModel::class.java]
         builder = AlertDialog.Builder(context)
 
         _binding = FragmentTransactionBinding.inflate(inflater, container, false)
@@ -71,6 +66,10 @@ class TransactionFragment : Fragment(), TransactionAdapter.ListTransactionInterf
                 rvPost("success")
                 binding.btnSuccess.setBackgroundColor(resources.getColor(R.color.birutua))
                 binding.btnSuccess.setTextColor(resources.getColor(R.color.text_blue))
+                binding.btnCanceled.setBackgroundColor(Color.WHITE)
+                binding.btnCanceled.setTextColor(Color.BLACK)
+                binding.btnPending.setBackgroundColor(Color.WHITE)
+                binding.btnPending.setTextColor(Color.BLACK)
             } else {
                 isSuccess = false
                 isPending = false
@@ -87,6 +86,10 @@ class TransactionFragment : Fragment(), TransactionAdapter.ListTransactionInterf
                 rvPost("pending")
                 binding.btnPending.setBackgroundColor(resources.getColor(R.color.birutua))
                 binding.btnPending.setTextColor(resources.getColor(R.color.text_blue))
+                binding.btnCanceled.setBackgroundColor(Color.WHITE)
+                binding.btnCanceled.setTextColor(Color.BLACK)
+                binding.btnSuccess.setBackgroundColor(Color.WHITE)
+                binding.btnSuccess.setTextColor(Color.BLACK)
             } else {
                 isSuccess = false
                 isPending = false
@@ -103,6 +106,10 @@ class TransactionFragment : Fragment(), TransactionAdapter.ListTransactionInterf
                 rvPost("canceled")
                 binding.btnCanceled.setBackgroundColor(resources.getColor(R.color.birutua))
                 binding.btnCanceled.setTextColor(resources.getColor(R.color.text_blue))
+                binding.btnSuccess.setBackgroundColor(Color.WHITE)
+                binding.btnSuccess.setTextColor(Color.BLACK)
+                binding.btnPending.setBackgroundColor(Color.WHITE)
+                binding.btnPending.setTextColor(Color.BLACK)
             } else {
 
                 isSuccess = false

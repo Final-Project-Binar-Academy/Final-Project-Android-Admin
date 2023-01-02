@@ -7,18 +7,15 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.example.final_project_android_admin.R
-import com.example.final_project_android_admin.data.api.response.airport.DataAirport
-import com.example.final_project_android_admin.data.api.service.ApiClient
-import com.example.final_project_android_admin.data.api.service.ApiHelper
 import com.example.final_project_android_admin.databinding.FragmentEditAirportBinding
 import com.example.final_project_android_admin.utils.UserDataStoreManager
 import com.example.final_project_android_admin.viewmodel.AirportViewModel
-import com.example.final_project_android_admin.viewmodel.factory.AirportViewModelFactory
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class EditAirportFragment : Fragment() {
     private var _binding: FragmentEditAirportBinding? = null
     private val binding get() = _binding!!
@@ -32,9 +29,7 @@ class EditAirportFragment : Fragment() {
         // Inflate the layout for this fragment
 
         pref = UserDataStoreManager(requireContext())
-        airportViewModel = ViewModelProvider(
-            this, AirportViewModelFactory(ApiHelper(ApiClient.instance), pref)
-        )[AirportViewModel::class.java]
+        airportViewModel = ViewModelProvider(this)[AirportViewModel::class.java]
 
         _binding = FragmentEditAirportBinding.inflate(inflater, container, false)
         return binding.root

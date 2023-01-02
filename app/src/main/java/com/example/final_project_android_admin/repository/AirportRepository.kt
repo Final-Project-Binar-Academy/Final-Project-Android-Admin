@@ -2,8 +2,11 @@ package com.example.final_project_android_admin.repository
 
 import com.example.final_project_android_admin.data.api.request.AirportRequest
 import com.example.final_project_android_admin.data.api.service.ApiHelper
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class AirportRepository (private val apiHelper: ApiHelper) {
+@Singleton
+class AirportRepository @Inject constructor(private val apiHelper: ApiHelper) {
     fun getAirport() = apiHelper.getAllAirport()
 
     fun getDetailAirport(id: Int) = apiHelper.getDetailAirport(id)

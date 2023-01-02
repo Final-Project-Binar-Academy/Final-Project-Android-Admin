@@ -17,7 +17,6 @@ import com.example.final_project_android_admin.R
 import com.example.final_project_android_admin.databinding.FragmentEditProfileBinding
 import com.example.final_project_android_admin.utils.UserDataStoreManager
 import com.example.final_project_android_admin.viewmodel.ProfileViewModel
-import com.example.final_project_android_admin.viewmodel.factory.ProfileViewModelFactory
 import dagger.hilt.android.AndroidEntryPoint
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
@@ -26,6 +25,7 @@ import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 
+@AndroidEntryPoint
 class EditProfileFragment : DialogFragment() {
     private var image_uri: Uri? = null
     private var imageFile: File? = null
@@ -48,18 +48,14 @@ class EditProfileFragment : DialogFragment() {
     ): View? {
         // Inflate the layout for this fragment
 
+        pref = UserDataStoreManager(requireContext())
+        viewModel = ViewModelProvider(this)[ProfileViewModel::class.java]
         _binding = FragmentEditProfileBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
-        pref = UserDataStoreManager(requireContext())
-        viewModel = ViewModelProvider(
-            this, ProfileViewModelFactory(pref)
-        )[ProfileViewModel::class.java]
 
         viewModel.getDataStoreToken().observe(viewLifecycleOwner) {
             viewModel.getUserProfile("Bearer $it")

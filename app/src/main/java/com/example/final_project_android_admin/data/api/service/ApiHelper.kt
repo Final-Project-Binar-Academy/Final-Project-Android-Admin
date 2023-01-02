@@ -12,70 +12,51 @@ import com.example.final_project_android_admin.data.api.response.company.Company
 import com.example.final_project_android_admin.data.api.response.flight.FlightIdResponse
 import com.example.final_project_android_admin.data.api.response.flight.FlightResponse
 import com.example.final_project_android_admin.data.api.response.transaction.TransactionIdResponse
+import com.example.final_project_android_admin.data.api.response.transaction.TransactionResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Response
 
-class ApiHelper(private val apiService: ApiService) {
+interface ApiHelper {
 
-    suspend fun loginUser(loginRequest: LoginRequest): Response<AuthResponse> = apiService.loginUser(loginRequest = loginRequest)
+    suspend fun loginUser(loginRequest: LoginRequest): Response<AuthResponse>
 
 //    airport
-    fun getAllAirport() = apiService.getAirport()
+    fun getAllAirport(): Call<AirportResponse>
 
-    fun getDetailAirport(id: Int): Call<AirportIdResponse> = apiService.getAirportDetail(id)
+    fun getDetailAirport(id: Int): Call<AirportIdResponse>
 
-    suspend fun createAirport(airportRequest: AirportRequest, token: String): Response<AirportResponse> = apiService.createAirport(airportRequest = airportRequest, token)
+    suspend fun createAirport(airportRequest: AirportRequest, token: String): Response<AirportResponse>
 
-    fun updateAirport(airportRequest: AirportRequest, token: String, id: Int): Call<AirportIdResponse> = apiService.updateAirport(airportRequest = airportRequest, token, id)
+    fun updateAirport(airportRequest: AirportRequest, token: String, id: Int): Call<AirportIdResponse>
 
-    fun deleteAirport(token: String, id: Int): Call<DeleteResponse> = apiService.deleteAirport(token, id)
+    fun deleteAirport(token: String, id: Int): Call<DeleteResponse>
 
 //    company
-    fun getAllCompany() = apiService.getCompany()
-
-    fun getDetailCompany(id: Int): Call<CompanyIdResponse> = apiService.getCompanyDetail(id)
-
-    suspend fun createCompany(companyName: RequestBody, image: MultipartBody.Part, token: String): Response<CompanyResponse> = apiService.createCompany(companyName, image, token)
-
-    fun updateCompany(companyName: RequestBody, image: MultipartBody.Part, token: String, id: Int): Call<CompanyIdResponse> = apiService.updateCompany(companyName, image, token, id)
-
-    fun deleteCompany(token: String, id: Int): Call<DeleteResponse> = apiService.deleteCompany(token, id)
-
+    fun getAllCompany(): Call<CompanyResponse>
+    fun getDetailCompany(id: Int): Call<CompanyIdResponse>
+    suspend fun createCompany(companyName: RequestBody, image: MultipartBody.Part, token: String): Response<CompanyResponse>
+    fun updateCompany(companyName: RequestBody, image: MultipartBody.Part, token: String, id: Int): Call<CompanyIdResponse>
+    fun deleteCompany(token: String, id: Int): Call<DeleteResponse>
 
     //    airplane
-    fun getAllAirplane() = apiService.getAirplane()
-
-    fun getDetailAirplane(id: Int): Call<AirplaneIdResponse> = apiService.getAirplaneDetail(id)
-
-    suspend fun createAirplane(airplaneRequest: AirplaneRequest, token: String): Response<AirplaneResponse> = apiService.createAirplane(airplaneRequest = airplaneRequest, token)
-
-    fun updateAirplane(airplaneRequest: AirplaneRequest, token: String, id: Int): Call<AirplaneIdResponse> = apiService.updateAirplane(airplaneRequest = airplaneRequest, token, id)
-
-    fun deleteAirplane(token: String, id: Int): Call<DeleteResponse> = apiService.deleteAirplane(token, id)
-
+    fun getAllAirplane(): Call<AirplaneResponse>
+    fun getDetailAirplane(id: Int): Call<AirplaneIdResponse>
+    suspend fun createAirplane(airplaneRequest: AirplaneRequest, token: String): Response<AirplaneResponse>
+    fun updateAirplane(airplaneRequest: AirplaneRequest, token: String, id: Int): Call<AirplaneIdResponse>
+    fun deleteAirplane(token: String, id: Int): Call<DeleteResponse>
 //    flight
-    fun getAllFlight() = apiService.getFlight()
-
-    fun getDetailFlight(id: Int): Call<FlightIdResponse> = apiService.getFlightDetail(id)
-
-    suspend fun createFlight(flightRequest: FlightRequest, token: String): Response<FlightResponse> = apiService.createFlight(flightRequest = flightRequest, token)
-
-    fun updateFlight(flightRequest: FlightRequest, token: String, id: Int): Call<FlightIdResponse> = apiService.updateFlight(flightRequest = flightRequest, token, id)
-
-    fun deleteFlight(token: String, id: Int): Call<DeleteResponse> = apiService.deleteFlight(token, id)
-
+    fun getAllFlight(): Call<FlightResponse>
+    fun getDetailFlight(id: Int): Call<FlightIdResponse>
+    suspend fun createFlight(flightRequest: FlightRequest, token: String): Response<FlightResponse>
+    fun updateFlight(flightRequest: FlightRequest, token: String, id: Int): Call<FlightIdResponse>
+    fun deleteFlight(token: String, id: Int): Call<DeleteResponse>
 //    transaction
-    fun getTransaction(token: String) = apiService.getTransaction(token)
-
-    fun getDetailTransaction(token: String, id: Int): Call<TransactionIdResponse> = apiService.getTransactionDetail(token, id)
-
-    fun getTransactionFilter(token: String, status: String) = apiService.getTransactionFilter(token, status)
-
-    fun updateTransaction(transactionRequest: TransactionRequest , token: String, id: Int): Call<TransactionIdResponse> = apiService.updateTransaction(transactionRequest, token, id)
-
-    fun deleteTransaction(token: String, id: Int): Call<DeleteResponse> = apiService.deleteTransaction(token, id)
-
+    fun getTransaction(token: String): Call<TransactionResponse>
+    fun getDetailTransaction(token: String, id: Int): Call<TransactionIdResponse>
+    fun getTransactionFilter(token: String, status: String): Call<TransactionResponse>
+    fun updateTransaction(transactionRequest: TransactionRequest , token: String, id: Int): Call<TransactionIdResponse>
+    fun deleteTransaction(token: String, id: Int): Call<DeleteResponse>
 
 }

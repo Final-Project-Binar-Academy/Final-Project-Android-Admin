@@ -11,16 +11,14 @@ import androidx.navigation.fragment.findNavController
 import com.example.final_project_android_admin.R
 import com.example.final_project_android_admin.adapter.ListCompanyAdapter
 import com.example.final_project_android_admin.data.api.response.company.DataCompany
-import com.example.final_project_android_admin.data.api.service.ApiClient
-import com.example.final_project_android_admin.data.api.service.ApiHelper
 import com.example.final_project_android_admin.databinding.FragmentEditAirplaneBinding
 import com.example.final_project_android_admin.utils.UserDataStoreManager
 import com.example.final_project_android_admin.viewmodel.AirplaneViewModel
 import com.example.final_project_android_admin.viewmodel.CompanyViewModel
-import com.example.final_project_android_admin.viewmodel.factory.AirplaneViewModelFactory
-import com.example.final_project_android_admin.viewmodel.factory.CompanyViewModelFactory
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class EditAirplaneFragment : Fragment() {
     private var _binding: FragmentEditAirplaneBinding? = null
     private val binding get() = _binding!!
@@ -37,12 +35,8 @@ class EditAirplaneFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         pref = UserDataStoreManager(requireContext())
-        airplaneViewModel = ViewModelProvider(
-            this, AirplaneViewModelFactory(ApiHelper(ApiClient.instance), pref)
-        )[AirplaneViewModel::class.java]
-        companyViewModel = ViewModelProvider(
-            this, CompanyViewModelFactory(ApiHelper(ApiClient.instance), pref)
-        )[CompanyViewModel::class.java]
+        airplaneViewModel = ViewModelProvider(this)[AirplaneViewModel::class.java]
+        companyViewModel = ViewModelProvider(this)[CompanyViewModel::class.java]
 
         _binding = FragmentEditAirplaneBinding.inflate(inflater, container, false)
         return binding.root

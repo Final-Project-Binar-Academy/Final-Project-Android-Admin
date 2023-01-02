@@ -1,35 +1,63 @@
 package com.example.final_project_android_admin.data.api.service
 
+import android.content.Context
+import com.example.final_project_android_admin.utils.UserDataStoreManager
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Singleton
+@Module
+@InstallIn(SingletonComponent::class)
+object ApiClient {
 
-interface ApiClient {
+    val BASE_URL = "https://lef-id.up.railway.app"
 
-    companion object {
-        private const val BASE_URL = "https://lef-id.up.railway.app"
-
-        private val logging: HttpLoggingInterceptor
-            get() {
-                val httpLoggingInterceptor = HttpLoggingInterceptor()
-                return httpLoggingInterceptor.apply {
-                    httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
-                }
-            }
-
-        private val client = OkHttpClient.Builder()
-            .addInterceptor(logging)
-            .build()
-
-        val instance: ApiService by lazy {
-            val retrofit = Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .client(client)
-                .build()
-
-            retrofit.create(ApiService::class.java)
+    @Singleton
+    @Provides
+    fun provideLoggingInterceptor(): HttpLoggingInterceptor {
+        return HttpLoggingInterceptor().apply {
+            level = HttpLoggingInterceptor.Level.BODY
         }
     }
+
+    @Singleton
+    @Provides
+    fun provideOkHttp(
+        httpLoggingInterceptor: HttpLoggingInterceptor
+    ): OkHttpClient {
+        return OkHttpClient.Builder()
+            .addInterceptor(httpLoggingInterceptor)
+            .build()
+    }
+
+    @Singleton
+    @Provides
+    fun provideRetrofit(
+        okHttpClient: OkHttpClient
+    ): ApiService {
+        return Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(okHttpClient)
+            .build()
+            .create(ApiService::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideApiHelper(apiHelper: ApiHelperImpl): ApiHelper {
+        return apiHelper
+    }
+
+    @Provides
+    fun getUserManager(@ApplicationContext context: Context): UserDataStoreManager =
+        UserDataStoreManager(context)
+
+
 }

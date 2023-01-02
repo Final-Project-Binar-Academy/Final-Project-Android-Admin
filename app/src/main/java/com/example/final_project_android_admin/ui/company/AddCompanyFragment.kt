@@ -12,12 +12,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.final_project_android_admin.R
-import com.example.final_project_android_admin.data.api.service.ApiClient
-import com.example.final_project_android_admin.data.api.service.ApiHelper
 import com.example.final_project_android_admin.databinding.FragmentAddCompanyBinding
 import com.example.final_project_android_admin.utils.UserDataStoreManager
 import com.example.final_project_android_admin.viewmodel.CompanyViewModel
-import com.example.final_project_android_admin.viewmodel.factory.CompanyViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -25,6 +23,7 @@ import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 
+@AndroidEntryPoint
 class AddCompanyFragment : Fragment() {
     private var _binding: FragmentAddCompanyBinding? = null
     private val binding get() = _binding!!
@@ -41,9 +40,7 @@ class AddCompanyFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         pref = UserDataStoreManager(requireContext())
-        companyViewModel = ViewModelProvider(
-            this, CompanyViewModelFactory(ApiHelper(ApiClient.instance), pref)
-        )[CompanyViewModel::class.java]
+        companyViewModel = ViewModelProvider(this)[CompanyViewModel::class.java]
 
         _binding = FragmentAddCompanyBinding.inflate(inflater, container, false)
         return binding.root

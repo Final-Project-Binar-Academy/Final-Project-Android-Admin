@@ -4,26 +4,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.final_project_android_admin.R
-import com.example.final_project_android_admin.adapter.ListAirplaneAdapter
 import com.example.final_project_android_admin.adapter.ListCompanyAdapter
-import com.example.final_project_android_admin.data.api.response.airplane.DataAirplane
 import com.example.final_project_android_admin.data.api.response.company.DataCompany
-import com.example.final_project_android_admin.data.api.service.ApiClient
-import com.example.final_project_android_admin.data.api.service.ApiHelper
 import com.example.final_project_android_admin.databinding.FragmentAddAirplaneBinding
 import com.example.final_project_android_admin.utils.UserDataStoreManager
 import com.example.final_project_android_admin.viewmodel.AirplaneViewModel
 import com.example.final_project_android_admin.viewmodel.CompanyViewModel
-import com.example.final_project_android_admin.viewmodel.factory.AirplaneViewModelFactory
-import com.example.final_project_android_admin.viewmodel.factory.CompanyViewModelFactory
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class AddAirplaneFragment : Fragment() {
     private var _binding: FragmentAddAirplaneBinding? = null
     private val binding get() = _binding!!
@@ -39,12 +34,8 @@ class AddAirplaneFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         pref = UserDataStoreManager(requireContext())
-        airplaneViewModel = ViewModelProvider(
-            this, AirplaneViewModelFactory(ApiHelper(ApiClient.instance), pref)
-        )[AirplaneViewModel::class.java]
-        companyViewModel = ViewModelProvider(
-            this, CompanyViewModelFactory(ApiHelper(ApiClient.instance), pref)
-        )[CompanyViewModel::class.java]
+        airplaneViewModel = ViewModelProvider(this)[AirplaneViewModel::class.java]
+        companyViewModel = ViewModelProvider(this)[CompanyViewModel::class.java]
 
         _binding = FragmentAddAirplaneBinding.inflate(inflater, container, false)
         return binding.root

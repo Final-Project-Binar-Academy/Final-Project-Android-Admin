@@ -14,18 +14,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.final_project_android_admin.R
 import com.example.final_project_android_admin.adapter.AirplaneAdapter
-import com.example.final_project_android_admin.adapter.AirportAdapter
 import com.example.final_project_android_admin.data.api.response.airplane.DataAirplane
-import com.example.final_project_android_admin.data.api.service.ApiClient
-import com.example.final_project_android_admin.data.api.service.ApiHelper
 import com.example.final_project_android_admin.databinding.FragmentAirplaneBinding
 import com.example.final_project_android_admin.utils.UserDataStoreManager
 import com.example.final_project_android_admin.viewmodel.AirplaneViewModel
 import com.example.final_project_android_admin.viewmodel.LoginViewModel
-import com.example.final_project_android_admin.viewmodel.factory.AirplaneViewModelFactory
-import com.example.final_project_android_admin.viewmodel.factory.UserViewModelFactory
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class AirplaneFragment : Fragment(), AirplaneAdapter.ListAirplaneInterface {
     private var _binding: FragmentAirplaneBinding? = null
     private val binding get() = _binding!!
@@ -42,12 +39,8 @@ class AirplaneFragment : Fragment(), AirplaneAdapter.ListAirplaneInterface {
         // Inflate the layout for this fragment
 
         pref = UserDataStoreManager(requireContext())
-        viewModel = ViewModelProvider(
-            this, UserViewModelFactory(ApiHelper(ApiClient.instance), pref)
-        )[LoginViewModel::class.java]
-        airplaneViewModel = ViewModelProvider(
-            this, AirplaneViewModelFactory(ApiHelper(ApiClient.instance), pref)
-        )[AirplaneViewModel::class.java]
+        viewModel = ViewModelProvider(this)[LoginViewModel::class.java]
+        airplaneViewModel = ViewModelProvider(this)[AirplaneViewModel::class.java]
         builder = AlertDialog.Builder(context)
 
         _binding = FragmentAirplaneBinding.inflate(inflater,container,false)

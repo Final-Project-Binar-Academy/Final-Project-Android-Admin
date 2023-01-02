@@ -1,5 +1,6 @@
 package com.example.final_project_android_admin.viewmodel
 
+import android.app.Application
 import android.util.Log
 import android.widget.Toast
 import androidx.core.content.ContentProviderCompat.requireContext
@@ -18,21 +19,26 @@ import com.example.final_project_android_admin.data.api.service.ApiService
 import com.example.final_project_android_admin.repository.AirportRepository
 import com.example.final_project_android_admin.utils.UserDataStoreManager
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import javax.inject.Inject
 
-class AirportViewModel(
+@HiltViewModel
+class AirportViewModel @Inject constructor(
+    private val client: ApiService,
     private val airportRepository: AirportRepository,
-    private val pref: UserDataStoreManager
-) : ViewModel() {
+    private val pref: UserDataStoreManager,
+    application: Application
+) : AndroidViewModel(application) {
 
     private val _airport: MutableLiveData<AirportResponse?> = MutableLiveData()
     fun getLiveDataAirport() : MutableLiveData<AirportResponse?> = _airport
 
     fun getDataAirport() {
-        ApiClient.instance.getAirport()
+        client.getAirport()
             .enqueue(object : Callback<AirportResponse> {
                 override fun onResponse(
                     call: Call<AirportResponse>,
@@ -59,7 +65,7 @@ class AirportViewModel(
     val LiveDataCityAirport: LiveData<List<DataAirport>?> = _airportCity
 
     fun getCityAirport(){
-        ApiClient.instance.getAirport().enqueue(object : Callback<AirportResponse> {
+        client.getAirport().enqueue(object : Callback<AirportResponse> {
             override fun onResponse(
                 call: Call<AirportResponse>,
                 response: Response<AirportResponse>
@@ -106,7 +112,7 @@ class AirportViewModel(
     val airportDetail: LiveData<AirportIdResponse?> get() = getDetailAirport
 
     fun getAirportDetail(id : Int){
-        ApiClient.instance.getAirportDetail(id)
+        client.getAirportDetail(id)
             .enqueue(object : Callback <AirportIdResponse> {
                 override fun onResponse(
                     call: Call<AirportIdResponse>,
@@ -127,7 +133,7 @@ class AirportViewModel(
     }
 
     fun updateAirport(airport_name: String, _city: String, _cityCode: String, token: String, id: Int) {
-        ApiClient.instance.updateAirport(AirportRequest(airport_name, _city, _cityCode), token, id)
+        client.updateAirport(AirportRequest(airport_name, _city, _cityCode), token, id)
             .enqueue(object : Callback<AirportIdResponse> {
                 override fun onResponse(
                     call: Call<AirportIdResponse>,
@@ -147,7 +153,7 @@ class AirportViewModel(
     }
 
     fun deleteAirport(token: String, id: Int) {
-        ApiClient.instance.deleteAirport(token, id)
+        client.deleteAirport(token, id)
             .enqueue(object : Callback<DeleteResponse> {
                 override fun onResponse(
                     call: Call<DeleteResponse>,

@@ -1,5 +1,6 @@
 package com.example.final_project_android_admin.viewmodel
 
+import android.app.Application
 import android.util.Log
 import androidx.lifecycle.*
 import com.example.final_project_android_admin.data.api.request.AirplaneRequest
@@ -13,24 +14,30 @@ import com.example.final_project_android_admin.data.api.response.airport.Airport
 import com.example.final_project_android_admin.data.api.response.airport.AirportResponse
 import com.example.final_project_android_admin.data.api.response.airport.DataAirport
 import com.example.final_project_android_admin.data.api.service.ApiClient
+import com.example.final_project_android_admin.data.api.service.ApiService
 import com.example.final_project_android_admin.repository.AirplaneRepository
 import com.example.final_project_android_admin.repository.AirportRepository
 import com.example.final_project_android_admin.utils.UserDataStoreManager
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import javax.inject.Inject
 
-class AirplaneViewModel(
+@HiltViewModel
+class AirplaneViewModel @Inject constructor(
+    private val client: ApiService,
     private val airplaneRepository: AirplaneRepository,
-    private val pref: UserDataStoreManager
-) : ViewModel() {
+    private val pref: UserDataStoreManager,
+    application: Application
+) : AndroidViewModel(application) {
 
     private val _airplane: MutableLiveData<AirplaneResponse?> = MutableLiveData()
     fun getLiveDataAirplane() : MutableLiveData<AirplaneResponse?> = _airplane
 
     fun getDataAirplane() {
-        ApiClient.instance.getAirplane()
+        client.getAirplane()
             .enqueue(object : Callback<AirplaneResponse> {
                 override fun onResponse(
                     call: Call<AirplaneResponse>,
@@ -57,7 +64,7 @@ class AirplaneViewModel(
     val LiveDataListAirplane: LiveData<List<DataAirplane>?> = _listAirplane
 
     fun getListAirplane(){
-        ApiClient.instance.getAirplane().enqueue(object : Callback<AirplaneResponse> {
+        client.getAirplane().enqueue(object : Callback<AirplaneResponse> {
             override fun onResponse(
                 call: Call<AirplaneResponse>,
                 response: Response<AirplaneResponse>
@@ -105,7 +112,7 @@ class AirplaneViewModel(
     val airplaneDetail: LiveData<AirplaneIdResponse?> get() = getDetailAirplane
 
     fun getAirplaneDetail(id : Int){
-        ApiClient.instance.getAirplaneDetail(id)
+        client.getAirplaneDetail(id)
             .enqueue(object : Callback <AirplaneIdResponse> {
                 override fun onResponse(
                     call: Call<AirplaneIdResponse>,
@@ -126,7 +133,7 @@ class AirplaneViewModel(
     }
 
     fun updateAirplane(airplane_name: String, airplane_code: String, company_id: Int, token: String, id: Int) {
-        ApiClient.instance.updateAirplane(AirplaneRequest(airplane_name, airplane_code, company_id), token, id)
+        client.updateAirplane(AirplaneRequest(airplane_name, airplane_code, company_id), token, id)
             .enqueue(object : Callback<AirplaneIdResponse> {
                 override fun onResponse(
                     call: Call<AirplaneIdResponse>,
@@ -146,7 +153,7 @@ class AirplaneViewModel(
     }
 
     fun deleteAirplane(token: String, id: Int) {
-        ApiClient.instance.deleteAirplane(token, id)
+        client.deleteAirplane(token, id)
             .enqueue(object : Callback<DeleteResponse> {
                 override fun onResponse(
                     call: Call<DeleteResponse>,

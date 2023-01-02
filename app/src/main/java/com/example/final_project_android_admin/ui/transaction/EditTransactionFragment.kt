@@ -2,29 +2,23 @@ package com.example.final_project_android_admin.ui.transaction
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.final_project_android_admin.R
-import com.example.final_project_android_admin.adapter.ListAirplaneAdapter
 import com.example.final_project_android_admin.adapter.ListCodeTicketAdapter
-import com.example.final_project_android_admin.data.api.response.airplane.DataAirplane
 import com.example.final_project_android_admin.data.api.response.flight.DataFlight
-import com.example.final_project_android_admin.data.api.service.ApiClient
-import com.example.final_project_android_admin.data.api.service.ApiHelper
-import com.example.final_project_android_admin.databinding.FragmentEditFlightBinding
 import com.example.final_project_android_admin.databinding.FragmentEditTransactionBinding
 import com.example.final_project_android_admin.utils.UserDataStoreManager
 import com.example.final_project_android_admin.viewmodel.FlightViewModel
 import com.example.final_project_android_admin.viewmodel.TransactionViewModel
-import com.example.final_project_android_admin.viewmodel.factory.FlightViewModelFactory
-import com.example.final_project_android_admin.viewmodel.factory.TransactionViewModelFactory
-import java.util.ArrayList
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class EditTransactionFragment : Fragment() {
     private var _binding: FragmentEditTransactionBinding? = null
     private val binding get() = _binding!!
@@ -41,12 +35,8 @@ class EditTransactionFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         pref = UserDataStoreManager(requireContext())
-        flightViewModel = ViewModelProvider(
-            this, FlightViewModelFactory(ApiHelper(ApiClient.instance), pref)
-        )[FlightViewModel::class.java]
-        transactionViewModel = ViewModelProvider(
-            this, TransactionViewModelFactory(ApiHelper(ApiClient.instance), pref)
-        )[TransactionViewModel::class.java]
+        flightViewModel = ViewModelProvider(this)[FlightViewModel::class.java]
+        transactionViewModel = ViewModelProvider(this)[TransactionViewModel::class.java]
         _binding = FragmentEditTransactionBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -59,7 +49,7 @@ class EditTransactionFragment : Fragment() {
         val id = arguments?.getInt("id")
         Log.d("id", id.toString())
 
-        binding.btnEdit.setOnClickListener(){
+        binding.btnEdit.setOnClickListener() {
             val birthDate = binding.birthday.text.toString()
             val firstname = binding.firstname.text.toString()
             val lastname = binding.lastname.text.toString()
@@ -67,14 +57,16 @@ class EditTransactionFragment : Fragment() {
 
             if (binding.actvTipe.text.toString() == "Oneway") {
                 typeId = 1
-            }else {
+            } else {
                 typeId = 2
             }
 
-            transactionViewModel.getDataStoreToken().observe(viewLifecycleOwner){
-                if (id != null){
-                    transactionViewModel.updateTransaction(birthDate, firstname, lastname, _nik,
-                        _ticketBack, _ticketGo, typeId, "Bearer $it", id)
+            transactionViewModel.getDataStoreToken().observe(viewLifecycleOwner) {
+                if (id != null) {
+                    transactionViewModel.updateTransaction(
+                        birthDate, firstname, lastname, _nik,
+                        _ticketBack, _ticketGo, typeId, "Bearer $it", id
+                    )
                 }
             }
             findNavController().navigate(R.id.action_editTransactionFragment_to_transactionFragment)
@@ -84,8 +76,8 @@ class EditTransactionFragment : Fragment() {
 
     private fun ticketCodeBack() {
         flightViewModel.getListFlight()
-        flightViewModel.LiveDataListFlight.observe(viewLifecycleOwner){
-            if (it != null){
+        flightViewModel.LiveDataListFlight.observe(viewLifecycleOwner) {
+            if (it != null) {
                 val listCode: ArrayList<DataFlight> = it as ArrayList<DataFlight>
                 val codeAdapter = ListCodeTicketAdapter(requireContext(), listCode)
                 binding.apply {
@@ -108,8 +100,8 @@ class EditTransactionFragment : Fragment() {
             transactionViewModel.getDataStoreToken().observe(viewLifecycleOwner) {
                 transactionViewModel.getTransactionDetail("Bearer $it", id)
             }
-            transactionViewModel.transactionDetail.observe(viewLifecycleOwner){
-                if (it != null){
+            transactionViewModel.transactionDetail.observe(viewLifecycleOwner) {
+                if (it != null) {
                     binding.firstname.setText(it.data?.passenger?.firstName)
                     binding.lastname.setText(it.data?.passenger?.lastName)
                     binding.nik.setText(it.data?.passenger?.nIK)
@@ -123,8 +115,8 @@ class EditTransactionFragment : Fragment() {
 
     private fun ticketCodeGo() {
         flightViewModel.getListFlight()
-        flightViewModel.LiveDataListFlight.observe(viewLifecycleOwner){
-            if (it != null){
+        flightViewModel.LiveDataListFlight.observe(viewLifecycleOwner) {
+            if (it != null) {
                 val listCode: ArrayList<DataFlight> = it as ArrayList<DataFlight>
                 val codeAdapter = ListCodeTicketAdapter(requireContext(), listCode)
                 binding.apply {

@@ -1,11 +1,10 @@
 package com.example.final_project_android_admin.ui.profile
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.LiveData
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
@@ -13,8 +12,9 @@ import com.example.final_project_android_admin.R
 import com.example.final_project_android_admin.databinding.FragmentProfileBinding
 import com.example.final_project_android_admin.utils.UserDataStoreManager
 import com.example.final_project_android_admin.viewmodel.ProfileViewModel
-import com.example.final_project_android_admin.viewmodel.factory.ProfileViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ProfileFragment : Fragment() {
     private lateinit var viewModel: ProfileViewModel
     private lateinit var pref: UserDataStoreManager
@@ -29,9 +29,7 @@ class ProfileFragment : Fragment() {
         // Inflate the layout for this fragment
 
         pref = UserDataStoreManager(requireContext())
-        viewModel = ViewModelProvider(
-            this, ProfileViewModelFactory(pref)
-        )[ProfileViewModel::class.java]
+        viewModel = ViewModelProvider(this)[ProfileViewModel::class.java]
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         return binding.root
     }

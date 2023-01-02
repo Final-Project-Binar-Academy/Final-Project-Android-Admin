@@ -12,16 +12,14 @@ import androidx.navigation.fragment.findNavController
 import com.example.final_project_android_admin.R
 import com.example.final_project_android_admin.data.api.response.BaseResponse
 import com.example.final_project_android_admin.data.api.response.airport.AirportResponse
-import com.example.final_project_android_admin.data.api.service.ApiClient
-import com.example.final_project_android_admin.data.api.service.ApiHelper
 import com.example.final_project_android_admin.databinding.FragmentAddAirportBinding
 import com.example.final_project_android_admin.utils.UserDataStoreManager
 import com.example.final_project_android_admin.viewmodel.AirportViewModel
 import com.example.final_project_android_admin.viewmodel.LoginViewModel
-import com.example.final_project_android_admin.viewmodel.factory.AirportViewModelFactory
-import com.example.final_project_android_admin.viewmodel.factory.UserViewModelFactory
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class AddAirportFragment : Fragment() {
     private var _binding: FragmentAddAirportBinding? = null
     private val binding get() = _binding!!
@@ -36,15 +34,11 @@ class AddAirportFragment : Fragment() {
     ): View {
 
         pref = UserDataStoreManager(requireContext())
-        airportViewModel = ViewModelProvider(
-            this, AirportViewModelFactory(ApiHelper(ApiClient.instance), pref)
-        )[AirportViewModel::class.java]
+        airportViewModel = ViewModelProvider(this)[AirportViewModel::class.java]
 
 
         pref = UserDataStoreManager(requireContext())
-        userViewModel = ViewModelProvider(
-            this, UserViewModelFactory(ApiHelper(ApiClient.instance), pref)
-        )[LoginViewModel::class.java]
+        userViewModel = ViewModelProvider(this)[LoginViewModel::class.java]
 
 
         _binding = FragmentAddAirportBinding.inflate(inflater, container, false)

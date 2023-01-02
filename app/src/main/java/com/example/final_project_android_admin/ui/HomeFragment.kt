@@ -1,8 +1,6 @@
 package com.example.final_project_android_admin.ui
 
-import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,36 +9,25 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.final_project_android_admin.R
-import com.example.final_project_android_admin.data.api.service.ApiClient
-import com.example.final_project_android_admin.data.api.service.ApiHelper
 import com.example.final_project_android_admin.databinding.FragmentHomeBinding
-import com.example.final_project_android_admin.utils.TotalDataManager
 import com.example.final_project_android_admin.utils.UserDataStoreManager
 import com.example.final_project_android_admin.viewmodel.*
-import com.example.final_project_android_admin.viewmodel.factory.*
-import com.github.mikephil.charting.charts.BarChart
-import com.github.mikephil.charting.components.XAxis
-import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
-import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import dagger.hilt.android.AndroidEntryPoint
-import kotlin.properties.Delegates
 
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private lateinit var viewModel: LoginViewModel
     private lateinit var profileViewModel : ProfileViewModel
     private lateinit var pref: UserDataStoreManager
-    private lateinit var total: TotalDataManager
     private lateinit var flightViewModel: FlightViewModel
     private lateinit var companyViewModel: CompanyViewModel
     private lateinit var airportViewModel: AirportViewModel
     private lateinit var airplaneViewModel: AirplaneViewModel
     private lateinit var transactionViewModel: TransactionViewModel
-
-    private lateinit var totalDataViewModel: TotalDataViewModel
 
     // on below line we are creating
     // a variable for bar data set
@@ -59,32 +46,14 @@ class HomeFragment : Fragment() {
         // Inflate the layout for this fragment
 
         pref = UserDataStoreManager(requireContext())
-        viewModel = ViewModelProvider(
-            this, UserViewModelFactory(ApiHelper(ApiClient.instance), pref)
-        )[LoginViewModel::class.java]
-        flightViewModel = ViewModelProvider(
-            this, FlightViewModelFactory(ApiHelper(ApiClient.instance), pref)
-        )[FlightViewModel::class.java]
-        companyViewModel = ViewModelProvider(
-            this, CompanyViewModelFactory(ApiHelper(ApiClient.instance), pref)
-        )[CompanyViewModel::class.java]
-        airportViewModel = ViewModelProvider(
-            this, AirportViewModelFactory(ApiHelper(ApiClient.instance), pref)
-        )[AirportViewModel::class.java]
-        airplaneViewModel = ViewModelProvider(
-            this, AirplaneViewModelFactory(ApiHelper(ApiClient.instance), pref)
-        )[AirplaneViewModel::class.java]
-        transactionViewModel = ViewModelProvider(
-            this, TransactionViewModelFactory(ApiHelper(ApiClient.instance), pref)
-        )[TransactionViewModel::class.java]
-        total = TotalDataManager((requireContext()))
-        totalDataViewModel = ViewModelProvider(
-            this, TotalDataViewModelFactory(total)
-        )[TotalDataViewModel::class.java]
+        viewModel = ViewModelProvider(this)[LoginViewModel::class.java]
+        flightViewModel = ViewModelProvider(this)[FlightViewModel::class.java]
+        companyViewModel = ViewModelProvider(this)[CompanyViewModel::class.java]
+        airportViewModel = ViewModelProvider(this)[AirportViewModel::class.java]
+        airplaneViewModel = ViewModelProvider(this)[AirplaneViewModel::class.java]
+        transactionViewModel = ViewModelProvider(this)[TransactionViewModel::class.java]
 
-        profileViewModel = ViewModelProvider(
-            this, ProfileViewModelFactory(pref)
-        )[ProfileViewModel::class.java]
+        profileViewModel = ViewModelProvider(this)[ProfileViewModel::class.java]
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -208,9 +177,6 @@ class HomeFragment : Fragment() {
 
     private fun getBarChartDataForSet1(): ArrayList<BarEntry> {
         barEntriesList = ArrayList()
-        companyViewModel.getLiveDataCompany().observe(viewLifecycleOwner){
-            it?.totalData?.let { it1 -> totalDataViewModel.saveCompany(it1) }
-        }
         // on below line we are adding
         // data to our bar entries list
 //        var totalCompany by Delegates.notNull<Float>()

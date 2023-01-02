@@ -6,7 +6,9 @@ import androidx.lifecycle.*
 import com.example.final_project_android_admin.data.api.response.profile.GetUserResponse
 import com.binar.finalproject14.data.api.response.profile.User
 import com.example.final_project_android_admin.data.api.service.ApiClient
+import com.example.final_project_android_admin.data.api.service.ApiService
 import com.example.final_project_android_admin.utils.UserDataStoreManager
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -15,9 +17,13 @@ import retrofit2.Callback
 import retrofit2.Response
 import javax.inject.Inject
 
-class ProfileViewModel(
-    private val pref: UserDataStoreManager
-) : ViewModel() {
+@HiltViewModel
+class ProfileViewModel @Inject constructor(
+    private val client: ApiService,
+    private val pref: UserDataStoreManager,
+    application: Application
+) : AndroidViewModel(application) {
+
     private val _user: MutableLiveData<GetUserResponse?> = MutableLiveData()
     val user: LiveData<GetUserResponse?> get() = _user
 
@@ -26,7 +32,7 @@ class ProfileViewModel(
     private var imageUri: Uri? = null
 
     fun getUserProfile(token: String) {
-        ApiClient.instance.getUserProfile(token)
+        client.getUserProfile(token)
             .enqueue(object : Callback<GetUserResponse> {
                 override fun onResponse(
                     call: Call<GetUserResponse>,
@@ -53,7 +59,7 @@ class ProfileViewModel(
         image: MultipartBody.Part,
         token: String
     ) {
-        ApiClient.instance.updateUser(firstName, lastName, address, phoneNumber, image, token)
+        client.updateUser(firstName, lastName, address, phoneNumber, image, token)
             .enqueue(object : Callback<User> {
                 override fun onResponse(
                     call: Call<User>,

@@ -1,31 +1,35 @@
 package com.example.final_project_android_admin.viewmodel
 
+import android.app.Application
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
+import androidx.lifecycle.*
 import com.example.final_project_android_admin.data.api.request.TransactionRequest
 import com.example.final_project_android_admin.data.api.response.DeleteResponse
 import com.example.final_project_android_admin.data.api.response.transaction.TransactionIdResponse
 import com.example.final_project_android_admin.data.api.response.transaction.TransactionResponse
 import com.example.final_project_android_admin.data.api.service.ApiClient
+import com.example.final_project_android_admin.data.api.service.ApiService
 import com.example.final_project_android_admin.repository.TransactionRepository
 import com.example.final_project_android_admin.utils.UserDataStoreManager
+import dagger.hilt.android.lifecycle.HiltViewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import javax.inject.Inject
 
-class TransactionViewModel (
+@HiltViewModel
+class TransactionViewModel @Inject constructor(
+    private val client: ApiService,
     private val transactionRepository: TransactionRepository,
-    private val pref: UserDataStoreManager
-) : ViewModel() {
+    private val pref: UserDataStoreManager,
+    application: Application
+) : AndroidViewModel(application) {
 
     private val _transaction: MutableLiveData<TransactionResponse?> = MutableLiveData()
     fun getLiveDataTransaction(): MutableLiveData<TransactionResponse?> = _transaction
 
     fun getDataTransaction(token: String) {
-        ApiClient.instance.getTransaction(token)
+        client.getTransaction(token)
             .enqueue(object : Callback<TransactionResponse> {
                 override fun onResponse(
                     call: Call<TransactionResponse>,
@@ -56,7 +60,7 @@ class TransactionViewModel (
     fun getTransactionFilter(): MutableLiveData<TransactionResponse?> = _transactionFilter
 
     fun getDataTransactionFilter(token: String, status: String) {
-        ApiClient.instance.getTransactionFilter(token, status)
+        client.getTransactionFilter(token, status)
             .enqueue(object : Callback<TransactionResponse> {
                 override fun onResponse(
                     call: Call<TransactionResponse>,
@@ -83,7 +87,7 @@ class TransactionViewModel (
     val transactionDetail: LiveData<TransactionIdResponse?> get() = getDetailTransaction
 
     fun getTransactionDetail(token: String, id : Int){
-        ApiClient.instance.getTransactionDetail(token, id)
+        client.getTransactionDetail(token, id)
             .enqueue(object : Callback <TransactionIdResponse> {
                 override fun onResponse(
                     call: Call<TransactionIdResponse>,
@@ -106,7 +110,7 @@ class TransactionViewModel (
     fun updateTransaction(birthDate: String, firstname: String,
                         lastname: String, _nik: String, ticketBack: Int,
                         ticketGo: Int, tripId: Int, token: String, id: Int) {
-        ApiClient.instance.updateTransaction(
+        client.updateTransaction(
             TransactionRequest(birthDate, firstname, lastname, _nik, ticketBack, ticketGo, tripId), token, id)
             .enqueue(object : Callback<TransactionIdResponse> {
                 override fun onResponse(
@@ -129,7 +133,7 @@ class TransactionViewModel (
     }
 
     fun deleteTransaction(token: String, id: Int) {
-        ApiClient.instance.deleteTransaction(token, id)
+        client.deleteTransaction(token, id)
             .enqueue(object : Callback<DeleteResponse> {
                 override fun onResponse(
                     call: Call<DeleteResponse>,

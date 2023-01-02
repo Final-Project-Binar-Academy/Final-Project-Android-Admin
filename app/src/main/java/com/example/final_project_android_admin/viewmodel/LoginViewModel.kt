@@ -1,17 +1,22 @@
 package com.example.final_project_android_admin.viewmodel
 
+import android.app.Application
 import androidx.lifecycle.*
 import com.example.final_project_android_admin.data.api.request.LoginRequest
 import com.example.final_project_android_admin.data.api.response.AuthResponse
 import com.example.final_project_android_admin.data.api.response.BaseResponse
 import com.example.final_project_android_admin.repository.UserRepository
 import com.example.final_project_android_admin.utils.UserDataStoreManager
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class LoginViewModel(
+@HiltViewModel
+class LoginViewModel @Inject constructor(
     private val userRepo: UserRepository,
-    private val pref: UserDataStoreManager
-) : ViewModel() {
+    private val pref: UserDataStoreManager,
+    application: Application
+) : AndroidViewModel(application) {
 
     val loginResult: MutableLiveData<BaseResponse<AuthResponse>> = MutableLiveData()
 

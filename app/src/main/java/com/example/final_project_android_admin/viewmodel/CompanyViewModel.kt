@@ -1,5 +1,6 @@
 package com.example.final_project_android_admin.viewmodel
 
+import android.app.Application
 import android.util.Log
 import androidx.lifecycle.*
 import com.example.final_project_android_admin.data.api.request.AirportRequest
@@ -11,24 +12,31 @@ import com.example.final_project_android_admin.data.api.response.company.Company
 import com.example.final_project_android_admin.data.api.response.company.CompanyResponse
 import com.example.final_project_android_admin.data.api.response.company.DataCompany
 import com.example.final_project_android_admin.data.api.service.ApiClient
+import com.example.final_project_android_admin.data.api.service.ApiService
 import com.example.final_project_android_admin.repository.CompanyRepository
 import com.example.final_project_android_admin.utils.UserDataStoreManager
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import javax.inject.Inject
 
-class CompanyViewModel(private val companyRepository: CompanyRepository,
-private val pref: UserDataStoreManager
-) : ViewModel() {
+@HiltViewModel
+class CompanyViewModel @Inject constructor(
+    private val client: ApiService,
+    private val companyRepository: CompanyRepository,
+    private val pref: UserDataStoreManager,
+    application: Application
+) : AndroidViewModel(application) {
 
     private val _company: MutableLiveData<CompanyResponse?> = MutableLiveData()
     fun getLiveDataCompany() : MutableLiveData<CompanyResponse?> = _company
 
     fun getDataCompany() {
-        ApiClient.instance.getCompany()
+        client.getCompany()
             .enqueue(object : Callback<CompanyResponse> {
                 override fun onResponse(
                     call: Call<CompanyResponse>,
@@ -55,7 +63,7 @@ private val pref: UserDataStoreManager
     val LiveDataAirplaneCompany: LiveData<List<DataCompany>?> = _airplaneCompany
 
     fun getAirplaneCompany(){
-        ApiClient.instance.getCompany().enqueue(object : Callback<CompanyResponse> {
+        client.getCompany().enqueue(object : Callback<CompanyResponse> {
             override fun onResponse(
                 call: Call<CompanyResponse>,
                 response: Response<CompanyResponse>
@@ -98,7 +106,7 @@ private val pref: UserDataStoreManager
     val companyDetail: LiveData<CompanyIdResponse?> get() = getDetailCompany
 
     fun getCompanyDetail(id : Int){
-        ApiClient.instance.getCompanyDetail(id)
+        client.getCompanyDetail(id)
             .enqueue(object : Callback <CompanyIdResponse> {
                 override fun onResponse(
                     call: Call<CompanyIdResponse>,
@@ -119,7 +127,7 @@ private val pref: UserDataStoreManager
     }
 
     fun updateCompany(companyName: RequestBody, image: MultipartBody.Part, token: String, id: Int) {
-        ApiClient.instance.updateCompany(companyName, image, token, id)
+        client.updateCompany(companyName, image, token, id)
             .enqueue(object : Callback<CompanyIdResponse> {
                 override fun onResponse(
                     call: Call<CompanyIdResponse>,
@@ -139,7 +147,7 @@ private val pref: UserDataStoreManager
     }
 
     fun deleteCompany(token: String, id: Int) {
-        ApiClient.instance.deleteCompany(token, id)
+        client.deleteCompany(token, id)
             .enqueue(object : Callback<DeleteResponse> {
                 override fun onResponse(
                     call: Call<DeleteResponse>,
