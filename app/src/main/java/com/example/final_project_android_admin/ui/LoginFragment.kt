@@ -14,12 +14,16 @@ import com.example.final_project_android_admin.data.api.response.BaseResponse
 import com.example.final_project_android_admin.databinding.FragmentLoginBinding
 import com.example.final_project_android_admin.utils.UserDataStoreManager
 import com.example.final_project_android_admin.viewmodel.LoginViewModel
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
 class LoginFragment : Fragment() {
     private var _binding: FragmentLoginBinding? = null
+    private lateinit var analytics: FirebaseAnalytics
     private val binding get() = _binding!!
     private lateinit var viewModel: LoginViewModel
     private lateinit var pref: UserDataStoreManager
@@ -32,6 +36,7 @@ class LoginFragment : Fragment() {
 
         pref = UserDataStoreManager(requireContext())
         viewModel = ViewModelProvider(this)[LoginViewModel::class.java]
+        analytics = Firebase.analytics
 
         _binding = FragmentLoginBinding.inflate(inflater,container,false)
         return binding.root
@@ -42,6 +47,9 @@ class LoginFragment : Fragment() {
 //        if (!token.isNullOrBlank()) {
 //            findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
 //        }
+        binding.forgetPass.setOnClickListener {
+            throw RuntimeException("App Crashed")
+        }
 
         viewModel.loginResult.observe(viewLifecycleOwner) {
             when (it) {
