@@ -64,6 +64,7 @@ class HomeFragment : Fragment() {
 
         setUsername()
         setImageProfile()
+        totalData()
 
         super.onViewCreated(view, savedInstanceState)
     }
@@ -194,35 +195,35 @@ class HomeFragment : Fragment() {
         return barEntriesList
     }
 
-//    private fun totalData() {
-//        flightViewModel.getDataFlight()
-//        flightViewModel.getLiveDataFlight().observe(viewLifecycleOwner){
-//            binding.totalTicket.text = it?.totalData.toString()
-//        }
-//
+    private fun totalData() {
+        flightViewModel.getDataFlight()
+        flightViewModel.getLiveDataFlight().observe(viewLifecycleOwner){
+            binding.totalTicket.text = it?.totalData.toString()
+        }
+
 //        companyViewModel.getDataCompany()
 //        companyViewModel.getLiveDataCompany().observe(viewLifecycleOwner){
 //            binding.totalCompany.text = it?.totalData.toString()
 //        }
-//
-//        airportViewModel.getDataAirport()
-//        airportViewModel.getLiveDataAirport().observe(viewLifecycleOwner){
-//            binding.totalAirport.text = it?.totalData.toString()
-//        }
-//
-//        airplaneViewModel.getDataAirplane()
-//        airplaneViewModel.getLiveDataAirplane().observe(viewLifecycleOwner){
-//            binding.totalAirplane.text = it?.totalData.toString()
-//        }
-//
+
+        airportViewModel.getDataAirport()
+        airportViewModel.getLiveDataAirport().observe(viewLifecycleOwner){
+            binding.totalAirport.text = it?.totalData.toString()
+        }
+
+        airplaneViewModel.getDataAirplane()
+        airplaneViewModel.getLiveDataAirplane().observe(viewLifecycleOwner){
+            binding.totalAirplane.text = it?.totalData.toString()
+        }
+
 //        transactionViewModel.getDataStoreToken().observe(viewLifecycleOwner) {
 //            transactionViewModel.getDataTransaction("Bearer $it")
 //            transactionViewModel.getLiveDataTransaction().observe(viewLifecycleOwner) {
 //                binding.totalTransaction.text = it?.totalData.toString()
 //            }
 //        }
-//
-//    }
+
+    }
 
 //    private fun sideBar(){
 //        binding.navigationView.setNavigationItemSelectedListener { menuItem ->
